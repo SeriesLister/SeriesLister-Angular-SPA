@@ -1,0 +1,38 @@
+<h1>Edit Series</h1>
+
+<h4>AnimeSeries</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+            <input hidden type="number" value="{{series?.id}}" formControlName="id">
+            <div class="form-group">
+                <label for="englishTitle" class="control-label">English Title</label>
+            <input type="text" id="englishTitle" value="{{series?.englishTitle}}" formControlName="englishTitle" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="type" class="control-label">Type</label>
+            <input type="text" id="type" value="{{series?.type}}" formControlName="type" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="episodes" class="control-label">Episodes</label>
+            <input type="number" id="englishTitle" value="{{series?.episodes}}" formControlName="episodes" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="releaseDate" class="control-label">Release Date</label>
+                <input type="date" id="releaseDate" value="{{series?.releaseDate}}" formControlName="releaseDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label for="finishDate" class="control-label">Release Date</label>
+                <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
+            </div>
+            <div class="form-group">
+                <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a routerLink="/admin/animeseries/" href="Javascript:void(0)">Back to List</a>
+</div>

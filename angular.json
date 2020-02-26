@@ -1,6 +1,6 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-  "version": 1, 
+  "version": 1,
   "newProjectRoot": "projects",
   "projects": {
     "AnimeListings-ClientApp": {
@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "AnimeListings-ClientApp"
+    }
+  },
+  "defaultProject": "AnimeListings-ClientApp",
+  "cli": {
+    "analytics": "97ca8c24-b82b-47ed-ad48-7f15bb847010"
+  }
 }

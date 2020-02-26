@@ -1,0 +1,42 @@
+<h1>Details</h1>
+
+<div>
+    <h4>AnimeSeries</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            English Title
+        </dt>
+        <dd class = "col-sm-10">
+            {{series.englishTitle}}
+        </dd>
+        <dt class = "col-sm-2">
+            Type
+        </dt>
+        <dd class = "col-sm-10">
+            {{series.type}}
+        </dd>
+        <dt class = "col-sm-2">
+            Episodes
+        </dt>
+        <dd class = "col-sm-10">
+            {{series.episodes}}
+        </dd>
+        <dt class = "col-sm-2">
+            Air Date
+        </dt>
+        <dd class = "col-sm-10">
+            {{series.releaseDate}}
+        </dd>
+        <dt class = "col-sm-2">
+            Finish Date
+        </dt>
+        <dd class = "col-sm-10">
+            {{series.finishDate}}
+        </dd>
+    </dl>
+</div>
+<div>
+    <a routerLink="/admin/animeseries/edit/{{series.id}}">Edit</a> |
+    <a routerLink="/admin/animeseries">Back to List</a>
+</div>
