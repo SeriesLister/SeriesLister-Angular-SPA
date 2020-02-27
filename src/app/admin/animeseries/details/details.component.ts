@@ -26,17 +26,8 @@ export class DetailsComponent implements OnInit {
     }
 
     this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = new AnimeSeries(data['id'], data['englishTitle'], data['type'], data['episodes'], 
-        this.getDate(new Date(data['releaseDate'])), this.getDate(new Date(data['finishDate'])));
+      this.series = data;
     });
-  }
-
-  public getDate(date: Date): string {
-    if (date === null) {
-      return;
-    }
-    var formattedDate: string[] = date.toISOString().split('T');
-    return formattedDate[0];
   }
 
 }

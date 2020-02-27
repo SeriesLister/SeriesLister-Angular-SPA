@@ -4,6 +4,7 @@ import { AnimeSeries } from '../AnimeSeries';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { AlertService, Status, Alert } from 'src/app/services/alert.service';
+import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-edit',
@@ -21,7 +22,8 @@ export class EditComponent implements OnInit {
   constructor(private animeService: AnimeService, 
     private route: ActivatedRoute,
     fb: FormBuilder,
-    private notification: AlertService) {
+    private notification: AlertService,
+    private datePipe: DatePipe) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],
@@ -43,9 +45,12 @@ export class EditComponent implements OnInit {
     var eTitle : string = this.form.get('englishTitle').value;
     var type : string = this.form.get('type').value;
     var episodes : number = this.form.get('episodes').value;
-    var releaseDate : string = this.form.get('releaseDate').value;
-    var finishDate : string = this.form.get('finishDate').value;
+    var releaseDate : Date =  this.form.get('releaseDate').value;
+    var finishDate : Date = this.form.get('finishDate').value;
     var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate);
+
+    console.log(this.series);
+    console.log(newSeries);
 
     if (JSON.stringify(this.series) === JSON.stringify(newSeries)) {
       this.submitted = false;
@@ -69,18 +74,9 @@ export class EditComponent implements OnInit {
     }
 
     this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = new AnimeSeries(data['id'], data['englishTitle'], data['type'], data['episodes'], 
-        this.getDate(new Date(data['releaseDate'])), this.getDate(new Date(data['finishDate'])));
-        this.updateForm();
+      this.series = data;
+      this.updateForm();
     });
-  }
-
-  public getDate(date: Date): string {
-    if (date === null) {
-      return;
-    }
-    var formattedDate: string[] = date.toISOString().split('T');
-    return formattedDate[0];
   }
 
   private updateForm() {
@@ -89,8 +85,8 @@ export class EditComponent implements OnInit {
       englishTitle: this.series.englishTitle,
       type: this.series.type,
       episodes: this.series.episodes,
-      releaseDate: this.series.releaseDate,
-      finishDate: this.series.finishDate
+      releaseDate: this.datePipe.transform(this.series.releaseDate, 'yyyy-MM-dd'),
+      finishDate: this.datePipe.transform(this.series.finishDate, 'yyyy-MM-dd')
     });
   }
 

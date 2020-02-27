@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators'
 import { AnimeSeries } from '../admin/animeseries/AnimeSeries';
 import { identifierModuleUrl } from '@angular/compiler';
 
@@ -17,8 +18,9 @@ export class AnimeService {
 
   constructor(private http: HttpClient) { }
 
-  getAnimeSeries(page: number = 1): Observable<JSON> {
-    return this.http.get<JSON>(this.baseURL + '?page=' + page);
+  getAnimeSeries(page: number = 1): Observable<AnimeSeries[]> {
+    return this.http.get<AnimeSeries[]>(this.baseURL + '?page=' + page)
+      .pipe();
   }
 
   getAnimeDetails(id: number = 1): Observable<AnimeSeries> {

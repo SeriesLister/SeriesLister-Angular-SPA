@@ -31,19 +31,9 @@ export class AnimeseriesComponent implements OnInit {
 
     this.currentPage = page;
     this.animeService.getAnimeSeries(page).subscribe(data => {
-      this.series = [];
       this.lastPage = data['lastPage'];
-      for (let i = 0; i < data['animeSeries'].length; i++) {
-        let element = data['animeSeries'][i];
-        this.series.push(new AnimeSeries(element['id'], element['englishTitle'], element['type'], element['episodes'], 
-          this.getDate(new Date(element['releaseDate'])), this.getDate(new Date(element['finishDate']))));
-      }
+      this.series = data['animeSeries'];
     });
-  }
-
-  public getDate(date: Date): string {
-    var formattedDate: string[] = date.toISOString().split('T');
-    return formattedDate[0];
   }
 
 }

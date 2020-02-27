@@ -17,6 +17,7 @@ import { PagebuttonsComponent } from './shared/components/pagebuttons/pagebutton
 import { NotificationComponent } from './notification/notification.component';
 import { CreateComponent } from './admin/animeseries/create/create.component';
 import { DeleteComponent } from './admin/animeseries/delete/delete.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -40,7 +41,7 @@ import { DeleteComponent } from './admin/animeseries/delete/delete.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [DatePipe],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

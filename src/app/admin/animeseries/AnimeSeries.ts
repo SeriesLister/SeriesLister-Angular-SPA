@@ -1,14 +1,14 @@
-import { ThrowStmt } from '@angular/compiler';
+import { DatePipe } from '@angular/common';
 
 export class AnimeSeries {
     id: number;
     englishTitle: string;
     type: string;
     episodes: number;
-    releaseDate: string;
-    finishDate: string;
+    releaseDate: Date;
+    finishDate: Date;
 
-    constructor(id: number, title: string, type: string, episodes: number, releaseDate: string, finishDate: string) {
+    public constructor(id: number, title: string, type: string, episodes: number, releaseDate: Date, finishDate: Date) {
         this.id = id;
         this.englishTitle = title;
         this.type = type;
@@ -16,4 +16,5 @@ export class AnimeSeries {
         this.releaseDate = releaseDate;
         this.finishDate = finishDate;
     }
+    
 }
