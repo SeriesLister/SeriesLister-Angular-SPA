@@ -32,7 +32,8 @@ export class AnimeseriesComponent implements OnInit {
     this.currentPage = page;
     this.animeService.getAnimeSeries(page).subscribe(data => {
       this.lastPage = data['lastPage'];
-      this.series = data['animeSeries'];
+      // this.series = data['animeSeries'];
+      this.series = this.animeService.scrubSeriesA(data['animeSeries']);
     });
   }
 

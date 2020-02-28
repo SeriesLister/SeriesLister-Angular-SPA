@@ -59,15 +59,15 @@
                     {{anime.episodes}}
                 </td>
                 <td>
-                    {{anime.releaseDate | date:'MM-dd-yyyy'}}
+                    {{anime.releaseDate}}
                 </td>
                 <td>
-                    {{anime.finishDate | date:'MM-dd-yyyy'}}
+                    {{anime.finishDate}}
                 </td>
                 <td>
                     <a routerLink="edit/{{anime.id}}">Edit</a> |
                     <a routerLink="details/{{anime.id}}">Details</a> |
-                    <a routerLink="#">Delete</a>
+                    <a routerLink="delete/{{anime.id}}">Delete</a>
                 </td>
             </tr>
     </tbody>

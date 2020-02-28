@@ -26,7 +26,7 @@ export class DetailsComponent implements OnInit {
     }
 
     this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = data;
+      this.series = this.animeService.scrubSeries(data);
     });
   }
 

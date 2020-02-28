@@ -45,12 +45,9 @@ export class EditComponent implements OnInit {
     var eTitle : string = this.form.get('englishTitle').value;
     var type : string = this.form.get('type').value;
     var episodes : number = this.form.get('episodes').value;
-    var releaseDate : Date =  this.form.get('releaseDate').value;
-    var finishDate : Date = this.form.get('finishDate').value;
+    var releaseDate : string =  this.form.get('releaseDate').value;
+    var finishDate : string = this.form.get('finishDate').value;
     var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate);
-
-    console.log(this.series);
-    console.log(newSeries);
 
     if (JSON.stringify(this.series) === JSON.stringify(newSeries)) {
       this.submitted = false;
@@ -74,7 +71,7 @@ export class EditComponent implements OnInit {
     }
 
     this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = data;
+      this.series = this.animeService.scrubSeries(data, true);
       this.updateForm();
     });
   }

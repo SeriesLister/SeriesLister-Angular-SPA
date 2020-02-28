@@ -5,10 +5,10 @@ export class AnimeSeries {
     englishTitle: string;
     type: string;
     episodes: number;
-    releaseDate: Date;
-    finishDate: Date;
+    releaseDate: string;
+    finishDate: string;
 
-    public constructor(id: number, title: string, type: string, episodes: number, releaseDate: Date, finishDate: Date) {
+    public constructor(id: number, title: string, type: string, episodes: number, releaseDate: string, finishDate: string) {
         this.id = id;
         this.englishTitle = title;
         this.type = type;
@@ -16,5 +16,4 @@ export class AnimeSeries {
         this.releaseDate = releaseDate;
         this.finishDate = finishDate;
     }
-    
 }

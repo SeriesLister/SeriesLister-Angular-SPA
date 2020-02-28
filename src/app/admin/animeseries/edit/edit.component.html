@@ -20,11 +20,11 @@
             </div>
             <div class="form-group">
                 <label for="releaseDate" class="control-label">Release Date</label>
-                <input type="date" id="releaseDate" value="{{series?.releaseDate | date:'yyyy-MM-dd'}}" formControlName="releaseDate" class="form-control" />
+                <input type="date" id="releaseDate" value="{{series?.releaseDate}}" formControlName="releaseDate" class="form-control" />
             </div>
             <div class="form-group">
                 <label for="finishDate" class="control-label">Release Date</label>
-                <input type="date" id="finishDate" value="{{series?.finishDate | date:'yyyy-MM-dd'}}" formControlName="finishDate" class="form-control" />
+                <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
             </div>
             <div class="form-group">
                 <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Save</button>
