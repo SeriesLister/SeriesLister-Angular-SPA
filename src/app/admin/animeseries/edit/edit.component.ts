@@ -54,7 +54,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.animeService.postAnimeDetails(newSeries).subscribe(data => {
+    this.animeService.editAnimeDetails(newSeries).subscribe(data => {
       if (data['result'] === true) {
         this.getSeries(newSeries.id);
         this.submitted = false;

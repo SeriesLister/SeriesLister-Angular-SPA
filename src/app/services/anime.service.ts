@@ -28,7 +28,11 @@ export class AnimeService {
     return this.http.get<AnimeSeries>(this.baseURL + "/edit/" + id);
   }
 
-  postAnimeDetails(series: AnimeSeries): Observable<any> {
+  createAnimeSeries(series: AnimeSeries): Observable<any> {
+    return this.http.post(this.baseURL + "/create", JSON.stringify(series), this.httpOptions);
+  }
+
+  editAnimeDetails(series: AnimeSeries): Observable<any> {
     return this.http.put(this.baseURL + "/edit/" + series.id, series, this.httpOptions);
   }
 

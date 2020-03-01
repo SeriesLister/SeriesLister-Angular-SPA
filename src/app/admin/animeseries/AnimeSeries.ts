@@ -1,5 +1,3 @@
-import { DatePipe } from '@angular/common';
-
 export class AnimeSeries {
     id: number;
     englishTitle: string;
