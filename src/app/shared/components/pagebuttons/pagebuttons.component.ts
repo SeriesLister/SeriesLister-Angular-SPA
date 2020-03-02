@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class PagebuttonsComponent {
   
   
-  @Input() public maxPage : number = 100;
+  @Input() public maxPage : number = 1;
 
   @Input() public currentPage : number = 1;
 

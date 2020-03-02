@@ -18,6 +18,7 @@ import { NotificationComponent } from './notification/notification.component';
 import { CreateComponent } from './admin/animeseries/create/create.component';
 import { DeleteComponent } from './admin/animeseries/delete/delete.component';
 import { DatePipe } from '@angular/common';
+import { UsermanagerComponent } from './admin/usermanager/usermanager.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { DatePipe } from '@angular/common';
     NotificationComponent,
     CreateComponent,
     DeleteComponent,
+    UsermanagerComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation example">
+<nav aria-label="Page navigation example" *ngIf="maxPage > 1">
     <ul class="pagination">
         <li class="page-item" [ngClass]="{'disabled':currentPage === 1}">
             <a class="page-link" (click)="getPage(currentPage - 1)" href="Javascript:void(0)">Previous</a>
