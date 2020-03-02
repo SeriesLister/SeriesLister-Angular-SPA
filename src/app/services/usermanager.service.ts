@@ -20,4 +20,20 @@ export class UsermanagerService {
     return this.http.get<User>(this.baseURL + '?page=' + page);
   }
 
+  getUser(id: string) : Observable<User> {
+    return this.http.get<User>(this.baseURL + '/edit/' + id);
+  }
+
+  editUser(user: User) : Observable<any> {
+    return this.http.put(this.baseURL + "/edit/" + user.id, user, this.httpOptions);
+  }
+
+  deleteUser(id: string = null) : Observable<any> {
+    if (id === null) {
+      return;
+    }
+
+    return this.http.delete(this.baseURL + '/delete/' + id, this.httpOptions);
+  }
+
 }

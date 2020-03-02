@@ -19,6 +19,9 @@ import { CreateComponent } from './admin/animeseries/create/create.component';
 import { DeleteComponent } from './admin/animeseries/delete/delete.component';
 import { DatePipe } from '@angular/common';
 import { UsermanagerComponent } from './admin/usermanager/usermanager.component';
+import { UserManagerEditComponent } from './admin/usermanager/edit/edit.component';
+import { UserManagerDetailsComponent } from './admin/usermanager/details/details.component';
+import { UserManagerDeleteComponent } from './admin/usermanager/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { UsermanagerComponent } from './admin/usermanager/usermanager.component'
     CreateComponent,
     DeleteComponent,
     UsermanagerComponent,
+    UserManagerEditComponent,
+    UserManagerDetailsComponent,
+    UserManagerDeleteComponent
   ],
   imports: [
     BrowserModule,

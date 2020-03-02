@@ -1,1 +1,30 @@
-<p>details works!</p>
+<h1>User Details</h1>
+
+<div>
+    <h4>User</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            Email
+        </dt>
+        <dd class = "col-sm-10">
+            {{user?.email}}
+        </dd>
+        <dt class = "col-sm-2">
+            Display Name
+        </dt>
+        <dd class = "col-sm-10">
+            {{user?.displayName}}
+        </dd>
+        <dt class = "col-sm-2">
+            Permissions
+        </dt>
+        <dd class = "col-sm-10">
+            {{user?.permissions}}
+        </dd>
+    </dl>
+</div>
+<div>
+    <a routerLink="/admin/usermanager/edit/{{user?.id}}">Edit</a> |
+    <a routerLink="/admin/usermanager">Back to List</a>
+</div>
