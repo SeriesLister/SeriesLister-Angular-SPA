@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsermanagerService } from 'src/app/services/usermanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { User } from '../Users';
+import { UserManage } from '../Users';
 import { AlertService, Status, Alert } from 'src/app/services/alert.service';
 
 @Component({
@@ -16,7 +16,7 @@ export class UserManagerEditComponent implements OnInit {
 
   public form: FormGroup;
 
-  public user: User;
+  public user: UserManage;
 
   constructor(private service: UsermanagerService,
     fb: FormBuilder,
@@ -41,7 +41,7 @@ export class UserManagerEditComponent implements OnInit {
     var email : string = this.form.get('email').value;
     var displayName : string = this.form.get('displayName').value;
     var permissions : string[] = this.form.get('permissions').value;
-    var newUser : User = new User(id, email, displayName, permissions);
+    var newUser : UserManage = new UserManage(id, email, displayName, permissions);
 
     if (JSON.stringify(this.user) === JSON.stringify(newUser)) {
       this.submitted = false;

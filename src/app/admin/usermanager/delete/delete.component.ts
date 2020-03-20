@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, Status, Alert } from 'src/app/services/alert.service';
-import { User } from '../Users';
+import { UserManage } from '../Users';
 import { UsermanagerService } from 'src/app/services/usermanager.service';
 
 @Component({
@@ -11,7 +11,7 @@ import { UsermanagerService } from 'src/app/services/usermanager.service';
 })
 export class UserManagerDeleteComponent implements OnInit {
 
-  public user: User;
+  public user: UserManage;
 
   public submitted : boolean = false;
 

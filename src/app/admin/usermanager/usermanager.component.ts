@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UsermanagerService } from 'src/app/services/usermanager.service';
-import { User } from './Users';
+import { UserManage } from './Users';
+import { Routes } from '@angular/router';
+import { UserManagerEditComponent } from './edit/edit.component';
+import { UserManagerDetailsComponent } from './details/details.component';
+import { UserManagerDeleteComponent } from './delete/delete.component';
 
 @Component({
   selector: 'app-usermanager',
@@ -10,7 +14,7 @@ import { User } from './Users';
 export class UsermanagerComponent implements OnInit {
 
   currentPage = 1;
-  users: User[];
+  users: UserManage[];
   lastPage: number;
 
   constructor(private service: UsermanagerService) { }
@@ -36,3 +40,10 @@ export class UsermanagerComponent implements OnInit {
   }
 
 }
+
+export const userManagerRoutes: Routes = [
+  { path: 'admin/usermanager', component: UsermanagerComponent },
+  { path: 'admin/usermanager/edit/:id', component: UserManagerEditComponent },
+  { path: 'admin/usermanager/details/:id', component: UserManagerDetailsComponent },
+  { path: 'admin/usermanager/delete/:id', component: UserManagerDeleteComponent },
+];

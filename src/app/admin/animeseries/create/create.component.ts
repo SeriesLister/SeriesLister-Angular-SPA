@@ -13,7 +13,6 @@ import { Router } from '@angular/router';
 export class CreateComponent implements OnInit {
 
   public form: FormGroup;
-  private series: AnimeSeries;
   public submitted: boolean;
 
   constructor(

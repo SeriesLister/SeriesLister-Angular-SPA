@@ -22,6 +22,8 @@ import { UsermanagerComponent } from './admin/usermanager/usermanager.component'
 import { UserManagerEditComponent } from './admin/usermanager/edit/edit.component';
 import { UserManagerDetailsComponent } from './admin/usermanager/details/details.component';
 import { UserManagerDeleteComponent } from './admin/usermanager/delete/delete.component';
+import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import { UserManagerDeleteComponent } from './admin/usermanager/delete/delete.co
     UsermanagerComponent,
     UserManagerEditComponent,
     UserManagerDetailsComponent,
-    UserManagerDeleteComponent
+    UserManagerDeleteComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

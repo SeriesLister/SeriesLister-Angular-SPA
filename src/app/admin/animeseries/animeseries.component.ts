@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeService } from '../../services/anime.service';
 import { AnimeSeries } from './AnimeSeries';
+import { EditComponent } from './edit/edit.component';
+import { DetailsComponent } from './details/details.component';
+import { DeleteComponent } from './delete/delete.component';
+import { CreateComponent } from './create/create.component';
+import { Routes } from '@angular/router';
 
 @Component({
   selector: 'app-animeseries',
@@ -37,3 +42,11 @@ export class AnimeseriesComponent implements OnInit {
   }
 
 }
+
+export const animeManagementRoutes: Routes = [
+  { path: 'admin/animeseries', component: AnimeseriesComponent },
+  { path: 'admin/animeseries/edit/:id', component: EditComponent },
+  { path: 'admin/animeseries/details/:id', component: DetailsComponent },
+  { path: 'admin/animeseries/delete/:id', component: DeleteComponent },
+  { path: 'admin/animeseries/create', component: CreateComponent },
+];

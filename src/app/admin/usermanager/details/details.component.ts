@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { User } from '../Users';
+import { UserManage } from '../Users';
 import { ActivatedRoute } from '@angular/router';
 import { UsermanagerService } from 'src/app/services/usermanager.service';
 
@@ -10,7 +10,7 @@ import { UsermanagerService } from 'src/app/services/usermanager.service';
 })
 export class UserManagerDetailsComponent implements OnInit {
 
-  public user: User;
+  public user: UserManage;
 
   constructor(private service: UsermanagerService,
     private route: ActivatedRoute) { }

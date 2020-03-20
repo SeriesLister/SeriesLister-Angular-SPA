@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../admin/usermanager/Users';
+import { UserManage } from '../admin/usermanager/Users';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +16,15 @@ export class UsermanagerService {
 
   constructor(private http: HttpClient) { }
 
-  getUsers(page: number) : Observable<User> {
-    return this.http.get<User>(this.baseURL + '?page=' + page);
+  getUsers(page: number) : Observable<UserManage> {
+    return this.http.get<UserManage>(this.baseURL + '?page=' + page);
   }
 
-  getUser(id: string) : Observable<User> {
-    return this.http.get<User>(this.baseURL + '/edit/' + id);
+  getUser(id: string) : Observable<UserManage> {
+    return this.http.get<UserManage>(this.baseURL + '/edit/' + id);
   }
 
-  editUser(user: User) : Observable<any> {
+  editUser(user: UserManage) : Observable<any> {
     return this.http.put(this.baseURL + "/edit/" + user.id, user, this.httpOptions);
   }
 
