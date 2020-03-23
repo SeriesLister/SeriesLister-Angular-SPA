@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AuthServiceService } from '../services/auth-service.service';
 import { error } from 'protractor';
+import { Router } from '@angular/router';
+import { AuthService } from '../services/auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     fb: FormBuilder,
-    private service: AuthServiceService
+    private service: AuthService,
+    private router: Router
     ) { 
       this.form = fb.group({
         "email": [''],
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
     }
 
   ngOnInit(): void {
+    this.service.redirectOnLogin();
   }
 
   public onSubmit() {
@@ -36,13 +39,14 @@ export class LoginComponent implements OnInit {
     var email : string = this.form.get('email').value;
     var password : string = this.form.get('password').value;
     this.service.login(email, password).subscribe(data => {
+      this.router.navigateByUrl('/');
     }, error => {
       if (error['status'] === 400) {
         this.emailError = 'Input a valid email';
       } else {
         this.errorMessage = error['error']['detail'];
       }
-    });
+    });    
   }
   
 }

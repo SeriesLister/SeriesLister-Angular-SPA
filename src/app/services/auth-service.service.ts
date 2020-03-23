@@ -3,11 +3,12 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { User } from '../User';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthServiceService {
+export class AuthService {
 
   baseURL: string = 'https://localhost:44314/Home/';
 
@@ -19,40 +20,51 @@ export class AuthServiceService {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient) { 
-    this.loggedIn = !!localStorage.getItem('jwt');
+  constructor(private http: HttpClient, private router: Router) {
+    if (localStorage.getItem('currentUser') && !this.loggedIn) {
+      this.user = JSON.parse(localStorage.getItem('currentUser'));
+      this.loggedIn = true;
+    }
   }
 
-  login(email: string, password: string) : Observable<User> {
+  public login(email: string, password: string) : Observable<User> {
     return this.http.post<User>(
       this.baseURL + 'login', 
       JSON.stringify({email, password}),
        this.httpOptions
     ).pipe(tap(data => {
-      if (localStorage.getItem('jwt')) {
-        localStorage.removeItem('jwt');
+      console.log("making request to get user logged in!");
+      if (localStorage.getItem('currentUser')) {
+        localStorage.removeItem('currentUser');
       }
-      localStorage.setItem('jwt', data['token']);
       this.user = data;
+      console.log("current user email: " + this.user.email);
+      localStorage.setItem('currentUser', JSON.stringify(this.user));
       this.loggedIn = true;
     }));
   }
 
-  logout() {
-    localStorage.removeItem('jwt');
-    this.user = null;
-    this.loggedIn = false;
+  /**
+   * Checks if the user is logged, if the user is redirect
+   * @param route By default it's the root route /, specify route to redirect user
+   */
+  public redirectOnLogin(route: string = '/') : void {
+    if (this.loggedIn) {
+      this.router.navigateByUrl(route);
+    }
+  }
+
+  public register(user: User) : Observable<User> {
+    return this.http.post<User>(this.baseURL + 'register', user, this.httpOptions);
   }
 
   /**
-   * Add C# method to get user info again
+   * Removes the current user from the localstorage, and sets the user to null
    */
-  getUserInfo() {
-    if (!localStorage.getItem('jwt')) {
-      return;
-    }
-
-
+  public logout() : void {
+    localStorage.removeItem('currentUser');
+    this.user = null;
+    this.loggedIn = false;
   }
 
   /**

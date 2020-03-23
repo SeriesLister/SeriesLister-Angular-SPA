@@ -7,7 +7,24 @@
               <span class="navbar-toggler-icon"></span>
           </button>
           <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-              <!-- <partial name="_LoginPartial" /> -->
+                <ul class="navbar-nav">
+                <ng-template [ngIf]="auth.loggedIn" [ngIfElse]="showLogin">
+                    <li class="nav-item">
+                        <a id="manage" class="nav-link text-dark" title="Manage">Hello {{auth.user.email}}!</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link btn btn-link text-dark" (click)="auth.logout()">Logout</a>
+                    </li>
+                </ng-template>
+                <ng-template #showLogin>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="register" routerLink="/register">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" id="login" routerLink="/login">Login</a>
+                    </li>
+                </ng-template>
+                </ul>
               <ul class="navbar-nav flex-grow-1">
                   <li class="nav-item">
                       <a class="nav-link text-dark" routerLink="/">Home</a>
