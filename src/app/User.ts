@@ -9,7 +9,7 @@ export class User {
     constructor(token: string, email: string, userName: string) {
         this.token = token;
         this.email = email;
-        this.userName = userName;
+        this.userName = userName; 
     }
     
 }
