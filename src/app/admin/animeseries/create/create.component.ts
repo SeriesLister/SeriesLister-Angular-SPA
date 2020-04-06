@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     var episodes : number = this.form.get('episodes').value;
     var releaseDate : string =  this.form.get('releaseDate').value;
     var finishDate : string = this.form.get('finishDate').value;
-    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate);
+    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate, null);
     console.log(JSON.stringify(newSeries));
     this.animeService.createAnimeSeries(newSeries).subscribe(data => {
       if (data['response']['result'] === true) {

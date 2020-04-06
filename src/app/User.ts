@@ -11,5 +11,9 @@ export class User {
         this.email = email;
         this.userName = userName; 
     }
+
+    public getToken() : string {
+        return this.token;
+    }
     
 }

@@ -5,6 +5,8 @@ import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { AlertService, Status, Alert } from 'src/app/services/alert.service';
 import { DatePipe } from '@angular/common';
+import { stringify } from 'querystring';
+import { Util } from 'src/app/Util';
 
 @Component({
   selector: 'app-edit',
@@ -18,6 +20,10 @@ export class EditComponent implements OnInit {
   public form: FormGroup;
 
   public series: AnimeSeries;
+
+  public newImage: string = null;
+
+  private imageSubmitted: boolean;
 
   constructor(private animeService: AnimeService, 
     private route: ActivatedRoute,
@@ -47,8 +53,18 @@ export class EditComponent implements OnInit {
     var episodes : number = this.form.get('episodes').value;
     var releaseDate : string =  this.form.get('releaseDate').value;
     var finishDate : string = this.form.get('finishDate').value;
-    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate);
+    
+    if (this.imageSubmitted && this.newImage == null) {
+      this.submitted = false;
+      return;
+    }
 
+    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate, this.newImage == null ? this.series.imageData : this.newImage);
+    this.submitted = false;
+
+    /**
+     * check if series page is the same
+     */
     if (JSON.stringify(this.series) === JSON.stringify(newSeries)) {
       this.submitted = false;
       return;
@@ -65,6 +81,26 @@ export class EditComponent implements OnInit {
     });
   }
 
+  public onImageChanged(event) {
+    this.newImage = null;
+    if (event.target.files[0] == null) {
+      return;
+    }
+
+    if (event.target.files[0].type.split("/")[1] !== "jpeg") {
+      this.notification.add(new Alert("Image has to be jpeg", Status.DANGER));
+      return;
+    }
+    Util.convertToBase64(event.target.files[0], (data, err) => {
+      if (err) {
+        this.notification.add(new Alert("Failed to convert image", Status.DANGER));
+        return;
+      }
+      this.newImage = data;
+      this.imageSubmitted = true;
+    });
+  }
+
   public getSeries(id: number = 0) {
     if (id < 1) {
       return;
@@ -73,6 +109,7 @@ export class EditComponent implements OnInit {
     this.animeService.getAnimeDetails(id).subscribe(data => {
       this.series = this.animeService.scrubSeries(data, true);
       this.updateForm();
+      this.newImage = null;
     });
   }
 

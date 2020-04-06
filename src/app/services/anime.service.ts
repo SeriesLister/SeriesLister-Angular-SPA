@@ -5,6 +5,7 @@ import { tap, catchError } from 'rxjs/operators'
 import { AnimeSeries } from '../admin/animeseries/AnimeSeries';
 import { identifierModuleUrl } from '@angular/compiler';
 import { DatePipe } from '@angular/common';
+import { AuthService } from './auth-service.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,18 +15,26 @@ export class AnimeService {
   baseURL: string = 'https://localhost:44314/Admin/animeseries';
 
   httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+    headers: new HttpHeaders({ 'Content-Type': 'application/json', 
+    "Authorization" :  'Bearer ' + this.authService.user.token })
   };
 
-  constructor(private http: HttpClient, private date: DatePipe) { }
+  constructor(private http: HttpClient, 
+    private date: DatePipe, 
+    private authService: AuthService) {
+      console.log(authService.user.token);
+    }
 
   getAnimeSeries(page: number = 1): Observable<AnimeSeries[]> {
-    return this.http.get<AnimeSeries[]>(this.baseURL + '?page=' + page)
-      .pipe();
+    return this.http.get<AnimeSeries[]>(this.baseURL + '?page=' + page, this.httpOptions)
+      .pipe(tap(data => {
+        console.log(this.authService.user.token);
+      })
+      );
   }
 
   getAnimeDetails(id: number = 1): Observable<AnimeSeries> {
-    return this.http.get<AnimeSeries>(this.baseURL + "/edit/" + id);
+    return this.http.get<AnimeSeries>(this.baseURL + "/edit/" + id, this.httpOptions);
   }
 
   createAnimeSeries(series: AnimeSeries): Observable<any> {

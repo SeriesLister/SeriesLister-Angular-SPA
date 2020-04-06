@@ -24,6 +24,8 @@ import { UserManagerDetailsComponent } from './admin/usermanager/details/details
 import { UserManagerDeleteComponent } from './admin/usermanager/delete/delete.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddComponent } from './dashboard/add/add.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +47,9 @@ import { RegisterComponent } from './register/register.component';
     UserManagerDetailsComponent,
     UserManagerDeleteComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    DashboardComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,

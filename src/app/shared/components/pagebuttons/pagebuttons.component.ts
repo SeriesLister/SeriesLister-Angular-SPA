@@ -11,11 +11,11 @@ export class PagebuttonsComponent {
   @Input() public maxPage : number = 1;
 
   @Input() public currentPage : number = 1;
+  
+  @Output() changePage = new EventEmitter<number>();
 
   constructor() {
   }
-
-  @Output() changePage = new EventEmitter<number>();
 
   public getPage(requestedPage : number) : void {
     if (requestedPage < 1 || requestedPage > this.maxPage) {

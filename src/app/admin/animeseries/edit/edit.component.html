@@ -27,9 +27,20 @@
                 <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
             </div>
             <div class="form-group">
+                <input type="file" (change)="onImageChanged($event)" accept=".jpeg,.jpg">
+            </div>
+            <div class="form-group submit">
                 <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Save</button>
             </div>
         </form>
+    </div>
+    <div class="image" *ngIf="series?.imageData">
+        <h2>Current Image</h2>
+        <img *ngIf="series?.imageData" src="data:image/jpeg;base64,{{series.imageData}}" class="rounded">
+    </div>
+    <div class="image" *ngIf="newImage != null">
+        <h2>Pending Image</h2>
+        <img src="data:image/jpeg;base64,{{newImage}}" class="rounded">
     </div>
 </div>
 

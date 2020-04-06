@@ -1,0 +1,12 @@
+.image {
+    margin-left: 24px;
+}
+
+.image img {
+    width: 250px;
+    height: 350px;
+}
+
+.submit {
+    margin-top: 12px;
+}

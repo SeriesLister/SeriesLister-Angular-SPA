@@ -14,7 +14,7 @@ export class AuthService {
 
   loggedIn : boolean = false;
 
-  public user: User;
+  public user: User = null;
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -24,6 +24,7 @@ export class AuthService {
     if (localStorage.getItem('currentUser') && !this.loggedIn) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.loggedIn = true;
+      console.log("getting token");
     }
   }
 
@@ -33,12 +34,8 @@ export class AuthService {
       JSON.stringify({email, password}),
        this.httpOptions
     ).pipe(tap(data => {
-      console.log("making request to get user logged in!");
-      if (localStorage.getItem('currentUser')) {
-        localStorage.removeItem('currentUser');
-      }
-      this.user = data;
-      console.log("current user email: " + this.user.email);
+      var user: User = data as User;
+      this.user = user;
       localStorage.setItem('currentUser', JSON.stringify(this.user));
       this.loggedIn = true;
     }));

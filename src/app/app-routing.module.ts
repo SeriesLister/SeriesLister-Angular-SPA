@@ -8,6 +8,8 @@ import { PrivacyComponent } from './privacy/privacy.component';
 import { userManagerRoutes } from './admin/usermanager/usermanager.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { AddComponent } from './dashboard/add/add.component';
 
 const routes: Routes = [
   { path: '', component: LandingComponent, pathMatch: 'full' },
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+  { path: 'dashboard', component: DashboardComponent },
+  { path: 'dashboard/add', component: AddComponent }
 ];
 
 @NgModule({
