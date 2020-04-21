@@ -6,6 +6,7 @@ import { DetailsComponent } from './details/details.component';
 import { DeleteComponent } from './delete/delete.component';
 import { CreateComponent } from './create/create.component';
 import { Routes } from '@angular/router';
+import { error } from 'protractor';
 
 @Component({
   selector: 'app-animeseries',
@@ -36,8 +37,11 @@ export class AnimeseriesComponent implements OnInit {
 
     this.currentPage = page;
     this.animeService.getAnimeSeries(page).subscribe(data => {
+      console.log("GOT THE RESPONSE BACK FOR INDEX");
       this.lastPage = data['lastPage'];
       this.series = this.animeService.scrubSeriesA(data['animeSeries']);
+    }, err => {
+      console.log('got an error on the index');
     });
   }
 

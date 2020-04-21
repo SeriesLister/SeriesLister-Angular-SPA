@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -26,6 +26,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './dashboard/add/add.component';
+import { TokenInterceptorService } from './http/TokenInterceptorService';
+import { JWTokens } from './jwt/JWTokens';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,7 @@ import { AddComponent } from './dashboard/add/add.component';
     HttpClientModule,
     ReactiveFormsModule
   ],
-  providers: [DatePipe],
+  providers: [DatePipe, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

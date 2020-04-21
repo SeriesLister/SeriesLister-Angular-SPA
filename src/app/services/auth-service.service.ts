@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { User } from '../User';
 import { Router } from '@angular/router';
+import { JWTokens } from '../jwt/JWTokens';
+import { AlertService, Alert, Status } from './alert.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,15 +18,17 @@ export class AuthService {
 
   public user: User = null;
 
+  public jwTokens : JWTokens = new JWTokens();
+
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json' })
   };
 
-  constructor(private http: HttpClient, private router: Router) {
+  constructor(private http: HttpClient, private router: Router, private notification: AlertService) {
     if (localStorage.getItem('currentUser') && !this.loggedIn) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
       this.loggedIn = true;
-      console.log("getting token");
+      this.jwTokens = this.jwTokens.retrieveTokenInternal();
     }
   }
 
@@ -34,8 +38,11 @@ export class AuthService {
       JSON.stringify({email, password}),
        this.httpOptions
     ).pipe(tap(data => {
+      console.log(data);
       var user: User = data as User;
       this.user = user;
+      this.jwTokens = new JWTokens(data['refreshToken'], data['token']);
+      this.jwTokens.storeTokensInternal();
       localStorage.setItem('currentUser', JSON.stringify(this.user));
       this.loggedIn = true;
     }));
@@ -59,11 +66,17 @@ export class AuthService {
     ).pipe();
   }
 
+  public refreshTokens(email : string, refreshToken : string) : Observable<any> {
+    return this.http.post<any>(this.baseURL + 'refresh', JSON.stringify({email, refreshToken}), this.httpOptions);
+  }
+
   /**
    * Removes the current user from the localstorage, and sets the user to null
    */
   public logout() : void {
     localStorage.removeItem('currentUser');
+    this.jwTokens.clearTokens();
+    this.jwTokens = null;
     this.user = null;
     this.loggedIn = false;
   }
