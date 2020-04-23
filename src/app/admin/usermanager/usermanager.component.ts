@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UsermanagerService } from 'src/app/services/usermanager.service';
+import { UsermanagerService } from 'src/app/http/services/usermanager.service';
 import { UserManage } from './Users';
 import { Routes } from '@angular/router';
 import { UserManagerEditComponent } from './edit/edit.component';

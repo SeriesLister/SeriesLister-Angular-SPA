@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeService } from '../../services/anime.service';
+import { AnimeService } from '../../http/services/anime.service';
 import { AnimeSeries } from './AnimeSeries';
 import { EditComponent } from './edit/edit.component';
 import { DetailsComponent } from './details/details.component';
@@ -37,7 +37,6 @@ export class AnimeseriesComponent implements OnInit {
 
     this.currentPage = page;
     this.animeService.getAnimeSeries(page).subscribe(data => {
-      console.log("GOT THE RESPONSE BACK FOR INDEX");
       this.lastPage = data['lastPage'];
       this.series = this.animeService.scrubSeriesA(data['animeSeries']);
     }, err => {

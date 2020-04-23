@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, switchMap } from 'rxjs/operators';
-import { User } from '../User';
+import { User } from '../../User';
 import { Router } from '@angular/router';
-import { JWTokens } from '../jwt/JWTokens';
 import { AlertService, Alert, Status } from './alert.service';
+import { JWTokens } from 'src/app/jwt/JWTokens';
 
 @Injectable({
   providedIn: 'root'
@@ -27,8 +27,8 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router, private notification: AlertService) {
     if (localStorage.getItem('currentUser') && !this.loggedIn) {
       this.user = JSON.parse(localStorage.getItem('currentUser'));
-      this.loggedIn = true;
       this.jwTokens = this.jwTokens.retrieveTokenInternal();
+      this.loggedIn = true;
     }
   }
 
@@ -38,7 +38,6 @@ export class AuthService {
       JSON.stringify({email, password}),
        this.httpOptions
     ).pipe(tap(data => {
-      console.log(data);
       var user: User = data as User;
       this.user = user;
       this.jwTokens = new JWTokens(data['refreshToken'], data['token']);

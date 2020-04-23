@@ -3,7 +3,7 @@ export class JWTokens {
 
     private refreshToken : string = "";
 
-    public token : string = "";
+    private token : string = "";
 
     constructor(refreshToken : string = "", token : string = "") {
         this.refreshToken = refreshToken;
@@ -38,7 +38,6 @@ export class JWTokens {
 
     public retrieveTokenInternal() : JWTokens {
         if (localStorage.getItem("token") && localStorage.getItem("refreshToken")) {
-            console.debug("tokens are found!");
             return new JWTokens(localStorage.getItem("refreshToken"), localStorage.getItem("token"));
         }
         return  new JWTokens();
@@ -53,7 +52,6 @@ export class JWTokens {
 
     public storeTokensInternal() : void {
         if (!this.hasToken() && !this.getRefreshToken()) {
-            console.debug("Tokens can't be added to internal storage");
             return;
         }
 

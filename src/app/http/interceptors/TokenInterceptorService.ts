@@ -1,10 +1,11 @@
-import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-import { Observable, of, pipe, throwError, EMPTY } from 'rxjs';
+import { HttpInterceptor, HttpEvent, HttpRequest, HttpHandler, HttpErrorResponse } from '@angular/common/http';
+import { Observable, EMPTY } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { catchError, map, retryWhen, mergeMap, delay, switchMap } from 'rxjs/operators';
+import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from '../services/alert.service';
 import { AuthService } from '../services/auth-service.service';
+import { JWTokens } from '../../jwt/JWTokens';
 
 @Injectable({
     providedIn: 'root'
@@ -24,7 +25,6 @@ export class TokenInterceptorService implements HttpInterceptor {
             if (token) {
                 newHeaders = newHeaders.append('Authorization', `Bearer ${this.authService.jwTokens.getToken()}`);
             }
-
             const authReq = req.clone({headers: newHeaders});
             return next.handle(authReq).pipe(
                 catchError((error: HttpErrorResponse) => {
@@ -40,8 +40,8 @@ export class TokenInterceptorService implements HttpInterceptor {
                             this.authService.jwTokens.getRefreshToken()).pipe(
                                 switchMap((data) => {
                                     if (data['token'] && data['refreshToken']) {
-                                        this.authService.jwTokens.setRefreshToken(data['refreshToken']);
-                                        this.authService.jwTokens.setToken(data['token']);
+                                        this.authService.jwTokens = new JWTokens(data['refreshToken'], data['token']);
+                                        this.authService.jwTokens.storeTokensInternal();
                                         let newHeaders1 = req.headers;
                                         newHeaders1 = newHeaders1.append('Authorization', `Bearer ${this.authService.jwTokens.getToken()}`);
                                         const authReq1 = req.clone({headers: newHeaders1});

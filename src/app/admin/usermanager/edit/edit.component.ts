@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { UsermanagerService } from 'src/app/services/usermanager.service';
+import { UsermanagerService } from 'src/app/http/services/usermanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserManage } from '../Users';
-import { AlertService, Status, Alert } from 'src/app/services/alert.service';
+import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
 
 @Component({
   selector: 'app-usermanager-edit',

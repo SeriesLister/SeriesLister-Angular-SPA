@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '../AnimeSeries';
-import { AnimeService } from 'src/app/services/anime.service';
+import { AnimeService } from 'src/app/http/services/anime.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService, Status, Alert } from 'src/app/services/alert.service';
+import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
 
 @Component({
   selector: 'app-delete',

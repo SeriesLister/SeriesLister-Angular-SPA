@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeService } from 'src/app/services/anime.service';
+import { AnimeService } from 'src/app/http/services/anime.service';
 import { AnimeSeries } from '../AnimeSeries';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AlertService, Status, Alert } from 'src/app/services/alert.service';
+import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
 import { DatePipe } from '@angular/common';
 import { stringify } from 'querystring';
 import { Util } from 'src/app/Util';

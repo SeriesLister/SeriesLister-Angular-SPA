@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AnimeSeries } from '../admin/animeseries/AnimeSeries';
+import { AnimeSeries } from '../../admin/animeseries/AnimeSeries';
 import { DatePipe } from '@angular/common';
 import { AuthService } from './auth-service.service';
 

@@ -26,7 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './dashboard/add/add.component';
-import { TokenInterceptorService } from './http/TokenInterceptorService';
+import { TokenInterceptorService } from './http/interceptors/TokenInterceptorService';
 import { JWTokens } from './jwt/JWTokens';
 
 @NgModule({

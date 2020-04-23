@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../services/auth-service.service';
+import { AuthService } from '../http/services/auth-service.service';
 import { User } from '../User';
-import { AlertService, Alert, Status } from '../services/alert.service';
+import { AlertService, Alert, Status } from '../http/services/alert.service';
 
 @Component({
   selector: 'app-register',

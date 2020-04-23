@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { AnimeSeries } from '../AnimeSeries';
-import { AnimeService } from 'src/app/services/anime.service';
-import { AlertService, Status, Alert } from 'src/app/services/alert.service';
+import { AnimeService } from 'src/app/http/services/anime.service';
+import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
 import { Router } from '@angular/router';
 
 @Component({
