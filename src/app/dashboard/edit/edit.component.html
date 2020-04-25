@@ -1,0 +1,50 @@
+<div class="col-md-8 col-sm-12 container">
+    <div class="head">
+        <a href="Javascript:void(0)" (click)="goToDashboard()">
+            <i class="fas fa-arrow-left back-arrow"></i>
+        </a>
+        <h2>Edit {{series.englishTitle}}</h2>
+        <a href="Javascript:void(0)" (click)="saveSeries()">
+            <i class="fas fa-save save-button"></i>
+        </a>
+    </div>
+    <hr>
+    <div class="content">
+        <img src="https://img1.ak.crunchyroll.com/i/spire2/f67a9d25f1a79891bd8cc9e68bf6021c1435186459_full.jpg" height="280px" width="200px" alt="">
+        <span class="series-info">
+            <p>Current Episode</p>
+            <select class="custom-select col-md-3">
+                <option selected>1</option>
+                <option *ngFor="let item of util.getNumbersForHTML(series.episodes - (series.episodes - 2), series.episodes)" >{{item}}</option>
+              </select>
+              
+            <p>Current Season</p>
+            <select class="custom-select col-md-3">
+                <option selected>1</option>
+                    <option *ngFor="let item of util.getNumbersForHTML(series.seasons - (series.seasons - 2), series.seasons)" >{{item}}</option>
+              </select>
+            <p>Status</p>
+            <select class="custom-select col-md-3">
+                <option selected>Watching</option>
+                <option value="1">Finished</option>
+                <option value="2">Pending</option>
+              </select>
+            <span class="year-container">
+                <p>Release Year: {{series.releaseDate}}</p>
+                <p>Ending Year: {{series.finishDate}}</p>
+            </span>
+        </span>
+    </div>
+    <div class="description">
+        <h4>Synopsis</h4>
+        <div *ngIf="isViewingSynopsis">
+            <p>{{getSynopsis(false)}}</p>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)="isViewingSynopsis = false">Show Less</button>
+        </div>
+        <div *ngIf="!isViewingSynopsis">
+            <p>{{getSynopsis(true)}}</p>
+            <button type="button" class="btn btn-outline-info btn-sm" (click)="isViewingSynopsis = true">Show More</button>
+        </div>
+    </div>
+
+</div>

@@ -26,6 +26,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { AddComponent } from './dashboard/add/add.component';
+import { EditDashbaordComponent } from './dashboard/edit/edit.component'
 import { TokenInterceptorService } from './http/interceptors/TokenInterceptorService';
 import { JWTokens } from './jwt/JWTokens';
 
@@ -51,7 +52,8 @@ import { JWTokens } from './jwt/JWTokens';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    AddComponent
+    AddComponent,
+    EditDashbaordComponent
   ],
   imports: [
     BrowserModule,

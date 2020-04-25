@@ -1,0 +1,54 @@
+.container .head {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.back-arrow {
+    font-size: 2em;
+}
+
+.save-button {
+    font-size: 2em;
+}
+
+.content img {
+    float: left;
+    margin-right: 12px;
+}
+
+p {
+    margin-top: 18px;
+    margin-bottom: 0;
+}
+
+.year-container p {
+    margin: 0;
+    line-height: 26px;
+}
+
+.year-container p:first-child {
+    margin-top: 30px;
+}
+
+h4 {
+    margin-bottom: 0;
+}
+
+.custom-select {
+    width: auto;
+}
+
+.description {
+    clear: both;
+    margin-top: 12px;
+}
+
+.description p {
+    margin-top: 0;
+}
+
+button {
+    margin-top: 4px;
+}
