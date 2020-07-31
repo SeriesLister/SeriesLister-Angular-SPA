@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { JWTokens } from 'src/app/jwt/JWTokens';
+import { JWTokens } from '../../jwt/JWTokens'
 import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
 
