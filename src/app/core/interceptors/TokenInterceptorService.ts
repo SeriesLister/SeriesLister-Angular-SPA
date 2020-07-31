@@ -3,7 +3,7 @@ import { Observable, EMPTY } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { AlertService, Alert, Status } from '../services/alert.service';
+import { AlertService, Alert, Status } from '../services/offfline/alert.service';
 import { AuthService } from '../services/auth-service.service';
 import { JWTokens } from '../../jwt/JWTokens';
 

@@ -1,12 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeService } from '../../http/services/anime.service';
-import { AnimeSeries } from './AnimeSeries';
+import { AnimeSeries } from '../../../shared/models/AnimeSeries';
 import { EditComponent } from './edit/edit.component';
 import { DetailsComponent } from './details/details.component';
 import { DeleteComponent } from './delete/delete.component';
 import { CreateComponent } from './create/create.component';
 import { Routes } from '@angular/router';
 import { error } from 'protractor';
+import { AnimeService } from 'src/app/core/services/online/anime.service';
 
 @Component({
   selector: 'app-animeseries',

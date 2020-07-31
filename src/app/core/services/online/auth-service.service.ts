@@ -2,10 +2,10 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap, switchMap } from 'rxjs/operators';
-import { User } from '../../User';
 import { Router } from '@angular/router';
-import { AlertService, Alert, Status } from './alert.service';
 import { JWTokens } from 'src/app/jwt/JWTokens';
+import { User } from 'src/app/shared/models/User';
+import { AlertService } from '../offfline/alert.service';
 
 @Injectable({
   providedIn: 'root'

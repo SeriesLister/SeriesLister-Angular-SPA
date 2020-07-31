@@ -3,7 +3,7 @@ import { UsermanagerService } from 'src/app/http/services/usermanager.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { UserManage } from '../Users';
-import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
+import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 
 @Component({
   selector: 'app-usermanager-edit',

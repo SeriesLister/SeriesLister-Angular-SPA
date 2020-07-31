@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AnimeSeries } from '../AnimeSeries';
-import { AnimeService } from 'src/app/http/services/anime.service';
-import { AlertService, Status, Alert } from 'src/app/http/services/alert.service';
+import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { Router } from '@angular/router';
+import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 
 @Component({
   selector: 'app-create',
@@ -41,7 +41,7 @@ export class CreateComponent implements OnInit {
     var episodes : number = this.form.get('episodes').value;
     var releaseDate : string =  this.form.get('releaseDate').value;
     var finishDate : string = this.form.get('finishDate').value;
-    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate, null);
+    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, null, null, null);
     console.log(JSON.stringify(newSeries));
     this.animeService.createAnimeSeries(newSeries).subscribe(data => {
       if (data['response']['result'] === true) {

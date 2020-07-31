@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeSeries } from '../admin/animeseries/AnimeSeries';
+import { AnimeSeries } from '../../shared/models/AnimeSeries';
 import { Routes, Router } from '@angular/router';
 import { AddComponent } from './add/add.component';
 import { EditDashbaordComponent } from './edit/edit.component';
