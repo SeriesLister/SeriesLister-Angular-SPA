@@ -1,36 +1,42 @@
-<h1>Register</h1>
-
-<h4>AnimeSeries</h4>
-<hr />
 <div class="row">
-    <div class="col-md-4">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="email" class="control-label">Email</label>
-                <input type="email" id="email" formControlName="email" class="form-control" />
-                <p class="text-danger" *ngIf="emailError.length">{{emailError}}</p>
+    <div class="col-md-4 col-sm-8"  style="margin: 0 auto;">
+        <div class="card">
+            <h2 class="card-header text-center" style="margin-bottom: 0;">
+                <!-- Place site logo here -->
+                Register
+            </h2>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="mb-3">
+                        <label for="email" class="control-label">Email</label>
+                        <input type="email" id="email" formControlName="email" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="displayName" class="control-label">Display Name</label>
+                        <input type="text" id="displayName" formControlName="displayName" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" id="password" formControlName="password" class="form-control" />
+                    </div>
+                    <div class="mb-3">
+                        <label for="confirmPassword" class="control-label">Confirm Password</label>
+                        <input type="password" id="confirmPassword" formControlName="confirmPassword" class="form-control" />
+                    </div>
+                    <!-- <div>
+                        <p class="text-danger" *ngFor="let passwordError of passwordErrors">
+                            {{passwordError}}
+                        </p>
+                    </div> -->
+                        <button type="submit" [disabled]="this.submitted" class="btn btn-primary btn-large btn-block">Create Account</button>
+                </form>
             </div>
-            <div class="form-group">
-                <label for="displayName" class="control-label">Display Name</label>
-                <input type="text" id="displayName" formControlName="displayName" class="form-control" />
-                <p class="text-danger" *ngIf="displayNameError.length">{{displayNameError}}</p>
+            <div class="card-body text-center text-white bg-secondary">
+                <div class="mb-2">
+                    Already have an account?
+                </div>
+                <button class="btn btn-light btn-large btn-block" (click)="router.navigateByUrl('/login')">Go Login</button>
             </div>
-            <div class="form-group">
-                <label for="password" class="control-label">Password</label>
-                <input type="password" id="password" formControlName="password" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="cpassword" class="control-label">Confirm Password</label>
-                <input type="password" id="cpassword" formControlName="cpassword" class="form-control" />
-            </div>
-            <div>
-                <p class="text-danger" *ngFor="let passwordError of passwordErrors">
-                    {{passwordError}}
-                </p>
-            </div>
-            <div class="form-group">
-                <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Create Account</button>
-            </div>
-        </form>
+        </div>
     </div>
 </div>

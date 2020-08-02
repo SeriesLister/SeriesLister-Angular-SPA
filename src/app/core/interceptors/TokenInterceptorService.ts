@@ -35,7 +35,7 @@ export class TokenInterceptorService implements HttpInterceptor {
                             this.route.navigateByUrl("/login");
                             return EMPTY;
                         }
-
+                        console.log("attempting to refresh");
                         return this.authService.refreshTokens(this.authService.user.email, 
                             this.authService.jwTokens.getRefreshToken()).pipe(
                                 switchMap((data) => {

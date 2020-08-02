@@ -28,7 +28,6 @@ import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AddComponent } from './modules/dashboard/add/add.component';
 import { EditDashbaordComponent } from './modules/dashboard/edit/edit.component'
 import { TokenInterceptorService } from './core/interceptors/TokenInterceptorService';
-import { JWTokens } from './core/jwt/JWTokens';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({

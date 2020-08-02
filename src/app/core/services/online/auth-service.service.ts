@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { JWTokens } from '../../jwt/JWTokens'
 import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
+import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
+import { BasicResponse } from 'src/app/shared/models/responses/basicresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -32,18 +34,19 @@ export class AuthService {
     }
   }
 
-  public login(email: string, password: string) : Observable<User> {
-    return this.http.post<User>(
-      this.baseURL + 'login', 
-      JSON.stringify({email, password}),
+  public login(email: string, password: string, rememberMe: boolean) : Observable<LoginResponse> {
+    return this.http.post<LoginResponse>(
+      this.baseURL + 'login',
+      JSON.stringify({email, password, rememberMe}),
        this.httpOptions
     ).pipe(tap(data => {
-      var user: User = data as User;
-      this.user = user;
-      this.jwTokens = new JWTokens(data['refreshToken'], data['token']);
-      this.jwTokens.storeTokensInternal();
-      localStorage.setItem('currentUser', JSON.stringify(this.user));
-      this.loggedIn = true;
+      //var user: User = data as User;
+      // this.user = user;
+      // this.jwTokens = new JWTokens(data['refreshToken'], data['token']);
+      // this.jwTokens.storeTokensInternal();
+      // localStorage.setItem('currentUser', JSON.stringify(this.user));
+      //this.loggedIn = true;
+      console.log('response', data);
     }));
   }
 

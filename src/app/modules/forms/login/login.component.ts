@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, Validators, EmailValidator } from '@angular/forms';
 import { error } from 'protractor';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
+import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
 
 @Component({
   selector: 'app-login',
@@ -11,19 +12,30 @@ import { AuthService } from 'src/app/core/services/online/auth-service.service';
 })
 export class LoginComponent implements OnInit {
 
+  /**
+   * If the user pressed login
+   */
   public submitted: boolean = false;
-  public form: FormGroup;
-  public errorMessage : string = "";
-  public emailError : string = "";
+
+  /**
+   * The login form group
+   */
+  public loginForm: FormGroup;
+
+  /**
+   * Message that the server sends if invalid
+   */
+  public error: string = "";
 
   constructor(
-    fb: FormBuilder,
+    private fb: FormBuilder,
     private service: AuthService,
-    private router: Router
+    public router: Router
     ) { 
-      this.form = fb.group({
-        "email": [''],
-        "password": ['']
+      this.loginForm = fb.group({
+        email: "",
+        password: "",
+        remember: false
       })
 
     }
@@ -33,20 +45,18 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit() {
-    //this.submitted = true;
-    this.errorMessage = "";
-    this.emailError = "";
-    var email : string = this.form.get('email').value;
-    var password : string = this.form.get('password').value;
-    this.service.login(email, password).subscribe(data => {
-      this.router.navigateByUrl('/');
-    }, error => {
-      if (error['status'] === 400) {
-        this.emailError = 'Input a valid email';
-      } else {
-        this.errorMessage = error['error']['detail'];
+    this.submitted = true;
+    this.error = '';
+    var email : string = this.loginForm.get('email').value;
+    var password : string = this.loginForm.get('password').value;
+    var remember: boolean = this.loginForm.get('remember').value;
+    this.service.login(email, password, remember).subscribe((response: LoginResponse) => {
+      //this.router.navigateByUrl('/');
+      if (!response.success) {
+        this.submitted = false;
+        this.error = response.error;
       }
-    });    
+    });
   }
   
 }
