@@ -59,7 +59,7 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, releaseDate, finishDate, this.newImage == null ? this.series.imageData : this.newImage);
+    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, this.newImage == null ? this.series.imageData : this.newImage, null, null);
     this.submitted = false;
 
     /**

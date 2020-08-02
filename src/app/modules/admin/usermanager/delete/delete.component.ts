@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { UserManage } from '../Users';
-import { UsermanagerService } from 'src/app/http/services/usermanager.service';
+import { UsermanagerService } from 'src/app/core/services/online/usermanager.service';
 
 @Component({
   selector: 'app-delete',

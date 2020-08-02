@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { UsermanagerService } from 'src/app/http/services/usermanager.service';
 import { UserManage } from './Users';
 import { Routes } from '@angular/router';
 import { UserManagerEditComponent } from './edit/edit.component';
 import { UserManagerDetailsComponent } from './details/details.component';
 import { UserManagerDeleteComponent } from './delete/delete.component';
+import { UsermanagerService } from 'src/app/core/services/online/usermanager.service';
 
 @Component({
   selector: 'app-usermanager',

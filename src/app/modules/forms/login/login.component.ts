@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
 import { error } from 'protractor';
 import { Router } from '@angular/router';
-import { AuthService } from '../http/services/auth-service.service';
+import { AuthService } from 'src/app/core/services/online/auth-service.service';
 
 @Component({
   selector: 'app-login',

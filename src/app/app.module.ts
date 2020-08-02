@@ -5,30 +5,31 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { FooterComponent } from './footer/footer.component';
-import { LandingComponent } from './landing/landing.component';
-import { AdminComponent } from './admin/admin.component';
-import { AnimeseriesComponent } from './admin/animeseries/animeseries.component';
-import { PrivacyComponent } from './privacy/privacy.component';
-import { EditComponent } from './admin/animeseries/edit/edit.component';
-import { DetailsComponent } from './admin/animeseries/details/details.component';
+import { NavbarComponent } from './core/navbar/navbar.component';
+import { FooterComponent } from './core/footer/footer.component';
+import { LandingComponent } from './modules/landing/landing.component';
+import { AdminComponent } from './modules/admin/admin.component';
+import { AnimeseriesComponent } from './modules/admin/animeseries/animeseries.component';
+import { PrivacyComponent } from './modules/privacy/privacy.component';
+import { EditComponent } from './modules/admin/animeseries/edit/edit.component';
+import { DetailsComponent } from './modules/admin/animeseries/details/details.component';
 import { PagebuttonsComponent } from './shared/components/pagebuttons/pagebuttons.component';
-import { NotificationComponent } from './notification/notification.component';
-import { CreateComponent } from './admin/animeseries/create/create.component';
-import { DeleteComponent } from './admin/animeseries/delete/delete.component';
+import { NotificationComponent } from './shared/components/notification/notification.component';
+import { CreateComponent } from './modules/admin/animeseries/create/create.component';
+import { DeleteComponent } from './modules/admin/animeseries/delete/delete.component';
 import { DatePipe } from '@angular/common';
-import { UsermanagerComponent } from './admin/usermanager/usermanager.component';
-import { UserManagerEditComponent } from './admin/usermanager/edit/edit.component';
-import { UserManagerDetailsComponent } from './admin/usermanager/details/details.component';
-import { UserManagerDeleteComponent } from './admin/usermanager/delete/delete.component';
-import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { AddComponent } from './dashboard/add/add.component';
-import { EditDashbaordComponent } from './dashboard/edit/edit.component'
+import { UsermanagerComponent } from './modules/admin/usermanager/usermanager.component';
+import { UserManagerEditComponent } from './modules/admin/usermanager/edit/edit.component';
+import { UserManagerDetailsComponent } from './modules/admin/usermanager/details/details.component';
+import { UserManagerDeleteComponent } from './modules/admin/usermanager/delete/delete.component';
+import { LoginComponent } from './modules/forms/login/login.component';
+import { RegisterComponent } from './modules/forms/register/register.component';
+import { DashboardComponent } from './modules/dashboard/dashboard.component';
+import { AddComponent } from './modules/dashboard/add/add.component';
+import { EditDashbaordComponent } from './modules/dashboard/edit/edit.component'
 import { TokenInterceptorService } from './core/interceptors/TokenInterceptorService';
-import { JWTokens } from './jwt/JWTokens';
+import { JWTokens } from './core/jwt/JWTokens';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { JWTokens } from './jwt/JWTokens';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [DatePipe, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
   bootstrap: [AppComponent]
