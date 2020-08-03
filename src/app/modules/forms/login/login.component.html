@@ -6,31 +6,49 @@
                 Login
             </h2>
             <div class="card-body">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
+                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="on">
+                    <div [ngClass]="isInvalid('email') ? 'mb-2' : 'mb-3'">
                         <label for="email" class="control-label">Email</label>
-                        <input type="email" id="email" formControlName="email" class="form-control" required />
+                        <input type="email" id="email" formControlName="email" 
+                            class="form-control" 
+                            [ngClass]="{ 'is-invalid': isInvalid('email') }"
+                            (input)="validateLegnth('email')"
+                            (blur)="validateLegnth('email')"
+                        />
+                        <p *ngIf="email.errors?.required" class="text-danger mb-1">
+                            Email is required
+                        </p>
                     </div>
-                    <div class="mb-3">
+                    <div [ngClass]="isInvalid('password') ? 'mb-2' : 'mb-3'">
                         <label for="password" class="control-label">Password</label>
-                        <input type="password" id="password" formControlName="password" class="form-control" />
+                        <input type="password" id="password" 
+                            formControlName="password" class="form-control" 
+                            [ngClass]="{ 'is-invalid': isInvalid('password') }"
+                            (input)="validateLegnth('password')"
+                            (blur)="validateLegnth('password')"
+                        />
+                        <p *ngIf="password.errors?.required" class="text-danger mb-1">
+                            Password is required
+                        </p>
                     </div>
-                    <div class="form-check" [ngClass]="error.length > 0 ? 'mb-1' : 'mb-3'">
+                    <div class="form-check mb-3">
                         <label class="form-check-label" for="rememberMe">Remember Me</label>
-                        <input type="checkbox" class="form-check-input" formControlName="remember" id="rememberMe">
+                        <input type="checkbox" class="form-check-input" id="rememberMe" 
+                            formControlName="remember">
                     </div>
                     <div *ngIf="error.length > 0">
                         <p class="text-danger">{{error}}</p>
                     </div>
-                   
-                    <button type="submit" [disabled]="this.submitted" class="btn btn-primary btn-large btn-block">Login</button>
+                    <button type="submit" [disabled]="this.submitted" 
+                        class="btn btn-primary btn-large btn-block">Login</button>
                 </form>
             </div>
             <div class="card-body text-center text-white bg-secondary">
                 <div class="mb-2">
                     Don't have an account?
                 </div>
-                <button class="btn btn-light btn-large btn-block" (click)="router.navigateByUrl('/register')">Create an account</button>
+                <button class="btn btn-light btn-large btn-block" 
+                    (click)="router.navigateByUrl('/register')">Create an account</button>
             </div>
         </div>
     </div>

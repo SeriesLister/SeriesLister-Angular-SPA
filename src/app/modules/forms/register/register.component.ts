@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
@@ -30,7 +30,8 @@ export class RegisterComponent implements OnInit {
         "password": new FormControl('', [
           Validators.required,
           Validators.minLength(8),
-          Validators.maxLength(32)
+          Validators.maxLength(32),
+
         ]),
         "confirmPassword": new FormControl('', [
           Validators.required
@@ -82,6 +83,18 @@ export class RegisterComponent implements OnInit {
         this.displayNameError = element;
       }
     });
+  }
+
+  minlength(nameRe: RegExp) : ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} | null => {
+      const length = nameRe.test(control.value);
+      return length ? {length: {value: control.value}} : null;
+    }
+  }
+
+  get Password() {
+    console.log(this.form.get('password').errors.pattern);
+    return this.form.get('password');
   }
 
 }

@@ -18,6 +18,7 @@
                     <div class="mb-3">
                         <label for="password" class="control-label">Password</label>
                         <input type="password" id="password" formControlName="password" class="form-control" />
+                        <p *ngIf="Password.errors.pattern">problem</p>
                     </div>
                     <div class="mb-3">
                         <label for="confirmPassword" class="control-label">Confirm Password</label>
