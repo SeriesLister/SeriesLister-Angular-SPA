@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractC
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
+import { Validation } from '../validation';
 
 @Component({
   selector: 'app-register',
@@ -11,8 +12,15 @@ import { AuthService } from 'src/app/core/services/online/auth-service.service';
 })
 export class RegisterComponent implements OnInit {
 
+  /**
+   * Tells us if the form was submitted
+   */
   public submitted: boolean = false;
-  public form: FormGroup;
+
+  /**
+   * The register form group
+   */
+  public registerForm: FormGroup;
 
   public emailError : string = "";
   public passwordErrors : string[] = [];
@@ -22,7 +30,7 @@ export class RegisterComponent implements OnInit {
     private service: AuthService,
     public router: Router,
     private alert: AlertService) {
-      this.form = fb.group({
+      this.registerForm = fb.group({
         "email": new FormControl('', [
           Validators.email,
           Validators.required
@@ -31,10 +39,14 @@ export class RegisterComponent implements OnInit {
           Validators.required,
           Validators.minLength(8),
           Validators.maxLength(32),
-
+          Validation.specialCharacterValidator(),
+          Validation.uppercaseValidator(),
+          Validation.lowercaseValidator(),
+          Validation.numberValidator()
         ]),
         "confirmPassword": new FormControl('', [
-          Validators.required
+          Validators.required,
+          Validation.sameValueValidator(this.password)
         ]),
         "displayName": new FormControl('', [
           Validators.minLength(4),
@@ -85,16 +97,32 @@ export class RegisterComponent implements OnInit {
     });
   }
 
-  minlength(nameRe: RegExp) : ValidatorFn {
-    return (control: AbstractControl): {[key: string]: any} | null => {
-      const length = nameRe.test(control.value);
-      return length ? {length: {value: control.value}} : null;
-    }
+  /**
+   * Gets the password form group
+   */
+  get password(): AbstractControl {
+    return this.registerForm.get('password');
   }
 
-  get Password() {
-    console.log(this.form.get('password').errors.pattern);
-    return this.form.get('password');
+  /**
+   * Gets the email form group
+   */
+  get email(): AbstractControl {
+    return this.registerForm.get('email');
+  }
+
+  /**
+   * Gets the password confirm form group
+   */
+  get passwordConfirm(): AbstractControl {
+    return this.registerForm.get('confirmPassword');
+  }
+
+  /**
+   * Gets the display name form group
+   */
+  get displayName(): AbstractControl {
+    return this.registerForm.get('displayName');
   }
 
 }

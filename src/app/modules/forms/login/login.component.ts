@@ -12,7 +12,7 @@ import { LoginResponse } from 'src/app/shared/models/responses/impl/loginrespons
 export class LoginComponent implements OnInit {
 
   /**
-   * If the user pressed login
+   * Tells us if the form was submitted
    */
   public submitted: boolean = false;
 
@@ -43,6 +43,9 @@ export class LoginComponent implements OnInit {
     this.service.redirectOnLogin();
   }
 
+  /**
+   * Check for the form submission
+   */
   public onSubmit() {
     this.submitted = true;
     this.error = '';
@@ -105,14 +108,23 @@ export class LoginComponent implements OnInit {
     }
   }
 
+  /**
+   * Gets the email form group
+   */
   get email() {
     return this.loginForm.get('email');
   }
 
+  /**
+   * Gets the password form group
+   */
   get password() {
     return this.loginForm.get('password');
   }
 
+  /**
+   * Gets the remember me form group
+   */
   get remember() {
     return this.loginForm.get('remember');
   }
