@@ -46,7 +46,7 @@ export class RegisterComponent implements OnInit {
         ]),
         "confirmPassword": new FormControl('', [
           Validators.required,
-          Validation.sameValueValidator(this.password)
+          // Validation.sameValueValidator(this.password)
         ]),
         "displayName": new FormControl('', [
           Validators.minLength(4),
