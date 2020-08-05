@@ -52,17 +52,4 @@ export class Validation {
           }
     }
 
-    /**
-     * Validates if password and confirmPassword is a match
-     */
-    public static confirmPasswords: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
-            const password: string = control.get('password').value;
-            const confirmPassword: string = control.get('confirmPassword').value;
-            if (password.length <= 0 || confirmPassword.length <= 0) {
-                return { passwordsDifferent: true };
-            }
-            console.log('trying to validate?');
-            return password.localeCompare(confirmPassword) == 0 ? null : { passwordsDifferent: true };
-    }
-
 }

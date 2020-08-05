@@ -49,16 +49,13 @@ export class RegisterComponent implements OnInit {
           Validation.lowercaseValidator(),
           Validation.numberValidator()
         ]),
-        "confirmPassword": new FormControl('', [
-          Validators.required,
-        ]),
         "displayName": new FormControl('', [
           Validators.minLength(4),
           Validators.maxLength(16),
           Validators.required,
           Validation.specialCharacterValidator(false)
         ])
-      }, {validators: Validation.confirmPasswords});
+      });
     }
 
   ngOnInit(): void {
@@ -121,13 +118,6 @@ export class RegisterComponent implements OnInit {
    */
   get email(): AbstractControl {
     return this.registerForm.get('email');
-  }
-
-  /**
-   * Gets the password confirm form group
-   */
-  get confirmPassword(): AbstractControl {
-    return this.registerForm.get('confirmPassword');
   }
 
   /**
