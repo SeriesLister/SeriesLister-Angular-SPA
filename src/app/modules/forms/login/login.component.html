@@ -26,7 +26,12 @@
                             [ngClass]="{ 'is-invalid': isInvalid('password') }"
                             (input)="validateLegnth('password')"
                             (blur)="validateLegnth('password')"
+                            [type]="passwordVisible ? 'text' : 'password'"
                         />
+                        <i class="material-icons password-show" (click)="makePasswordVisible()">
+                            <span *ngIf="passwordVisible">visibility</span>
+                            <span *ngIf="!passwordVisible">visibility_off</span>
+                        </i>
                         <p *ngIf="password.errors?.required" class="text-danger mb-1">
                             Password is required
                         </p>

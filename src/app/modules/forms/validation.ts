@@ -1,4 +1,5 @@
-import { ValidatorFn, AbstractControl, FormGroup } from '@angular/forms';
+import { ValidatorFn, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
+import { Console } from 'console';
 
 /**
  * This class houses all validation functions
@@ -27,11 +28,17 @@ export class Validation {
 
     /**
      * Validates the form value has one or more special letters
+     * @param allowed if the special character is allowed
      */
-    public static specialCharacterValidator(): ValidatorFn {
+    public static specialCharacterValidator(allowed: boolean = true): ValidatorFn {
         return (control: AbstractControl): {[key: string]: any} => {
             const valid: boolean = new RegExp(/(?=.*[!@#$%^&*()])/).test(control.value);
-            return valid ? null : {specialvalidate: true};
+            
+            if (allowed) {
+                return valid ? null : {specialvalidate: true};
+            } else {
+                return valid ? {specialvalidate: true} : null;
+            }
           }
     }
 
@@ -46,16 +53,16 @@ export class Validation {
     }
 
     /**
-     * TODO: Implement
-     * Will validate the two values are a loose match
-     * @param comparedValue 
+     * Validates if password and confirmPassword is a match
      */
-    public static sameValueValidator(comparedValue): ValidatorFn {
-        return (control: AbstractControl): {[key: string]: any} => {
-            const value: string = control.value;
-            const valid: boolean = true;
-            return valid ? null : {numbervalidate: true};
-          }
+    public static confirmPasswords: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+            const password: string = control.get('password').value;
+            const confirmPassword: string = control.get('confirmPassword').value;
+            if (password.length <= 0 || confirmPassword.length <= 0) {
+                return { passwordsDifferent: true };
+            }
+            console.log('trying to validate?');
+            return password.localeCompare(confirmPassword) == 0 ? null : { passwordsDifferent: true };
     }
 
 }

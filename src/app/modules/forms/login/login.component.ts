@@ -26,6 +26,11 @@ export class LoginComponent implements OnInit {
    */
   public error: string = "";
 
+  /**
+   * Keeps track if the password should be visible
+   */
+  public passwordVisible: boolean = false;
+
   constructor(
     private fb: FormBuilder,
     private service: AuthService,
@@ -106,6 +111,13 @@ export class LoginComponent implements OnInit {
     }  else {
       formInput.setErrors({ required: false });
     }
+  }
+
+  /**
+   * Makes the password visible or not
+   */
+  public makePasswordVisible() {
+    this.passwordVisible = !this.passwordVisible;
   }
 
   /**

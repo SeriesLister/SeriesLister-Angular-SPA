@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
@@ -21,6 +21,11 @@ export class RegisterComponent implements OnInit {
    * The register form group
    */
   public registerForm: FormGroup;
+
+  /**
+   * Keeps track if the password should be visible
+   */
+  public passwordVisible: boolean = false;
 
   public emailError : string = "";
   public passwordErrors : string[] = [];
@@ -46,14 +51,14 @@ export class RegisterComponent implements OnInit {
         ]),
         "confirmPassword": new FormControl('', [
           Validators.required,
-          // Validation.sameValueValidator(this.password)
         ]),
         "displayName": new FormControl('', [
           Validators.minLength(4),
           Validators.maxLength(16),
           Validators.required,
+          Validation.specialCharacterValidator(false)
         ])
-      });
+      }, {validators: Validation.confirmPasswords});
     }
 
   ngOnInit(): void {
@@ -98,6 +103,13 @@ export class RegisterComponent implements OnInit {
   }
 
   /**
+   * Makes the password visible or not
+   */
+  public makePasswordVisible() {
+    this.passwordVisible = !this.passwordVisible;
+  }
+
+  /**
    * Gets the password form group
    */
   get password(): AbstractControl {
@@ -114,7 +126,7 @@ export class RegisterComponent implements OnInit {
   /**
    * Gets the password confirm form group
    */
-  get passwordConfirm(): AbstractControl {
+  get confirmPassword(): AbstractControl {
     return this.registerForm.get('confirmPassword');
   }
 
