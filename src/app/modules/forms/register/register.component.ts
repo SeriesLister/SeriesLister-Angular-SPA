@@ -1,9 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, ValidatorFn, AbstractControl } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
 import { Validation } from '../validation';
+import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
 
 @Component({
   selector: 'app-register',
@@ -27,10 +28,6 @@ export class RegisterComponent implements OnInit {
    */
   public passwordVisible: boolean = false;
 
-  public emailError : string = "";
-  public passwordErrors : string[] = [];
-  public displayNameError : string = "";
-
   constructor(fb: FormBuilder,
     private service: AuthService,
     public router: Router,
@@ -50,51 +47,51 @@ export class RegisterComponent implements OnInit {
           Validation.numberValidator()
         ]),
         "displayName": new FormControl('', [
+          Validators.required,
           Validators.minLength(4),
           Validators.maxLength(16),
-          Validators.required,
           Validation.specialCharacterValidator(false)
         ])
       });
     }
 
   ngOnInit(): void {
+    this.alert.add(new Alert("Account was successfully created. Please login.", Status.SUCCESS));
     this.service.redirectOnLogin();
   }
 
   //TODO: add more front-end checking
   public onSubmit() : void {
-    // this.passwordErrors = [];
-    // this.emailError = "";
-    // this.displayNameError = "";
+    let email = this.email.value;
+    let password = this.password.value;
+    let displayName = this.displayName.value;
 
-    // let email = this.form.get('email').value;
-    // let password = this.form.get('password').value;
-    // let cpassword = this.form.get('cpassword').value;
-    // let displayName = this.form.get('displayName').value;
+    this.service.register(email, displayName, password).subscribe((response: RegistrationResponse) => {
+      if (response.success) {
+        this.alert.add(new Alert("Account was successfully created. Please login.", Status.SUCCESS));
+        this.router.navigateByUrl("/login");
+        return;
+      }
 
-    // if (password !== cpassword) {
-    //   this.passwordErrors.push("Passwords don't match");
-    //   return;
-    // }
-
-    // this.service.register(email, displayName, password).subscribe(data => {
-    //   this.router.navigateByUrl("/login");
-    //   this.alert.add(new Alert("Account was successfully created. Please login.", Status.SUCCESS));
-    // }, error => {
-    //   let errors : string[] = error.error.detail.split(" : ");
-    //   this.appendErrors(errors);
-    // });
+      if (!response.success  && response.error) {
+        this.appendErrors(response.error);
+      }
+    });
   }
 
-  private appendErrors(errors : string[]) : void {
+  /**
+   * This method is used to append errors to the form group
+   * @param errorString The string containing all the errors
+   */
+  private appendErrors(errorString: string) : void {
+    var errors: string[] = errorString.split(" - ");
     errors.forEach(element => {
-      if (element.includes("Passwords")) {
-        this.passwordErrors.push(element);
-      } else if (element.includes("Email")) {
-        this.emailError = element;
-      } else if (element.includes("User name")) {
-        this.displayNameError = element;
+      if (element.startsWith("Email") && element.endsWith("taken.")) {
+        this.email.setErrors({taken: true});
+      }
+
+      if (element.startsWith("User") && element.endsWith("taken.")) {
+        this.displayName.setErrors({taken: true});
       }
     });
   }

@@ -1,7 +1,11 @@
 export class ServerConfigurations {
 
-    public static readonly PRODUCTION: boolean = true;
+    public static readonly PRODUCTION: boolean = false;
 
-    public static readonly PORT: string =  "5000";
+    public static readonly PREFIX: string = 'api/';
 
+    public static readonly PUBLICLINK: string = ServerConfigurations.PRODUCTION ? 
+        'https://animelistings.com/' + ServerConfigurations.PREFIX : 
+        'https://localhost:44314/' + ServerConfigurations.PREFIX;
+        
 }

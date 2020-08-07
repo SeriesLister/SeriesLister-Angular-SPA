@@ -8,6 +8,8 @@ import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
 import { BasicResponse } from 'src/app/shared/models/responses/basicresponse';
+import { EndPointsConfigurations } from 'src/app/configs/endpointsconfiguration';
+import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
 
 @Injectable({
   providedIn: 'root'
@@ -60,12 +62,16 @@ export class AuthService {
     }
   }
 
-  public register(email: string, displayName: string, password: string) : Observable<any> {
-    return this.http.post<any>(
-      this.baseURL + 'register', 
-      JSON.stringify({email, password, displayName}), 
+  public register(email: string, displayName: string, password: string) : Observable<RegistrationResponse> {
+    return this.http.post<RegistrationResponse>(
+      EndPointsConfigurations.REGISTERURL, 
+      {
+        email,
+        displayName,
+        password
+      }, 
       this.httpOptions
-    ).pipe();
+    )
   }
 
   public refreshTokens(email : string, refreshToken : string) : Observable<any> {
