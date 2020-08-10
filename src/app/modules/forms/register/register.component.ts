@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
 import { Validation } from '../validation';
 import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
+import { Observable, of, timer } from 'rxjs';
+import { tap, map, debounceTime, take, switchMap, distinctUntilChanged, mergeMap } from 'rxjs/operators';
+import { BasicResponse } from '@app/shared/models/responses/basicresponse';
 
 @Component({
   selector: 'app-register',
@@ -33,10 +36,16 @@ export class RegisterComponent implements OnInit {
     public router: Router,
     private alert: AlertService) {
       this.registerForm = fb.group({
-        "email": new FormControl('', [
-          Validators.email,
-          Validators.required
-        ]),
+        "email": new FormControl('', {
+          validators: [
+            Validators.email,
+            Validators.required
+          ],
+          asyncValidators: [
+            this.isEmailTaken.bind(this)
+          ]
+        }
+        ),
         "password": new FormControl('', [
           Validators.required,
           Validators.minLength(8),
@@ -46,12 +55,17 @@ export class RegisterComponent implements OnInit {
           Validation.lowercaseValidator(),
           Validation.numberValidator()
         ]),
-        "displayName": new FormControl('', [
-          Validators.required,
-          Validators.minLength(4),
-          Validators.maxLength(16),
-          Validation.specialCharacterValidator(false)
-        ])
+        "displayName": new FormControl('', {
+          validators: [
+            Validators.required,
+            Validators.minLength(4),
+            Validators.maxLength(16),
+            Validation.specialCharacterValidator(false),
+          ],
+          asyncValidators: [
+            this.isUsernameTaken.bind(this)
+          ]
+        })
       });
     }
 
@@ -94,6 +108,40 @@ export class RegisterComponent implements OnInit {
         this.displayName.setErrors({taken: true});
       }
     });
+  }
+
+  /**
+   * Let's the form check if the username is taken
+   * @param control - auto passed on binding
+   */
+  public isUsernameTaken(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    return timer(500).pipe(
+      distinctUntilChanged(),
+      switchMap(_ => { 
+        return this.service.checkUsername(control.value).pipe(
+          map((response: BasicResponse) => {
+            return response.success ? null : {taken: true} ;
+          })
+        );
+      })
+    )
+  }
+
+    /**
+   * Let's the form check if the email is taken
+   * @param control - auto passed on binding
+   */
+  public isEmailTaken(control: AbstractControl): Promise<ValidationErrors | null> | Observable<ValidationErrors | null> {
+    return timer(500).pipe(
+      distinctUntilChanged(),
+      switchMap(_ => { 
+        return this.service.checkEmail(control.value).pipe(
+          map((response: BasicResponse) => {
+            return response.success ? null : {taken: true} ;
+          })
+        );
+      })
+    )
   }
 
   /**

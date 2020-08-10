@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/f
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/online/auth-service.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
+import { AlertService, Alert, Status } from '@app/core/services/offfline/alert.service';
 
 @Component({
   selector: 'app-login',
@@ -22,11 +23,6 @@ export class LoginComponent implements OnInit {
   public loginForm: FormGroup;
 
   /**
-   * Message that the server sends if invalid
-   */
-  public error: string = "";
-
-  /**
    * Keeps track if the password should be visible
    */
   public passwordVisible: boolean = false;
@@ -35,6 +31,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private service: AuthService,
     public router: Router,
+    private alert: AlertService
   ) {
     this.loginForm = this.fb.group({
       email: new FormControl(''),
@@ -53,7 +50,6 @@ export class LoginComponent implements OnInit {
    */
   public onSubmit() {
     this.submitted = true;
-    this.error = '';
     var email : string = this.email.value;
     var password : string = this.password.value;
     var remember: boolean = this.remember.value;
@@ -64,11 +60,14 @@ export class LoginComponent implements OnInit {
     }
 
     this.service.login(email, password, remember).subscribe((response: LoginResponse) => {
-      //this.router.navigateByUrl('/');
       if (!response.success) {
         this.submitted = false;
-        this.error = response.error;
+        this.loginForm.setErrors({invalid: true});
+        return;
       }
+
+      this.alert.add(new Alert("You have been successfully logged in!", Status.SUCCESS));
+      this.router.navigateByUrl('/dashbaord');
     });
   }
 

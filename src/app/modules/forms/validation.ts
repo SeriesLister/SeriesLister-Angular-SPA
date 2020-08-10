@@ -1,10 +1,12 @@
-import { ValidatorFn, AbstractControl, FormGroup, ValidationErrors } from '@angular/forms';
-import { Console } from 'console';
+import { ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
+import { Observable } from 'rxjs';
 
 /**
  * This class houses all validation functions
  */
 export class Validation {
+
+    constructor() {}
 
     /**
      * Validates the form value has a lower case letter

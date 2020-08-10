@@ -38,13 +38,14 @@
                             Password is required
                         </p>
                     </div>
-                    <div class="form-check mb-3">
+                    <div class="form-check"
+                        [ngClass]="loginForm.errors?.invalid ? 'mb-1' : 'mb-3'">
                         <label class="form-check-label" for="rememberMe">Remember Me</label>
                         <input type="checkbox" class="form-check-input" id="rememberMe" 
                             formControlName="remember">
                     </div>
-                    <div *ngIf="error.length > 0">
-                        <p class="text-danger">{{error}}</p>
+                    <div *ngIf="loginForm.errors?.invalid">
+                        <p class="text-danger mb-1">Invalid username or password</p>
                     </div>
                     <button type="submit" [disabled]="this.submitted" 
                         class="btn btn-primary btn-large btn-block">Login</button>
