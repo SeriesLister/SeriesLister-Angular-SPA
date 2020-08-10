@@ -1,0 +1,10 @@
+.notification-close {
+    position: relative;
+    float: right;
+    bottom: 26px;
+    left: 24px;
+    border-radius: 16px;
+    border-width: 1px;
+    border-style: solid;
+    cursor: pointer;
+}

@@ -6,6 +6,6 @@ export class ServerConfigurations {
 
     public static readonly PUBLICLINK: string = ServerConfigurations.PRODUCTION ? 
         'https://animelistings.com/' + ServerConfigurations.PREFIX : 
-        'https://localhost:44314/' + ServerConfigurations.PREFIX;
+        'https://localhost:5001/' + ServerConfigurations.PREFIX;
         
 }

@@ -1,7 +1,14 @@
 <div *ngIf="notification.messages.length" [ngClass]="notification.messages[0].status === 0 ? 'alert-success' : 'alert-danger'" 
-    class="container alert" role="alert">
-    {{notification.messages[0].message}}
-    <button type="button" class="close" aria-label="Close" (click)="notification.removeFirst()">
+    class="container alert col-11 col-md-12" role="alert">
+    <i class="material-icons notification-close"
+      [ngClass]="notification.messages[0].status === 0 ? 'alert-success' : 'alert-danger'"
+      (click)="notification.removeFirst()"
+      aria-label="Close"
+    >
+      remove
+    </i>
+    <span>{{notification.messages[0].message}}</span>
+    <!-- <button type="button" class="close notification-close" aria-label="Close" (click)="notification.removeFirst()">
       <span aria-hidden="true">&times;</span>
-    </button>
+    </button> -->
   </div>

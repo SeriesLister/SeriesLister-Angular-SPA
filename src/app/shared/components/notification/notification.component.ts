@@ -11,6 +11,8 @@ export class NotificationComponent implements OnInit {
   constructor(public notification: AlertService) { }
 
   ngOnInit(): void {
+    setTimeout(_ => {
+      this.notification.removeFirst();
+    }, 5000);
   }
-
 }
