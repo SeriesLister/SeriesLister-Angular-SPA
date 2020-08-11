@@ -1,5 +1,5 @@
 
-export class JWTokens {
+export class JWTokenHandler {
 
     private refreshToken : string = "";
 
@@ -36,11 +36,11 @@ export class JWTokens {
         this.refreshToken = refreshToken;
     }
 
-    public retrieveTokenInternal() : JWTokens {
+    public retrieveTokenInternal() : JWTokenHandler {
         if (localStorage.getItem("token") && localStorage.getItem("refreshToken")) {
-            return new JWTokens(localStorage.getItem("refreshToken"), localStorage.getItem("token"));
+            return new JWTokenHandler(localStorage.getItem("refreshToken"), localStorage.getItem("token"));
         }
-        return  new JWTokens();
+        return  new JWTokenHandler();
     }
 
     public clearTokens() : void {

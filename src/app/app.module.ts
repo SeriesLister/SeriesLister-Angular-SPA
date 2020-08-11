@@ -27,8 +27,9 @@ import { RegisterComponent } from './modules/forms/register/register.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AddComponent } from './modules/dashboard/add/add.component';
 import { EditDashbaordComponent } from './modules/dashboard/edit/edit.component'
-import { TokenInterceptorService } from './core/interceptors/TokenInterceptorService';
+import { TokenInterceptor } from './core/interceptors/token.interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ApiInterceptor} from '@app/core/interceptors/api.interceptor';
 
 @NgModule({
   declarations: [
@@ -62,7 +63,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe, {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptorService, multi: true}],
+  providers: [DatePipe, 
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

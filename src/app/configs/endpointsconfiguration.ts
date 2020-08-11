@@ -10,4 +10,6 @@ export class EndPointsConfigurations {
     public static readonly CHECKUSERNAME: string = EndPointsConfigurations.AUTHURL + '/CheckUsername?name=';
     public static readonly CHECKEMAIL: string = EndPointsConfigurations.AUTHURL + '/CheckEmail?email=';
     public static readonly LOGINURL: string = EndPointsConfigurations.AUTHURL + '/Login';
+    public static readonly REFRESHTOKENURL: string = EndPointsConfigurations.AUTHURL + '/Refresh';
+
 }

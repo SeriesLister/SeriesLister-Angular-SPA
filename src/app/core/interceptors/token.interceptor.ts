@@ -4,14 +4,14 @@ import { Injectable } from '@angular/core';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from '../services/offfline/alert.service';
-import { JWTokens } from '../jwt/JWTokens';
+import { JWTokenHandler } from '../jwt/jwtokenhandler';
 import { AuthService } from '../services/online/auth-service.service';
 
 @Injectable({
     providedIn: 'root'
 })
 //TOKEN DOESN'T SAVE!
-export class TokenInterceptorService implements HttpInterceptor {
+export class TokenInterceptor implements HttpInterceptor {
 
     constructor(private route: Router, 
         private notification: AlertService, 
@@ -40,7 +40,7 @@ export class TokenInterceptorService implements HttpInterceptor {
                             this.authService.jwTokens.getRefreshToken()).pipe(
                                 switchMap((data) => {
                                     if (data['token'] && data['refreshToken']) {
-                                        this.authService.jwTokens = new JWTokens(data['refreshToken'], data['token']);
+                                        this.authService.jwTokens = new JWTokenHandler(data['refreshToken'], data['token']);
                                         this.authService.jwTokens.storeTokensInternal();
                                         let newHeaders1 = req.headers;
                                         newHeaders1 = newHeaders1.append('Authorization', `Bearer ${this.authService.jwTokens.getToken()}`);

@@ -70,7 +70,6 @@ export class RegisterComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    this.alert.add(new Alert("Account was successfully created. Please login.", Status.SUCCESS));
     this.service.redirectOnLogin();
   }
 

@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, empty, EMPTY } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { JWTokens } from '../../jwt/JWTokens'
+import { JWTokenHandler } from '../../jwt/jwtokenhandler'
 import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
@@ -16,17 +16,11 @@ import { BasicResponse } from '@app/shared/models/responses/basicresponse';
 })
 export class AuthService {
 
-  baseURL: string = 'https://localhost:44314/Home/';
-
   loggedIn : boolean = false;
 
   public user: User = null;
 
-  public jwTokens : JWTokens = new JWTokens();
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-  };
+  public jwTokens : JWTokenHandler = new JWTokenHandler();
 
   constructor(private http: HttpClient, private router: Router, private notification: AlertService) {
     if (localStorage.getItem('currentUser') && !this.loggedIn) {
@@ -56,8 +50,7 @@ export class AuthService {
   public login(email: string, password: string, rememberMe: boolean) : Observable<LoginResponse> {
     return this.http.post<LoginResponse>(
       EndPointsConfigurations.LOGINURL,
-      {email, password, rememberMe},
-       this.httpOptions
+      {email, password, rememberMe}
     ).pipe(tap(data => {
       // var user: User = data as User;
       // this.user = user;
@@ -74,7 +67,7 @@ export class AuthService {
    * @param email The email for the user to register with
    * @param displayName The display name for the user to register with
    * @param password The password for the user to register with
-  */
+   */
   public register(email: string, displayName: string, password: string) : Observable<RegistrationResponse> {
     return this.http.post<RegistrationResponse>(
       EndPointsConfigurations.REGISTERURL, 
@@ -82,35 +75,39 @@ export class AuthService {
         email,
         displayName,
         password
-      }, 
-      this.httpOptions
+      }
     );
   }
 
   /**
    * Checks if the username is taken
    * @param displayName The display name to check
-  */
+   */
   public checkUsername(displayName: string) : Observable<BasicResponse> {
     return this.http.post<BasicResponse>(
       EndPointsConfigurations.CHECKUSERNAME + displayName,
-      this.httpOptions
+      EMPTY
     );
   }
 
   /**
    * Checks if the email is taken
    * @param email The email to check
-  */
+   */
   public checkEmail(email: string) : Observable<BasicResponse> {
     return this.http.post<BasicResponse>(
       EndPointsConfigurations.CHECKEMAIL + email,
-      this.httpOptions
+      EMPTY
     );
   }
 
+  /**
+   * Sends a post request to the server, and return new tokens
+   * @param email The email of the user
+   * @param refreshToken The refresh token
+   */
   public refreshTokens(email : string, refreshToken : string) : Observable<any> {
-    return this.http.post<any>(this.baseURL + 'refresh', JSON.stringify({email, refreshToken}), this.httpOptions);
+    return this.http.post<any>(EndPointsConfigurations.REFRESHTOKENURL, {email, refreshToken});
   }
 
   /**
@@ -123,25 +120,5 @@ export class AuthService {
     this.user = null;
     this.loggedIn = false;
   }
-
-  /**
- * Handle Http operation that failed.
- * Let the app continue.
- * @param operation - name of the operation that failed
- * @param result - optional value to return as the observable result
- */
-private handleError<T> (operation = 'operation', result?: T) {
-  return (error: any): Observable<T> => {
-
-    // TODO: send the error to remote logging infrastructure
-    console.error(error); // log to console instead
-
-    // TODO: better job of transforming error for user consumption
-    console.log(`${operation} failed: ${error.message}`);
-
-    // Let the app keep running by returning an empty result.
-    return of(result as T);
-  };
-}
 
 }
