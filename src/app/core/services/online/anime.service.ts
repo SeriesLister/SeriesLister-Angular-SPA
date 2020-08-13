@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { DatePipe } from '@angular/common';
-import { AuthService } from './auth-service.service';
+import { AuthService } from './authentication.service';
 import { AnimeSeries } from 'src/app/shared/models/AnimeSeries';
 
 @Injectable({

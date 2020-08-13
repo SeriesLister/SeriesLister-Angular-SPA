@@ -3,30 +3,33 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of, empty, EMPTY } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
-import { JWTokenHandler } from '../../jwt/jwtokenhandler'
+import { JWTokenHandler } from '../../handlers/jwtokenhandler'
 import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
 import { EndPointsConfigurations } from 'src/app/configs/endpointsconfiguration';
 import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
 import { BasicResponse } from '@app/shared/models/responses/basicresponse';
+import { UserHandler } from '@app/core/handlers/userhandler';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  loggedIn : boolean = false;
+  /**
+   * The user handling class that contains our user
+   */
+  public userHandler: UserHandler = new UserHandler();
 
-  public user: User = null;
-
+  /**
+   * The jwtoken handling class that contains our tokens
+   */
   public jwTokens : JWTokenHandler = new JWTokenHandler();
 
   constructor(private http: HttpClient, private router: Router, private notification: AlertService) {
-    if (localStorage.getItem('currentUser') && !this.loggedIn) {
-      this.user = JSON.parse(localStorage.getItem('currentUser'));
-      this.jwTokens = this.jwTokens.retrieveTokenInternal();
-      this.loggedIn = true;
+    if (this.userHandler.findUserFromLocal()) {
+      this.jwTokens = this.jwTokens.retrieveTokensInternal();
     }
   }
 
@@ -35,7 +38,7 @@ export class AuthService {
    * @param route By default it's the root route /, specify route to redirect user
   */
   public redirectOnLogin(route: string = '/') : void {
-    if (this.loggedIn) {
+    if (this.userHandler.isUserExisting()) {
       this.router.navigateByUrl(route);
     }
   }
@@ -51,13 +54,11 @@ export class AuthService {
     return this.http.post<LoginResponse>(
       EndPointsConfigurations.LOGINURL,
       {email, password, rememberMe}
-    ).pipe(tap(data => {
-      // var user: User = data as User;
-      // this.user = user;
-      // this.jwTokens = new JWTokens(data['refreshToken'], data['token']);
-      // this.jwTokens.storeTokensInternal();
-      // localStorage.setItem('currentUser', JSON.stringify(this.user));
-      // this.loggedIn = true;
+    ).pipe(tap((response: LoginResponse) => {
+      if (response.success) {
+        this.userHandler.addUser(new User(response.email, response.username));
+        this.jwTokens.setTokens(response.token, response.refreshToken);
+      }
     }));
   }
 
@@ -114,11 +115,8 @@ export class AuthService {
    * Removes the current user from the localstorage, and sets the user to null
    */
   public logout() : void {
-    localStorage.removeItem('currentUser');
+    this.userHandler.removeUser();
     this.jwTokens.clearTokens();
-    this.jwTokens = null;
-    this.user = null;
-    this.loggedIn = false;
   }
 
 }

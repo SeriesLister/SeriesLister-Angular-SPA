@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
-import { AuthService } from 'src/app/core/services/online/auth-service.service';
+import { AuthService } from '@app/core/services/online/authentication.service';
 import { Validation } from '../validation';
 import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
 import { Observable, of, timer } from 'rxjs';

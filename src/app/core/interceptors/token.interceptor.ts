@@ -4,8 +4,8 @@ import { Injectable } from '@angular/core';
 import { catchError, switchMap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from '../services/offfline/alert.service';
-import { JWTokenHandler } from '../jwt/jwtokenhandler';
-import { AuthService } from '../services/online/auth-service.service';
+import { JWTokenHandler } from '../handlers/jwtokenhandler';
+import { AuthService } from '../services/online/authentication.service';
 
 @Injectable({
     providedIn: 'root'
@@ -36,12 +36,11 @@ export class TokenInterceptor implements HttpInterceptor {
                             return EMPTY;
                         }
                         console.log("attempting to refresh");
-                        return this.authService.refreshTokens(this.authService.user.email, 
+                        return this.authService.refreshTokens(this.authService.userHandler.getUser().email, 
                             this.authService.jwTokens.getRefreshToken()).pipe(
                                 switchMap((data) => {
                                     if (data['token'] && data['refreshToken']) {
-                                        this.authService.jwTokens = new JWTokenHandler(data['refreshToken'], data['token']);
-                                        this.authService.jwTokens.storeTokensInternal();
+                                        this.authService.jwTokens.setTokens(data['refreshToken'], data['token']);
                                         let newHeaders1 = req.headers;
                                         newHeaders1 = newHeaders1.append('Authorization', `Bearer ${this.authService.jwTokens.getToken()}`);
                                         const authReq1 = req.clone({headers: newHeaders1});

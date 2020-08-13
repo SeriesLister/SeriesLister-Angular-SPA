@@ -8,9 +8,9 @@
           </button>
           <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                 <ul class="navbar-nav">
-                <ng-template [ngIf]="auth.loggedIn" [ngIfElse]="showLogin">
+                <ng-template [ngIf]="auth.userHandler.isUserExisting()" [ngIfElse]="showLogin">
                     <li class="nav-item">
-                        <a id="manage" class="nav-link text-dark" title="Manage">Hello {{auth.user.email}}!</a>
+                        <a id="manage" class="nav-link text-dark" title="Manage">Hello {{auth.userHandler.getUser().email}}!</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link btn btn-link text-dark" (click)="auth.logout()">Logout</a>
