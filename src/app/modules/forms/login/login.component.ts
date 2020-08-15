@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/services/online/authentication.service';
-import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
+import { LoginResponse } from 'src/app/shared/models/responses/impl/login-response';
 import { AlertService, Alert, Status } from '@app/core/services/offfline/alert.service';
 
 @Component({

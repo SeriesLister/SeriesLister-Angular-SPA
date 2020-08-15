@@ -10,7 +10,7 @@ import { AnimeSeries } from 'src/app/shared/models/AnimeSeries';
 })
 export class AnimeService {
 
-  baseURL: string = 'https://localhost:44314/Admin/animeseries';
+  baseURL: string = 'https://localhost:5001/Admin/animeseries';
 
   httpOptions = {
     headers: new HttpHeaders({ 'Content-Type': 'application/json'})

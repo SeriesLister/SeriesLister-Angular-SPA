@@ -1,4 +1,4 @@
-import { BasicResponse } from "../basicresponse";
+import { BasicResponse } from "../basic-response";
 
 export interface RegistrationResponse extends BasicResponse {
 

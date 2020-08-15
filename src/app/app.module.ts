@@ -27,9 +27,10 @@ import { RegisterComponent } from './modules/forms/register/register.component';
 import { DashboardComponent } from './modules/dashboard/dashboard.component';
 import { AddComponent } from './modules/dashboard/add/add.component';
 import { EditDashbaordComponent } from './modules/dashboard/edit/edit.component'
-import { TokenInterceptor } from './core/interceptors/token.interceptor';
+import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ApiInterceptor} from '@app/core/interceptors/api.interceptor';
+import { ApiInterceptor } from '@app/core/interceptors/api-interceptor';
+import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import { ApiInterceptor} from '@app/core/interceptors/api.interceptor';
   ],
   providers: [DatePipe, 
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
-    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: CatchInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })

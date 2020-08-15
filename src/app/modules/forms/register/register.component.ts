@@ -2,12 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormControl, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AlertService, Alert, Status } from 'src/app/core/services/offfline/alert.service';
-import { AuthService } from '@app/core/services/online/authentication.service';
 import { Validation } from '../validation';
-import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
+import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registration-response';
 import { Observable, of, timer } from 'rxjs';
-import { tap, map, debounceTime, take, switchMap, distinctUntilChanged, mergeMap } from 'rxjs/operators';
-import { BasicResponse } from '@app/shared/models/responses/basicresponse';
+import { map, switchMap, distinctUntilChanged } from 'rxjs/operators';
+import { AuthService } from 'src/app/core/services/online/authentication.service';
+import { BasicResponse } from 'src/app/shared/models/responses/basic-response';
 
 @Component({
   selector: 'app-register',

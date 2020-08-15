@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, empty, EMPTY } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { Observable, EMPTY } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JWTokenHandler } from '../../handlers/jwtokenhandler'
 import { User } from 'src/app/shared/models/User';
 import { AlertService } from '../offfline/alert.service';
-import { LoginResponse } from 'src/app/shared/models/responses/impl/loginresponse';
+import { LoginResponse } from 'src/app/shared/models/responses/impl/login-response';
 import { EndPointsConfigurations } from 'src/app/configs/endpointsconfiguration';
-import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registrationresponse';
-import { BasicResponse } from '@app/shared/models/responses/basicresponse';
-import { UserHandler } from '@app/core/handlers/userhandler';
+import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registration-response';
+import { UserHandler } from '../../handlers/userhandler';
+import { BasicResponse } from 'src/app/shared/models/responses/basic-response';
+import { TokensResponse } from 'src/app/shared/models/responses/impl/tokens-response';
 
 @Injectable({
   providedIn: 'root'
@@ -103,12 +104,19 @@ export class AuthService {
   }
 
   /**
-   * Sends a post request to the server, and return new tokens
+   * Sends a post request to the server, and return new TokensResponse
    * @param email The email of the user
    * @param refreshToken The refresh token
    */
-  public refreshTokens(email : string, refreshToken : string) : Observable<any> {
-    return this.http.post<any>(EndPointsConfigurations.REFRESHTOKENURL, {email, refreshToken});
+  public refreshTokens(email : string, refreshToken : string) : Observable<TokensResponse> {
+    return this.http.post<TokensResponse>(
+        EndPointsConfigurations.REFRESHTOKENURL, 
+        {email, refreshToken}
+      ).pipe(tap((response: TokensResponse) => {
+        if (response.success) {
+          this.jwTokens.setTokens(response.token, response.refreshToken);
+        }
+      }));
   }
 
   /**
