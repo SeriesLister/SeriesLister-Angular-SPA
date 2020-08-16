@@ -25,10 +25,7 @@ export class CatchInterceptor implements HttpInterceptor {
         ).pipe(catchError((error: HttpErrorResponse) => {
             if (error.status === 401) {
                 if (!this.authService.jwTokens.hasToken()) {
-                    this.notification.add(new Alert("Invalid login", Status.DANGER));
-                    this.authService.logout();
-                    this.route.navigateByUrl("/login");
-                    return EMPTY;
+                    return this.redirect("Invalid login", '/login', true);
                 }
 
                 return this.authService.refreshTokens(
@@ -39,22 +36,28 @@ export class CatchInterceptor implements HttpInterceptor {
                             let newHeaders = req.headers.set('Authorization', `Bearer ${response.token}`);
                             return next.handle(req.clone({headers: newHeaders}));
                         } else {
-                            this.notification.add(new Alert("Invalid login", Status.DANGER));
-                            this.authService.logout();
-                            this.route.navigateByUrl("/login");
-                            return EMPTY;
+                            return this.redirect("Invalid login", '/login', true);
                         }
                     })
                 );
 
             } else if (error.status === 403) {
-                this.notification.add(new Alert("You shouldn't be accessing this", Status.DANGER));
-                this.route.navigateByUrl('/dashbaord');
-                return EMPTY;
+                return this.redirect("You shouldn't be accessing this", '/dashbaord');
             }
-
-            return EMPTY;
         }));
+    }
+
+    /**
+     * Send a danger alert and redirects the user, returns EMPTY
+     * @param message The danger alert to notify the user
+     * @param route The route to navigate to
+     * @param isLogout Default false, do we want to logout the user
+     */
+    private redirect(message: string, route: string, isLogout = false): Observable<never> {
+        this.notification.add(new Alert(message, Status.DANGER));
+        this.route.navigateByUrl(route);
+        if (isLogout) this.authService.logout();
+        return EMPTY;
     }
 
 }
