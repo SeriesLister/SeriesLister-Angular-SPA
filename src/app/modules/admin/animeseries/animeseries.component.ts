@@ -1,47 +1,49 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeSeries } from '../../../shared/models/AnimeSeries';
 import { EditComponent } from './edit/edit.component';
 import { DetailsComponent } from './details/details.component';
 import { DeleteComponent } from './delete/delete.component';
 import { CreateComponent } from './create/create.component';
 import { Routes } from '@angular/router';
-import { error } from 'protractor';
-import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { CrudTypes } from '@app/shared/models/crud-types';
+import { AdminService } from '@app/core/services/online/admin.service';
 
 @Component({
-  selector: 'app-animeseries',
+  selector: 'app-admin-animeseries',
   templateUrl: './animeseries.component.html',
   styleUrls: ['./animeseries.component.css']
 })
 export class AnimeseriesComponent implements OnInit {
 
-  series: AnimeSeries[] = [];
-  lastPage: number;
-  currentPage: number = 1;
+  public state: CrudTypes;
+  public CrudTypes = CrudTypes;
 
-  constructor(private animeService: AnimeService) {
+  public id: number;
+
+  constructor(private adminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.getSeries();
-  }
-
-  public getPage(page: number = 1) {
-    this.getSeries(page);
-  }
-
-  public getSeries(page: number = 1) {
-    if (page > this.lastPage || page < 1) {
-      return;
-    }
-
-    this.currentPage = page;
-    this.animeService.getAnimeSeries(page).subscribe(data => {
-      this.lastPage = data['lastPage'];
-      this.series = this.animeService.scrubSeriesA(data['animeSeries']);
-    }, err => {
-      console.log('got an error on the index');
+    this.adminService.stateManager.subscribe((state: CrudTypes) => {
+      this.state = state;
     });
+    this.adminService.stateManager.next(CrudTypes.LIST);
+  }
+
+  ngOnDestroy(): void {
+    this.adminService.stateManager.unsubscribe();
+  }
+
+  public isStateList(): boolean {
+    return this.state === CrudTypes.LIST;
+  }
+
+  public isStateCreate(): boolean {
+    return this.state === CrudTypes.CREATE;
+  }
+
+  public changeId(id: number): void {
+    this.id = id;
+    console.log('id change: ', id);
   }
 
 }

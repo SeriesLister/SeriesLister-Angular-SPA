@@ -1,0 +1,75 @@
+<h1>Index</h1>
+
+<p>
+    <a href="Javascript:void(0);" (click)="adminService.changeState(CrudTypes.CREATE)">Create New</a>
+</p>
+<div class="row">
+    <div class="col-md-4 align-self-center">
+        <!-- <form class="form-inline" style="float: left;" method="get">
+            <input class="form-control mb-3" type="text" name="search" placeholder="Search Anime" />
+            <input class="btn btn-primary mb-3" style="margin-left: 4px;" type="submit" value="Search" />
+        </form>
+        <form style="float: left; padding-left: 4px;" method="get">
+            <input class="btn btn-danger" type="submit" value="Clear" />
+        </form> -->
+    </div>
+
+    
+    <div class="col-md-5 offset-md-3 col-sm-12">
+        <app-pagebuttons 
+        class="float-md-right"
+        [maxPage]="lastPage"
+        [currentPage]="currentPage"
+        (changePage)="getPage($event)">
+    </app-pagebuttons>
+    </div>
+</div>
+
+<br />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                English Title
+            </th>
+            <th>
+                Type
+            </th>
+            <th>
+                Episodes
+            </th>
+            <th>
+                Air Date
+            </th>
+            <th>
+                Finish Date
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+            <tr *ngFor="let anime of series">
+                <td>
+                    {{anime.englishTitle}}               
+                </td>
+                <td>
+                    {{anime.type}}
+                </td>
+                <td>
+                    {{anime.episodes}}
+                </td>
+                <td>
+                    {{anime.releaseDate}}
+                </td>
+                <td>
+                    {{anime.finishDate}}
+                </td>
+                <td>
+                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.EDIT); id.emit(anime.id)">Edit</a> |
+                    <!-- <a routerLink="edit/{{anime.id}}">Edit</a> | -->
+                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.DETAILS); id.emit(anime.id)">Details</a> |
+                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.DELETE); id.emit(anime.id)">Delete</a>
+                </td>
+            </tr>
+    </tbody>
+</table>

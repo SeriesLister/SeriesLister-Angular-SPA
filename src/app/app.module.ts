@@ -31,6 +31,7 @@ import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiInterceptor } from '@app/core/interceptors/api-interceptor';
 import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
+import { ListComponent } from './modules/admin/animeseries/list/list.component';
 
 @NgModule({
   declarations: [
@@ -55,7 +56,8 @@ import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
     RegisterComponent,
     DashboardComponent,
     AddComponent,
-    EditDashbaordComponent
+    EditDashbaordComponent,
+    ListComponent
   ],
   imports: [
     BrowserModule,

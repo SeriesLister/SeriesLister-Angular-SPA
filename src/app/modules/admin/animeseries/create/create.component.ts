@@ -4,9 +4,11 @@ import { AnimeService } from 'src/app/core/services/online/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { Router } from '@angular/router';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
+import { CrudTypes } from '@app/shared/models/crud-types';
+import { AdminService } from '@app/core/services/online/admin.service';
 
 @Component({
-  selector: 'app-create',
+  selector: 'app-animeseries-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
@@ -15,11 +17,14 @@ export class CreateComponent implements OnInit {
   public form: FormGroup;
   public submitted: boolean;
 
+  public CrudTypes = CrudTypes;
+
   constructor(
     private animeService: AnimeService,
     fb: FormBuilder,
     private router: Router,
-    private notification: AlertService) {
+    private notification: AlertService,
+    public adminService: AdminService) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],

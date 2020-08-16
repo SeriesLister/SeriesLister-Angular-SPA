@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 import { AnimeService } from 'src/app/core/services/online/anime.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-details',
+  selector: 'app-admin-animeseries-details',
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
@@ -12,12 +12,15 @@ export class DetailsComponent implements OnInit {
 
   public series: AnimeSeries;
 
+  @Input()
+  private id: number;
+
   constructor(private animeService: AnimeService,
     private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getSeries(id);
+    //var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    this.getSeries(this.id);
   }
 
   public getSeries(id: number = 0) {

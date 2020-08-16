@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AnimeService } from 'src/app/core/services/online/anime.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { DatePipe } from '@angular/common';
-import { stringify } from 'querystring';
 import { Util } from 'src/app/core/Util';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
+import { AdminService } from '@app/core/services/online/admin.service';
 
 @Component({
-  selector: 'app-edit',
+  selector: 'app-admin-animeseries-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.css']
 })
@@ -25,11 +25,15 @@ export class EditComponent implements OnInit {
 
   private imageSubmitted: boolean;
 
+  @Input()
+  private id: number;
+
   constructor(private animeService: AnimeService, 
     private route: ActivatedRoute,
     fb: FormBuilder,
     private notification: AlertService,
-    private datePipe: DatePipe) {
+    private datePipe: DatePipe,
+    private adminService: AdminService) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],
@@ -41,8 +45,9 @@ export class EditComponent implements OnInit {
     }
 
   ngOnInit(): void {
-    var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getSeries(id);
+    //var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
+    console.log('edit id: ', this.id);
+    this.getSeries(this.id);
   }
 
   public onSubmit() {
