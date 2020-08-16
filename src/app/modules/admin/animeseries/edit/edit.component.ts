@@ -1,12 +1,12 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { DatePipe } from '@angular/common';
 import { Util } from 'src/app/core/Util';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
-import { AdminService } from '@app/core/services/online/admin.service';
+import { AdminService } from '@app/core/services/online/admin/admin.service';
 
 @Component({
   selector: 'app-admin-animeseries-edit',

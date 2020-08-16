@@ -1,15 +1,12 @@
 <app-animeseries-list 
-    *ngIf="state === CrudTypes.LIST"
-    (id)="changeId($event)"
+    *ngIf="checkState(CrudTypes.LIST)"
 ></app-animeseries-list>
 <app-animeseries-create 
-    *ngIf="state === CrudTypes.CREATE"
+    *ngIf="checkState(CrudTypes.CREATE)"
 ></app-animeseries-create>
 <app-admin-animeseries-edit 
-    *ngIf="state === CrudTypes.EDIT"
-    [id]="id"
+    *ngIf="checkState(CrudTypes.EDIT)"
 ></app-admin-animeseries-edit>
 <app-admin-animeseries-details
-    *ngIf="state === CrudTypes.DETAILS"
-    [id]="id"
+    *ngIf="checkState(CrudTypes.DETAILS)"
 ></app-admin-animeseries-details>

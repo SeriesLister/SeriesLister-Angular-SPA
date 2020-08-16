@@ -1,8 +1,8 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '@app/shared/models/AnimeSeries';
-import { AnimeService } from '@app/core/services/online/anime.service';
-import { AdminService } from '@app/core/services/online/admin.service';
+import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { CrudTypes } from '@app/shared/models/crud-types';
+import { AnimeListedResponse } from '@app/shared/models/responses/impl/anime/anime-listed-response';
 
 @Component({
   selector: 'app-animeseries-list',
@@ -17,10 +17,7 @@ export class ListComponent implements OnInit {
 
   public CrudTypes = CrudTypes;
 
-  @Output()
-  public id = new EventEmitter<number>();
-
-  constructor(private animeService: AnimeService, public adminService: AdminService) { }
+  constructor(public animeService: AnimeService) { }
 
   ngOnInit(): void {
     this.getSeries();
@@ -36,16 +33,20 @@ export class ListComponent implements OnInit {
     }
 
     this.currentPage = page;
-    this.animeService.getAnimeSeries(page).subscribe(data => {
-      this.lastPage = data['lastPage'];
-      this.series = this.animeService.scrubSeriesA(data['animeSeries']);
-    }, err => {
-      console.log('got an error on the index');
+    this.animeService.requestListedAnime(page).subscribe((response: AnimeListedResponse) => {
+      if (response.success) {
+        this.lastPage = response.lastPage;
+        console.log('series', response.animeSeries[0].seasonEpisodes);
+        this.series = response.animeSeries;
+        console.log(this.series[0].seasonEpisodes[0]);
+      }
     });
-  }
-
-  public changeCrudType(state: CrudTypes) {
-    this.adminService.changeState(state);
+    // this.animeService.getAnimeSeries(page).subscribe(data => {
+    //   this.lastPage = data['lastPage'];
+    //   this.series = this.animeService.scrubSeriesA(data['animeSeries']);
+    // }, err => {
+    //   console.log('got an error on the index');
+    // });
   }
 
 }

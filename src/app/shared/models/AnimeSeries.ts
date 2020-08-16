@@ -1,23 +1,27 @@
+import { AnimeSeriesSE } from './anime-series-se';
+import { Picture } from './picture';
+
 export class AnimeSeries {
     id: number;
     englishTitle: string;
+    japaneseName: string;
     type: string;
-    episodes: number;
-    seasons: number;
     releaseDate: string;
     finishDate: string;
-    imageData: string;
     synopsis: string;
+    imageData: string;
+    seasonEpisodes: [AnimeSeriesSE];
+    picture: Picture;
 
-    public constructor(id: number, title: string, type: string, episodes: number, seasons: number = 0, releaseDate: string, finishDate: string, imageData: string, synopsis : string = "") {
+    public constructor(id: number, englishTitle: string, japaneseName: string, type: string, releaseDate: string, finishDate: string, synopsis : string, picture: Picture, animeSeriesSEs: [AnimeSeriesSE]) {
         this.id = id;
-        this.englishTitle = title;
+        this.englishTitle = englishTitle;
         this.type = type;
-        this.episodes = episodes;
-        this.seasons = seasons;
+        this.japaneseName = japaneseName;
         this.releaseDate = releaseDate;
         this.finishDate = finishDate;
-        this.imageData = imageData;
         this.synopsis = synopsis;
+        this.seasonEpisodes = animeSeriesSEs;
+        this.picture = picture;
     }
 }

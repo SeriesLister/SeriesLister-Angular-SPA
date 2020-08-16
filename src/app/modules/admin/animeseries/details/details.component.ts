@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
-import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({

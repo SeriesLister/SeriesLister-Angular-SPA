@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
-import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 

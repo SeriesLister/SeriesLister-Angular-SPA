@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AnimeService } from 'src/app/core/services/online/anime.service';
+import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { Router } from '@angular/router';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 import { CrudTypes } from '@app/shared/models/crud-types';
-import { AdminService } from '@app/core/services/online/admin.service';
+import { AdminService } from '@app/core/services/online/admin/admin.service';
 
 @Component({
   selector: 'app-animeseries-create',

@@ -1,7 +1,7 @@
 <h1>Index</h1>
 
 <p>
-    <a href="Javascript:void(0);" (click)="adminService.changeState(CrudTypes.CREATE)">Create New</a>
+    <a href="Javascript:void(0);" (click)="animeService.changeState(CrudTypes.CREATE)">Create New</a>
 </p>
 <div class="row">
     <div class="col-md-4 align-self-center">
@@ -56,19 +56,18 @@
                     {{anime.type}}
                 </td>
                 <td>
-                    {{anime.episodes}}
+                    {{anime.seasonEpisodes.episodes}}
                 </td>
                 <td>
-                    {{anime.releaseDate}}
+                    {{animeService.ParseDate(anime.releaseDate)}}
                 </td>
                 <td>
-                    {{anime.finishDate}}
+                    {{animeService.ParseDate(anime.finishDate)}}
                 </td>
                 <td>
-                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.EDIT); id.emit(anime.id)">Edit</a> |
-                    <!-- <a routerLink="edit/{{anime.id}}">Edit</a> | -->
-                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.DETAILS); id.emit(anime.id)">Details</a> |
-                    <a href="Javascript:void(0);" (click)="changeCrudType(CrudTypes.DELETE); id.emit(anime.id)">Delete</a>
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.EDIT, anime.id);">Edit</a> |
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.DETAILS, anime.id)">Details</a> |
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.DELETE, anime.id);">Delete</a>
                 </td>
             </tr>
     </tbody>

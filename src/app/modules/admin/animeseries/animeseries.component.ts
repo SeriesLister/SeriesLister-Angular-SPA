@@ -5,7 +5,7 @@ import { DeleteComponent } from './delete/delete.component';
 import { CreateComponent } from './create/create.component';
 import { Routes } from '@angular/router';
 import { CrudTypes } from '@app/shared/models/crud-types';
-import { AdminService } from '@app/core/services/online/admin.service';
+import { AdminService } from '@app/core/services/online/admin/admin.service';
 
 @Component({
   selector: 'app-admin-animeseries',
@@ -17,33 +17,22 @@ export class AnimeseriesComponent implements OnInit {
   public state: CrudTypes;
   public CrudTypes = CrudTypes;
 
-  public id: number;
-
   constructor(private adminService: AdminService) {
   }
 
   ngOnInit(): void {
-    this.adminService.stateManager.subscribe((state: CrudTypes) => {
+    this.adminService.stateEmitter.subscribe((state: CrudTypes) => {
       this.state = state;
     });
-    this.adminService.stateManager.next(CrudTypes.LIST);
+    this.adminService.stateEmitter.next(CrudTypes.LIST);
   }
 
   ngOnDestroy(): void {
-    this.adminService.stateManager.unsubscribe();
+    this.adminService.stateEmitter.unsubscribe();
   }
 
-  public isStateList(): boolean {
-    return this.state === CrudTypes.LIST;
-  }
-
-  public isStateCreate(): boolean {
-    return this.state === CrudTypes.CREATE;
-  }
-
-  public changeId(id: number): void {
-    this.id = id;
-    console.log('id change: ', id);
+  public checkState(state: CrudTypes): boolean {
+    return this.state === state;
   }
 
 }
