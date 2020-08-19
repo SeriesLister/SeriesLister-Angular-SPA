@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
+import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
+import { BasicResponse } from '@app/shared/models/responses/basic-response';
 
 @Component({
-  selector: 'app-delete',
+  selector: 'app-admin-anime-series-delete',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.css']
 })
@@ -15,34 +16,36 @@ export class DeleteComponent implements OnInit {
 
   public submitted: boolean = false;
 
-  constructor(private animeService: AnimeService,
-    private route: ActivatedRoute,
-    private redirect: Router,
-    private notification: AlertService) { }
+  constructor(
+    public animeService: AnimeService,
+    private notification: AlertService
+  ) { }
 
   ngOnInit(): void {
-    var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    this.getSeries(id);
+    this.getSeries(this.animeService.getObjectId());
   }
 
-  public getSeries(id: number = 0) {
+  private getSeries(id: number = 0) {
     if (id < 1) {
       return;
     }
 
-    this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = this.animeService.scrubSeries(data);
+    this.animeService.requestAnimeDetails(id).subscribe((response: AnimeResponse) => {
+      if (response.success) {
+        this.series = response.animeSeries;
+      }
     });
   }
 
   public delete() {
     this.submitted = true;
-    this.animeService.deleteSeries(this.series.id).subscribe(data => {
-      if (data['result'] === true) {
+    this.animeService.requestAnimeDeletion(this.animeService.getObjectId()).subscribe((response: BasicResponse) => {
+      if (response.success === true) {
         this.notification.add(new Alert("Series: " + this.series.englishTitle + " has been deleted.", Status.SUCCESS));
-        this.redirect.navigateByUrl('/admin/animeseries');
+        this.animeService.changeState(this.animeService.getCrudTypes().LIST);
       } else {
         this.notification.add(new Alert("Couldn't delete the series", Status.DANGER));
+        this.notification.add(new Alert(response.error, Status.DANGER));
         this.submitted = false;
       }
     });

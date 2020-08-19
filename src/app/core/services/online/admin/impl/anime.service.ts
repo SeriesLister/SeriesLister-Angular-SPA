@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { DatePipe } from '@angular/common';
+import { Observable, EMPTY } from 'rxjs';
 import { AuthService } from '../../authentication.service';
 import { AnimeSeries } from 'src/app/shared/models/AnimeSeries';
 import { AdminService } from '../admin.service';
 import { AnimeListedResponse } from '@app/shared/models/responses/impl/anime/anime-listed-response';
 import { EndPointsConfigurations } from '@app/configs/endpointsconfiguration';
+import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
+import { BasicResponse } from '@app/shared/models/responses/basic-response';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AnimeService extends AdminService {
 
@@ -20,20 +21,42 @@ export class AnimeService extends AdminService {
   };
   //, "Authorization" :  'Bearer ' + this.authService.user.token }
 
-  constructor(private http: HttpClient, 
-    private date: DatePipe, 
+  constructor(private http: HttpClient,
     private authService: AuthService) {
       super();
   }
 
+  /**
+   * Gets the requested anime page list with the page number
+   * @param page the page number to get
+   */
   public requestListedAnime(page: number = 1): Observable<AnimeListedResponse> {
     return this.http.get<AnimeListedResponse>(
-      EndPointsConfigurations.ADMINANIMEURL + '?page=' + page,
+      EndPointsConfigurations.ANIMELISTEDURL + '?page=' + page
     )
   }
 
-  getAnimeSeries(page: number = 1): Observable<AnimeSeries[]> {
-    return this.http.get<AnimeSeries[]>(this.baseURL + '?page=' + page, this.httpOptions);
+  /**
+   * Requests the anime details from the server
+   * @param id the id to get the anime
+   */
+  public requestAnimeDetails(id: number = 0): Observable<AnimeResponse> {
+    if (id == 0) {
+      return EMPTY;
+    }
+    return this.http.get<AnimeResponse>(
+      EndPointsConfigurations.ANIMEDETAILSURL + '?id=' + id
+    )
+  }
+
+  /**
+   * Requests the server to delete the anime
+   * @param id The id of the anime
+   */
+  public requestAnimeDeletion(id: number = 0): Observable<BasicResponse> {
+    return this.http.delete<BasicResponse>(
+      EndPointsConfigurations.ANIMEDELETEURL + '?id=' + id
+    )
   }
 
   getAnimeDetails(id: number = 1): Observable<AnimeSeries> {
@@ -48,37 +71,12 @@ export class AnimeService extends AdminService {
     return this.http.put(this.baseURL + "/edit/" + series.id, series, this.httpOptions);
   }
 
-  deleteSeries(id: number = 0) : Observable<any> {
-    if (id < 1) {
-      return;
-    }
-    return this.http.delete(this.baseURL + "/delete/" + id, this.httpOptions);
-  }
-
   /**
    * Parses the date string to localetime without time
    * @param date The date to parse
    */
   public ParseDate(date: string): string {
     return new Date(date).toLocaleDateString();
-  }
-
-  public scrubSeriesA(series: AnimeSeries[], EUFormat: boolean = false) : AnimeSeries[] {
-    var dateFormat : string = EUFormat ? 'yyyy-MM-dd' : 'MM-dd-yyyy';
-    var temp : AnimeSeries[] = [];
-    series.forEach(element => {
-      element.finishDate = this.date.transform(element.finishDate, dateFormat);
-      element.releaseDate = this.date.transform(element.releaseDate, dateFormat);
-      temp.push(element);
-    });
-    return temp;
-  }
-
-  public scrubSeries(series: AnimeSeries, EUFormat: boolean = false) : AnimeSeries {
-    var dateFormat : string = EUFormat ? 'yyyy-MM-dd' : 'MM-dd-yyyy';
-    series.finishDate = this.date.transform(series.finishDate, dateFormat);
-    series.releaseDate = this.date.transform(series.releaseDate, dateFormat);
-    return series;
   }
 
 }

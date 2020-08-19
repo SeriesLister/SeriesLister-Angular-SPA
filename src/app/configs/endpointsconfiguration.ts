@@ -4,7 +4,7 @@ export class EndPointsConfigurations {
 
     //Controller prefixes
     private static readonly AUTHURL: string = ServerConfigurations.PUBLICLINK + 'auth';
-    public static readonly ADMINANIMEURL: string = ServerConfigurations.PUBLICLINK + 'adminanime';
+    private static readonly ADMINANIMEURL: string = ServerConfigurations.PUBLICLINK + 'adminanime';
 
     //Auth Endpoints
     public static readonly REGISTERURL: string = EndPointsConfigurations.AUTHURL + '/Register';
@@ -14,5 +14,7 @@ export class EndPointsConfigurations {
     public static readonly REFRESHTOKENURL: string = EndPointsConfigurations.AUTHURL + '/Refresh';
 
     //ADMIN ENDPOINTS
-    //public static readonly LISTEDANIMEURL: string = EndPointsConfigurations.ADMINURL + '/';
+    public static readonly ANIMELISTEDURL: string = EndPointsConfigurations.ADMINANIMEURL + '/';
+    public static readonly ANIMEDETAILSURL: string = EndPointsConfigurations.ADMINANIMEURL + '/details';
+    public static readonly ANIMEDELETEURL: string = EndPointsConfigurations.ADMINANIMEURL + '/delete';
 }

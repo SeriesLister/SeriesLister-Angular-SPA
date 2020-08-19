@@ -1,0 +1,15 @@
+<app-admin-anime-series-list 
+    *ngIf="currentState === animeService.getCrudTypes().LIST"
+></app-admin-anime-series-list>
+<app-animeseries-create 
+    *ngIf="currentState === animeService.getCrudTypes().CREATE"
+></app-animeseries-create>
+<app-admin-animeseries-edit 
+    *ngIf="currentState === animeService.getCrudTypes().EDIT"
+></app-admin-animeseries-edit>
+<app-admin-anime-series-details
+    *ngIf="currentState === animeService.getCrudTypes().DETAILS"
+></app-admin-anime-series-details>
+<app-admin-anime-series-delete
+    *ngIf="currentState === animeService.getCrudTypes().DELETE"
+></app-admin-anime-series-delete>

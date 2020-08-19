@@ -3,10 +3,12 @@ import { AnimeService } from '@app/core/services/online/admin/impl/anime.service
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
-import { DatePipe } from '@angular/common';
+import { DatePipe, getLocaleDateFormat } from '@angular/common';
 import { Util } from 'src/app/core/Util';
 import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 import { AdminService } from '@app/core/services/online/admin/admin.service';
+import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-admin-animeseries-edit',
@@ -25,15 +27,11 @@ export class EditComponent implements OnInit {
 
   private imageSubmitted: boolean;
 
-  @Input()
-  private id: number;
-
-  constructor(private animeService: AnimeService, 
+  constructor(public animeService: AnimeService, 
     private route: ActivatedRoute,
     fb: FormBuilder,
     private notification: AlertService,
-    private datePipe: DatePipe,
-    private adminService: AdminService) {
+    private datePipe: DatePipe) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],
@@ -41,13 +39,14 @@ export class EditComponent implements OnInit {
         "episodes": [''],
         "releaseDate": [''],
         "finishDate": [''],
+        "synopsis": ['']
       });
     }
 
   ngOnInit(): void {
     //var id = Number.parseInt(this.route.snapshot.paramMap.get('id'));
-    console.log('edit id: ', this.id);
-    this.getSeries(this.id);
+    console.log('edit id: ', this.animeService.getObjectId());
+    this.getSeries(this.animeService.getObjectId());
   }
 
   public onSubmit() {
@@ -64,26 +63,26 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, this.newImage == null ? this.series.imageData : this.newImage, null, null);
+    //var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, this.newImage == null ? this.series.imageData : this.newImage, null, null);
     this.submitted = false;
 
     /**
      * check if series page is the same
      */
-    if (JSON.stringify(this.series) === JSON.stringify(newSeries)) {
-      this.submitted = false;
-      return;
-    }
+    // if (JSON.stringify(this.series) === JSON.stringify(newSeries)) {
+    //   this.submitted = false;
+    //   return;
+    // }
 
-    this.animeService.editAnimeDetails(newSeries).subscribe(data => {
-      if (data['result'] === true) {
-        this.getSeries(newSeries.id);
-        this.submitted = false;
-        this.notification.add(new Alert("Changes have been saved... Reloading", Status.SUCCESS));
-      } else {
-        this.notification.add(new Alert("Couldn't save changes", Status.DANGER));
-      }
-    });
+    // this.animeService.editAnimeDetails(newSeries).subscribe(data => {
+    //   if (data['result'] === true) {
+    //     this.getSeries(newSeries.id);
+    //     this.submitted = false;
+    //     this.notification.add(new Alert("Changes have been saved... Reloading", Status.SUCCESS));
+    //   } else {
+    //     this.notification.add(new Alert("Couldn't save changes", Status.DANGER));
+    //   }
+    // });
   }
 
   public onImageChanged(event) {
@@ -111,10 +110,13 @@ export class EditComponent implements OnInit {
       return;
     }
 
-    this.animeService.getAnimeDetails(id).subscribe(data => {
-      this.series = this.animeService.scrubSeries(data, true);
-      this.updateForm();
-      this.newImage = null;
+    this.animeService.requestAnimeDetails(this.animeService.getObjectId()).subscribe((response: AnimeResponse) => {
+      if (response.success) {
+        this.series = response.animeSeries;
+        this.updateForm();
+        this.newImage = null;
+        console.log(new Date(this.series.releaseDate).toDateString() );
+      }
     });
   }
 
@@ -122,10 +124,13 @@ export class EditComponent implements OnInit {
     this.form.patchValue({
       id: this.series.id,
       englishTitle: this.series.englishTitle,
+      japaneseTitle: this.series.japaneseName,
       type: this.series.type,
-      episodes: this.series.episodes,
+      episodes: this.series.seasonsEpisodes[0].episodes,
       releaseDate: this.datePipe.transform(this.series.releaseDate, 'yyyy-MM-dd'),
-      finishDate: this.datePipe.transform(this.series.finishDate, 'yyyy-MM-dd')
+      finishDate: this.datePipe.transform(this.series.finishDate, 'yyyy-MM-dd'),
+      synopsis: this.series.synopsis,
+      picture: this.series.picture
     });
   }
 

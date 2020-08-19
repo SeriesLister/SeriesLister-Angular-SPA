@@ -1,7 +1,7 @@
 <h1>Index</h1>
 
 <p>
-    <a href="Javascript:void(0);" (click)="animeService.changeState(CrudTypes.CREATE)">Create New</a>
+    <a href="Javascript:void(0);" (click)="animeService.changeState(animeService.getCrudTypes().CREATE)">Create New</a>
 </p>
 <div class="row">
     <div class="col-md-4 align-self-center">
@@ -16,12 +16,12 @@
 
     
     <div class="col-md-5 offset-md-3 col-sm-12">
-        <app-pagebuttons 
+        <app-pagination-buttons 
         class="float-md-right"
-        [maxPage]="lastPage"
+        [totalPages]="totalPages"
         [currentPage]="currentPage"
-        (changePage)="getPage($event)">
-    </app-pagebuttons>
+        (changePageEmitter)="changePage($event)">
+        </app-pagination-buttons>
     </div>
 </div>
 
@@ -56,7 +56,7 @@
                     {{anime.type}}
                 </td>
                 <td>
-                    {{anime.seasonEpisodes.episodes}}
+                    {{anime.seasonsEpisodes[0].episodes}}
                 </td>
                 <td>
                     {{animeService.ParseDate(anime.releaseDate)}}
@@ -65,9 +65,9 @@
                     {{animeService.ParseDate(anime.finishDate)}}
                 </td>
                 <td>
-                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.EDIT, anime.id);">Edit</a> |
-                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.DETAILS, anime.id)">Details</a> |
-                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(CrudTypes.DELETE, anime.id);">Delete</a>
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(animeService.getCrudTypes().EDIT, anime.id);">Edit</a> |
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(animeService.getCrudTypes().DETAILS, anime.id);">Details</a> |
+                    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(animeService.getCrudTypes().DELETE, anime.id);">Delete</a>
                 </td>
             </tr>
     </tbody>

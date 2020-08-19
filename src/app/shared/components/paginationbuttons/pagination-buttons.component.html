@@ -1,4 +1,4 @@
-<nav aria-label="Page navigation example" *ngIf="maxPage > 1">
+<nav aria-label="Page navigation example" *ngIf="totalPages > 1">
     <ul class="pagination">
         <li class="page-item" [ngClass]="{'disabled':currentPage === 1}">
             <a class="page-link" (click)="getPage(currentPage - 1)" href="Javascript:void(0)">Previous</a>
@@ -20,34 +20,34 @@
             <li class="page-item"><a class="page-link">...</a></li>
         </ng-container>
 
-        <ng-container *ngIf="currentPage > 2 && currentPage < (maxPage - 1)">
+        <ng-container *ngIf="currentPage > 2 && currentPage < (totalPages - 1)">
             <li class="page-item" [ngClass]="{'active':currentPage === page}"
                 *ngFor="let page of [currentPage - 1, currentPage, currentPage + 1]">
                 <a class="page-link" (click)="getPage(page)" href="Javascript:void(0)">{{page}}</a>
             </li>
         </ng-container>
         
-        <ng-container *ngIf="currentPage < (maxPage - 1)">
+        <ng-container *ngIf="currentPage < (totalPages - 1)">
             <li class="page-item"><a class="page-link">...</a></li>
         </ng-container>
 
-        <ng-container *ngIf="currentPage === maxPage || currentPage === (maxPage - 1)">
+        <ng-container *ngIf="currentPage === totalPages || currentPage === (totalPages - 1)">
             <li class="page-item">
-                <a class="page-link" (click)="getPage(maxPage - 2)" href="Javascript:void(0)">
-                    {{maxPage - 2}}
+                <a class="page-link" (click)="getPage(totalPages - 2)" href="Javascript:void(0)">
+                    {{totalPages - 2}}
                 </a>
             </li>
-            <li class="page-item active" [ngClass]="{'active':currentPage === (maxPage - 1)}">
-                <a class="page-link" (click)="getPage(maxPage - 1)" href="Javascript:void(0)">
-                    {{maxPage - 1}}
+            <li class="page-item active" [ngClass]="{'active':currentPage === (totalPages - 1)}">
+                <a class="page-link" (click)="getPage(totalPages - 1)" href="Javascript:void(0)">
+                    {{totalPages - 1}}
                 </a>
             </li>
         </ng-container>
 
-        <li class="page-item" [ngClass]="{'active':currentPage === maxPage}">
-            <a class="page-link" (click)="getPage(maxPage)" href="Javascript:void(0)">{{maxPage}}</a>
+        <li class="page-item" [ngClass]="{'active':currentPage === totalPages}">
+            <a class="page-link" (click)="getPage(totalPages)" href="Javascript:void(0)">{{totalPages}}</a>
         </li>
-        <li class="page-item" [ngClass]="{'disabled':currentPage === maxPage}">
+        <li class="page-item" [ngClass]="{'disabled':currentPage === totalPages}">
             <a class="page-link" (click)="getPage(currentPage +1)" href="Javascript:void(0)">Next</a>
         </li>
     </ul>   

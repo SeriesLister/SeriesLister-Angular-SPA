@@ -1,0 +1,50 @@
+<h1>Details</h1>
+
+<div>
+    <h4>AnimeSeries</h4>
+    <hr />
+    <ng-container *ngIf="isSeriesReady()">
+        <dl class="row">
+            <dt class = "col-sm-2">
+                English Name
+            </dt>
+            <dd class = "col-sm-10">
+                {{ getEnglishTitle()  }}
+            </dd>
+            <dt class = "col-sm-2">
+                Japanese Name
+            </dt>
+            <dd class = "col-sm-10">
+                {{ getJapaneseTitle() }}
+            </dd>
+            <dt class = "col-sm-2">
+                Type
+            </dt>
+            <dd class = "col-sm-10">
+                {{getType()!}}
+            </dd>
+            <dt class = "col-sm-2">
+                Episodes
+            </dt>
+            <dd class = "col-sm-10">
+                {{getEpisodes()}}
+            </dd>
+            <dt class = "col-sm-2">
+                Air Date
+            </dt>
+            <dd class = "col-sm-10">
+                {{ getReleaseDate() }}
+            </dd>
+            <dt class = "col-sm-2">
+                Finish Date
+            </dt>
+            <dd class = "col-sm-10">
+                {{ getFinishDate() }}
+            </dd>
+        </dl>
+    </ng-container>
+</div>
+<div>
+    <a href="Javascript:void(0);" (click)="animeService.setCrudTypeAndId(animeService.getCrudTypes().EDIT, getSeriesId())">Edit</a> |
+    <a href="Javascript:void(0);" (click)="animeService.changeState(animeService.getCrudTypes().LIST)">Back to List</a>
+</div>

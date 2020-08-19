@@ -4,6 +4,6 @@ import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 export interface AnimeListedResponse extends BasicResponse {
 
     animeSeries: [AnimeSeries];
-    lastPage: number;
+    totalPages: number;
 
 }
