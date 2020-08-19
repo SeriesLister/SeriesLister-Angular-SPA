@@ -12,11 +12,11 @@ import { AdminComponent } from './modules/admin/admin.component';
 import { AdminAnimeStateComponent } from './modules/admin/anime-series/animeseries.component';
 import { PrivacyComponent } from './modules/privacy/privacy.component';
 import { EditComponent } from './modules/admin/anime-series/edit/edit.component';
-import { DetailsComponent } from './modules/admin/anime-series/details/details.component';
+import { AdminAnimeDetailsComponent } from './modules/admin/anime-series/details/details.component';
 import { PaginationButtonsComponent } from './shared/components/paginationbuttons/pagination-buttons.component';
 import { NotificationComponent } from './shared/components/notification/notification.component';
 import { CreateComponent } from './modules/admin/anime-series/create/create.component';
-import { DeleteComponent } from './modules/admin/anime-series/delete/delete.component';
+import { AdminAnimeDeleteComponent } from './modules/admin/anime-series/delete/delete.component';
 import { DatePipe } from '@angular/common';
 import { UsermanagerComponent } from './modules/admin/usermanager/usermanager.component';
 import { UserManagerEditComponent } from './modules/admin/usermanager/edit/edit.component';
@@ -31,7 +31,7 @@ import { TokenInterceptor } from './core/interceptors/token-interceptor';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiInterceptor } from '@app/core/interceptors/api-interceptor';
 import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
-import { ListComponent } from './modules/admin/anime-series/list/list.component';
+import { AdminAnimeListComponent } from './modules/admin/anime-series/list/list.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +43,11 @@ import { ListComponent } from './modules/admin/anime-series/list/list.component'
     AdminAnimeStateComponent,
     PrivacyComponent,
     EditComponent,
-    DetailsComponent,
+    AdminAnimeDetailsComponent,
     PaginationButtonsComponent,
     NotificationComponent,
     CreateComponent,
-    DeleteComponent,
+    AdminAnimeDeleteComponent,
     UsermanagerComponent,
     UserManagerEditComponent,
     UserManagerDetailsComponent,
@@ -57,7 +57,7 @@ import { ListComponent } from './modules/admin/anime-series/list/list.component'
     DashboardComponent,
     AddComponent,
     EditDashbaordComponent,
-    ListComponent
+    AdminAnimeListComponent
   ],
   imports: [
     BrowserModule,

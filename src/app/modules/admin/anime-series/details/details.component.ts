@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
+import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
 
@@ -8,7 +8,7 @@ import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-res
   templateUrl: './details.component.html',
   styleUrls: ['./details.component.css']
 })
-export class DetailsComponent implements OnInit {
+export class AdminAnimeDetailsComponent implements OnInit {
 
   private series: AnimeSeries = null;
 

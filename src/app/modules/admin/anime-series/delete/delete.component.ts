@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
+import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
@@ -10,7 +10,7 @@ import { BasicResponse } from '@app/shared/models/responses/basic-response';
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.css']
 })
-export class DeleteComponent implements OnInit {
+export class AdminAnimeDeleteComponent implements OnInit {
 
   public series: AnimeSeries;
 
