@@ -1,11 +1,14 @@
 {
+  "references": [
+    "./tsconfig.base.json"
+  ],
   "extends": "./tsconfig.base.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
     "types": [
       "jasmine",
       "node"
-    ]
+    ],
   },
   "files": [
     "src/test.ts",
@@ -13,7 +16,6 @@
   ],
   "include": [
     "src/**/*.spec.ts",
-    "src/**/*.d.ts",
-    "src/**/*.ts"
+    "src/**/*.d.ts"
   ]
 }

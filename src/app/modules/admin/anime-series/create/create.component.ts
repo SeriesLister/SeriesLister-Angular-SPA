@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
-import { Router } from '@angular/router';
-import { AnimeSeries } from '../../../../shared/models/AnimeSeries';
 import { CrudTypes } from '@app/shared/models/crud-types';
-import { AdminService } from '@app/core/services/online/admin/admin.service';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-animeseries-create',
@@ -22,7 +20,8 @@ export class CreateComponent implements OnInit {
   constructor(
     public animeService: AnimeService,
     private fb: FormBuilder,
-    private notification: AlertService) {
+    private notification: AlertService,
+    public title: Title) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],
