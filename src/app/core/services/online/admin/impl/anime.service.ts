@@ -59,6 +59,13 @@ export class AnimeService extends AdminService {
     )
   }
 
+  public requestAnimeCreation(series: AnimeSeries): Observable<BasicResponse> {
+    return this.http.post<BasicResponse>(
+      EndPointsConfigurations.ANIMECREATEURL,
+      AnimeSeries
+    )
+  }
+
   getAnimeDetails(id: number = 1): Observable<AnimeSeries> {
     return this.http.get<AnimeSeries>(this.baseURL + "/edit/" + id, this.httpOptions);
   }

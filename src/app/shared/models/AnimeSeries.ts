@@ -9,7 +9,6 @@ export class AnimeSeries {
     releaseDate: string;
     finishDate: string;
     synopsis: string;
-    imageData: string;
     seasonsEpisodes: SeasonsEpisodes[];
     picture: Picture;
 

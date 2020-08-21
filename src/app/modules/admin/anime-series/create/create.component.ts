@@ -20,11 +20,9 @@ export class CreateComponent implements OnInit {
   public CrudTypes = CrudTypes;
 
   constructor(
-    private animeService: AnimeService,
-    fb: FormBuilder,
-    private router: Router,
-    private notification: AlertService,
-    public adminService: AdminService) {
+    public animeService: AnimeService,
+    private fb: FormBuilder,
+    private notification: AlertService) {
       this.form = fb.group({
         "id": [''],
         "englishTitle": [''],
@@ -32,6 +30,9 @@ export class CreateComponent implements OnInit {
         "episodes": [''],
         "releaseDate": [''],
         "finishDate": [''],
+        "japaneseTitle": [''],
+        "image": [''],
+        "synopsis": ['']
       });
   }
 
