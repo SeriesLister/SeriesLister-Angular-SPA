@@ -24,10 +24,9 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.css"
+              "src/styles.scss"
             ],
-            "scripts": [
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -125,5 +124,10 @@
   "defaultProject": "AnimeListings-ClientApp",
   "cli": {
     "analytics": "97ca8c24-b82b-47ed-ad48-7f15bb847010"
+  },
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
   }
 }
