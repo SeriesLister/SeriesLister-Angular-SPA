@@ -23,12 +23,9 @@ export class EditComponent implements OnInit {
 
   public series: AnimeSeries;
 
-  public newImage: string = null;
-
-  private imageSubmitted: boolean;
+  public submittedImage: string;
 
   constructor(public animeService: AnimeService, 
-    private route: ActivatedRoute,
     fb: FormBuilder,
     private notification: AlertService,
     private datePipe: DatePipe) {
@@ -39,7 +36,8 @@ export class EditComponent implements OnInit {
         "episodes": [''],
         "releaseDate": [''],
         "finishDate": [''],
-        "synopsis": ['']
+        "synopsis": [''],
+        'image': ['']
       });
     }
 
@@ -50,21 +48,21 @@ export class EditComponent implements OnInit {
   }
 
   public onSubmit() {
-    this.submitted = true;
-    var id : number = this.form.get('id').value;
-    var eTitle : string = this.form.get('englishTitle').value;
-    var type : string = this.form.get('type').value;
-    var episodes : number = this.form.get('episodes').value;
-    var releaseDate : string =  this.form.get('releaseDate').value;
-    var finishDate : string = this.form.get('finishDate').value;
+    // this.submitted = true;
+    // var id : number = this.form.get('id').value;
+    // var eTitle : string = this.form.get('englishTitle').value;
+    // var type : string = this.form.get('type').value;
+    // var episodes : number = this.form.get('episodes').value;
+    // var releaseDate : string =  this.form.get('releaseDate').value;
+    // var finishDate : string = this.form.get('finishDate').value;
     
-    if (this.imageSubmitted && this.newImage == null) {
-      this.submitted = false;
-      return;
-    }
+    // if (this.imageSubmitted && this.newImage == null) {
+    //   this.submitted = false;
+    //   return;
+    // }
 
-    //var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, this.newImage == null ? this.series.imageData : this.newImage, null, null);
-    this.submitted = false;
+    // //var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, this.newImage == null ? this.series.imageData : this.newImage, null, null);
+    // this.submitted = false;
 
     /**
      * check if series page is the same
@@ -85,23 +83,23 @@ export class EditComponent implements OnInit {
     // });
   }
 
-  public onImageChanged(event) {
-    this.newImage = null;
-    if (event.target.files[0] == null) {
+  public onImageChange(event) {
+    const file = event.target.files[0];
+    if (file == null) {
       return;
     }
 
-    if (event.target.files[0].type.split("/")[1] !== "jpeg") {
-      this.notification.add(new Alert("Image has to be jpeg", Status.DANGER));
+    if (file.type !== 'image/jpeg') {
+      this.notification.add(new Alert("Image has to be jpeg/jpg", Status.DANGER));
       return;
     }
-    Util.convertToBase64(event.target.files[0], (data, err) => {
+
+    Util.convertToBase64(event.target.files[0], (data: string, err: boolean) => {
       if (err) {
         this.notification.add(new Alert("Failed to convert image", Status.DANGER));
         return;
       }
-      this.newImage = data;
-      this.imageSubmitted = true;
+      this.submittedImage = data;
     });
   }
 
@@ -114,7 +112,7 @@ export class EditComponent implements OnInit {
       if (response.success) {
         this.series = response.animeSeries;
         this.updateForm();
-        this.newImage = null;
+        //this.newImage = null;
         console.log(new Date(this.series.releaseDate).toDateString() );
       }
     });

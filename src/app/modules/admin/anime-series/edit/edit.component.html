@@ -2,55 +2,63 @@
 
 <h4>AnimeSeries</h4>
 <hr />
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
 <div class="row">
-    <div class="col-lg-6">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <input hidden type="number" value="{{series?.id}}" formControlName="id">
-            <div class="form-group">
-                <label for="englishTitle" class="control-label">English Title</label>
-            <input type="text" id="englishTitle" value="{{series?.englishTitle}}" formControlName="englishTitle" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="type" class="control-label">Type</label>
-            <input type="text" id="type" value="{{series?.type}}" formControlName="type" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="episodes" class="control-label">Episodes</label>
-            <input type="number" id="englishTitle" value="{{series?.seasonsEpisodes[0].episodes}}" formControlName="episodes" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="releaseDate" class="control-label">Release Date</label>
-                <input type="date" id="releaseDate" value="{{series?.releaseDate}}" formControlName="releaseDate" class="form-control" />
-            </div>
-            <div class="form-group">
-                <label for="finishDate" class="control-label">Release Date</label>
-                <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
-            </div>
-            <div class="form-group mb-3">
-                <input type="file" (change)="onImageChanged($event)" accept=".jpeg,.jpg">
-            </div>
-            <div class="input-group mb-3">
-                <span class="input-group">Synopsis</span>
-                <textarea class="form-control" rows="5" formControlName="synopsis" value="{{series?.synopsis}}" aria-label="With textarea"></textarea>
-              </div>
-        </form>
+    <div class="col-md-6">
+        <input hidden type="number" value="{{series?.id}}" formControlName="id">
+        <div class="form-group mb-3">
+            <label for="englishTitle" class="control-label">English Title</label>
+        <input type="text" id="englishTitle" value="{{series?.englishTitle}}" formControlName="englishTitle" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="type" class="control-label">Type</label>
+        <input type="text" id="type" value="{{series?.type}}" formControlName="type" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="episodes" class="control-label">Episodes</label>
+        <input type="number" id="englishTitle" value="{{series?.seasonsEpisodes[0].episodes}}" formControlName="episodes" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="releaseDate" class="control-label">Release Date</label>
+            <input type="date" id="releaseDate" value="{{series?.releaseDate}}" formControlName="releaseDate" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="finishDate" class="control-label">Release Date</label>
+            <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
+        </div>
+        <!-- <div class="form-group mb-3">
+            <input type="file" (change)="onImageChanged($event)" accept=".jpeg,.jpg">
+        </div> -->
+        <div class="input-group mb-3">
+            <span class="input-group">Synopsis</span>
+            <textarea class="form-control" rows="5" formControlName="synopsis" value="{{series?.synopsis}}" aria-label="With textarea"></textarea>
+        </div>
     </div>
     <div class="col-lg-6">
         <div class="row">
-            <div class="image col-lg-6" *ngIf="series?.picture.imageData">
-                <h4>Current Image</h4>
-                <div class="image-holder">
-                    <img src="data:image/jpeg;base64,{{series.picture.imageData}}">
+            <div class="col-md-6">
+                <div class="image-container" *ngIf="series?.picture.imageData">
+                    <h4>Current Image</h4>
+                    <div class="image-holder">
+                        <img src="data:image/jpeg;base64,{{series.picture.imageData}}">
+                    </div>
                 </div>
             </div>
-            <div class="image col-lg-6">
-                <h4>Pending Image</h4>
-                <div class="image-holder">
-                    <img src="data:image/jpeg;base64,{{newImage}}">
-                    <button *ngIf="newImage != null" type="button" class="btn btn-secondary btn-block" style="border-radius: 0;">Remove Image</button>
-                    <button *ngIf="newImage == null" type="file" class="btn btn-secondary btn-block" style="border-radius: 0;">Add Image</button>
-                </div>
-
+            <div class="col-md-6">
+                <div class="input-group mb-3 image-container">
+                    <h4>Series Image</h4>
+                    <img [src]="submittedImage ? 'data:image/jpeg;base64,' + submittedImage : '/assets/images/place-holder.jpg'" alt="">
+                    <button type="button" class="btn btn-dark btn-block"
+                    (click)="imageInput.click();">
+                        <span *ngIf="!submittedImage">Upload Image</span>
+                        <span *ngIf="submittedImage">Change Image</span>
+                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event)" #imageInput accept="image/jpeg">
+                    </button>
+                    <i class="material-icons" *ngIf="submittedImage"
+                    (click)="submittedImage = ''; imageInput.value = '';">
+                        delete
+                    </i>
+                  </div>
             </div>
         </div>
     </div>
@@ -58,6 +66,7 @@
         <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Save</button>
     </div>
 </div>
+</form>
 
 <div>
     <a href="Javascript:void(0)" (click)="animeService.changeState(animeService.getCrudTypes().LIST)">Back to List</a>

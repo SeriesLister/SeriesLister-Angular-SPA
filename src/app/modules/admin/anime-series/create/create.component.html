@@ -1,21 +1,24 @@
-<div class="centered">
+<div>
     <h1>Create Series</h1>
     <hr />
-    <div class="row">
-        <div class="col-md-8">
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <input hidden type="number" formControlName="id">
+    <form [formGroup]="form" (submit)="onSubmit()">
+        <div class="row">
+            <div class="col-md-8">
                 <div class="form-group mb-3">
                     <label for="englishTitle" class="control-label">English Title</label>
-                <input type="text" id="englishTitle" formControlName="englishTitle" class="form-control" />
+                    <input type="text" id="englishTitle" formControlName="englishTitle" class="form-control" />
+                </div>
+                <div class="form-group mb-3">
+                    <label for="japaneseTitle" class="control-label">Japanese Title</label>
+                    <input type="text" id="japaneseTitle" formControlName="japaneseTitle" class="form-control" />
                 </div>
                 <div class="form-group mb-3">
                     <label for="type" class="control-label">Type</label>
-                <input type="text" id="type" formControlName="type" class="form-control" />
+                    <input type="text" id="type" formControlName="type" class="form-control" />
                 </div>
                 <div class="form-group mb-3">
                     <label for="episodes" class="control-label">Episodes</label>
-                <input type="number" id="englishTitle" formControlName="episodes" class="form-control" />
+                <input type="number" id="episodes" formControlName="episodes" class="form-control" />
                 </div>
                 <div class="form-group mb-3">
                     <label for="releaseDate" class="control-label">Release Date</label>
@@ -25,15 +28,34 @@
                     <label for="finishDate" class="control-label">Release Date</label>
                     <input type="date" id="finishDate" formControlName="finishDate" class="form-control" />
                 </div>
-                
-                <div class="form-group mb-3">
-                    <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Save</button>
+                <div class="input-group mb-3">
+                    <span class="input-group">Synopsis</span>
+                    <textarea class="form-control" rows="5" formControlName="synopsis" aria-label="With textarea"></textarea>
                 </div>
-            </form>
+            </div>
+
+            <div class="col-md-4">
+                <div class="input-group mb-3 image-container">
+                    <h2>Series Image</h2>
+                    <img [src]="submittedImage ? 'data:image/jpeg;base64,' + submittedImage : '/assets/images/place-holder.jpg'" alt="">
+                    <button type="button" class="btn btn-dark btn-block"
+                    (click)="imageInput.click();">
+                        <span *ngIf="!submittedImage">Upload Image</span>
+                        <span *ngIf="submittedImage">Change Image</span>
+                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event)" #imageInput accept="image/jpeg">
+                    </button>
+                    <i class="material-icons" *ngIf="submittedImage"
+                    (click)="submittedImage = ''; imageInput.value = '';">
+                        delete
+                    </i>
+                  </div>
+            </div>
         </div>
-    </div>
+        <button type="submit" [disabled]="this.submitted" class="btn btn-primary">Submit Series</button>
+    </form>
 </div>
 
+
 <div>
-    <a href="Javascript:void(0)" (click)="animeService.changeState(CrudTypes.LIST)">Back to List</a>
+    <a href="Javascript:void(0)" (click)="animeService.changeState(animeService.getCrudTypes().LIST)">Back to List</a>
 </div>

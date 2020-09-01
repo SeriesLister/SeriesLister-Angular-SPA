@@ -2,12 +2,16 @@ export class Util {
 
     static convertToBase64(file: File, callback) : void {
         if (file == null) {
-            return callback(null, "I'm null!");
+            return callback(null, true);
         }
         var reader = new FileReader();
         reader.onloadend = () => {
             var base = reader.result.toString().split('base64,')[1];
-            callback(base, null);
+            if (base.length > 0) {
+                callback(base, null);
+            } else {
+                callback(null, true);
+            }
         }
         reader.readAsDataURL(file);
     }

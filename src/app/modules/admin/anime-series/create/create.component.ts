@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
-import { CrudTypes } from '@app/shared/models/crud-types';
-import { Title } from '@angular/platform-browser';
+import { Util } from '@app/core/Util';
 
 @Component({
   selector: 'app-animeseries-create',
@@ -13,17 +12,17 @@ import { Title } from '@angular/platform-browser';
 export class CreateComponent implements OnInit {
 
   public form: FormGroup;
+
+  public submittedImage: string;
+
   public submitted: boolean;
 
-  public CrudTypes = CrudTypes;
-
   constructor(
-    public animeService: AnimeService,
-    private fb: FormBuilder,
-    private notification: AlertService,
-    public title: Title) {
+      public animeService: AnimeService,
+      private fb: FormBuilder,
+      private notification: AlertService
+    ) {
       this.form = fb.group({
-        "id": [''],
         "englishTitle": [''],
         "type": [''],
         "episodes": [''],
@@ -36,6 +35,26 @@ export class CreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  public onImageChange(event) {
+    const file = event.target.files[0];
+    if (file == null) {
+      return;
+    }
+
+    if (file.type !== 'image/jpeg') {
+      this.notification.add(new Alert("Image has to be jpeg/jpg", Status.DANGER));
+      return;
+    }
+
+    Util.convertToBase64(event.target.files[0], (data: string, err: boolean) => {
+      if (err) {
+        this.notification.add(new Alert("Failed to convert image", Status.DANGER));
+        return;
+      }
+      this.submittedImage = data;
+    });
   }
 
   public onSubmit() {
