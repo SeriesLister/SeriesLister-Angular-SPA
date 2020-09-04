@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AnimeListedResponse } from '@app/shared/models/responses/impl/anime/anime-listed-response';
+import { Util } from '@app/core/Util';
 
 @Component({
   selector: 'app-admin-anime-series-list',

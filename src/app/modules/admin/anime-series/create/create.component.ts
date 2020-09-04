@@ -3,6 +3,10 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
 import { Util } from '@app/core/Util';
+import { AnimeSeries } from '@app/shared/models/AnimeSeries';
+import { Picture } from '@app/shared/models/picture';
+import { SeasonsEpisodes } from '@app/shared/models/seasons-episodes';
+import { BasicResponse } from '@app/shared/models/responses/basic-response';
 
 @Component({
   selector: 'app-animeseries-create',
@@ -37,8 +41,7 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  public onImageChange(event) {
-    const file = event.target.files[0];
+  public onImageChange(file) {
     if (file == null) {
       return;
     }
@@ -48,7 +51,7 @@ export class CreateComponent implements OnInit {
       return;
     }
 
-    Util.convertToBase64(event.target.files[0], (data: string, err: boolean) => {
+    Util.convertToBase64(file, (data: string, err: boolean) => {
       if (err) {
         this.notification.add(new Alert("Failed to convert image", Status.DANGER));
         return;
@@ -58,24 +61,33 @@ export class CreateComponent implements OnInit {
   }
 
   public onSubmit() {
-    // this.submitted = true;
-    // var id : number = 0;
-    // var eTitle : string = this.form.get('englishTitle').value;
-    // var type : string = this.form.get('type').value;
-    // var episodes : number = this.form.get('episodes').value;
-    // var releaseDate : string =  this.form.get('releaseDate').value;
-    // var finishDate : string = this.form.get('finishDate').value;
-    // var newSeries : AnimeSeries = new AnimeSeries(id, eTitle, type, episodes, null, finishDate, null, null, null);
-    // console.log(JSON.stringify(newSeries));
-    // this.animeService.createAnimeSeries(newSeries).subscribe(data => {
-    //   if (data['response']['result'] === true) {
-    //     this.submitted = false;
-    //     this.router.navigateByUrl('/admin/animeseries/edit/' + data['id']);
-    //     this.notification.add(new Alert("Series has been saved... Redirecting to Series", Status.SUCCESS));
-    //   } else {
-    //     this.notification.add(new Alert("Couldn't save series", Status.DANGER));
-    //   }
-    // });
+    this.submitted = true;
+    let newSeries : AnimeSeries = new AnimeSeries(
+      -1,
+      this.form.get('englishTitle').value,
+      this.form.get('japaneseTitle').value,
+      this.form.get('type').value,
+      this.form.get('releaseDate').value,
+      this.form.get('finishDate').value,
+      this.form.get('synopsis').value,
+      new Picture(this.submittedImage.length ? this.submittedImage : null),
+      [new SeasonsEpisodes(this.form.get('episodes').value, 0)]
+    );
+
+    /**
+     * Checks if both titles are null
+     */
+    if (Util.stringInvalidOrEmpty(newSeries.englishTitle) && Util.stringInvalidOrEmpty(newSeries.japaneseName)) {
+      this.submitted = false;
+      this.notification.add(new Alert("Both titles can't be blank", Status.DANGER));
+      return;
+    }
+
+    this.animeService.requestAnimeCreation(newSeries).subscribe((response: BasicResponse) => {
+      if (response.success) {
+        this.notification.add(new Alert('Series has been created!', Status.SUCCESS));
+      }
+    });
   }
 
 }

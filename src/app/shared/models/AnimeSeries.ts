@@ -20,7 +20,7 @@ export class AnimeSeries {
         this.releaseDate = releaseDate;
         this.finishDate = finishDate;
         this.synopsis = synopsis;
-        this.seasonsEpisodes = seasonsEpisodes;
         this.picture = picture;
+        this.seasonsEpisodes = seasonsEpisodes;
     }
 }

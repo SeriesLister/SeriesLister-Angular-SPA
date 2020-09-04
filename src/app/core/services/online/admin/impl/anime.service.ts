@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable, EMPTY } from 'rxjs';
-import { AuthService } from '../../authentication.service';
 import { AnimeSeries } from 'src/app/shared/models/AnimeSeries';
 import { AdminService } from '../admin.service';
 import { AnimeListedResponse } from '@app/shared/models/responses/impl/anime/anime-listed-response';
@@ -14,16 +13,8 @@ import { BasicResponse } from '@app/shared/models/responses/basic-response';
 })
 export class AnimeService extends AdminService {
 
-  baseURL: string = 'https://localhost:5001/Admin/animeseries';
-
-  httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json'})
-  };
-  //, "Authorization" :  'Bearer ' + this.authService.user.token }
-
-  constructor(private http: HttpClient,
-    private authService: AuthService) {
-      super();
+  constructor(private http: HttpClient) {
+    super();
   }
 
   /**
@@ -59,23 +50,26 @@ export class AnimeService extends AdminService {
     )
   }
 
+  /**
+   * Requests the server for new anime creation
+   * @param series the series to send
+   */
   public requestAnimeCreation(series: AnimeSeries): Observable<BasicResponse> {
     return this.http.post<BasicResponse>(
       EndPointsConfigurations.ANIMECREATEURL,
-      AnimeSeries
+      series
     )
   }
 
-  getAnimeDetails(id: number = 1): Observable<AnimeSeries> {
-    return this.http.get<AnimeSeries>(this.baseURL + "/edit/" + id, this.httpOptions);
-  }
-
-  createAnimeSeries(series: AnimeSeries): Observable<any> {
-    return this.http.post(this.baseURL + "/create", JSON.stringify(series), this.httpOptions);
-  }
-
-  editAnimeDetails(series: AnimeSeries): Observable<any> {
-    return this.http.put(this.baseURL + "/edit/" + series.id, series, this.httpOptions);
+  /**
+   * Requests the anime to update to server
+   * @param series the series to update with
+   */
+  public requestAnimeUpdate(series: AnimeSeries): Observable<BasicResponse> {
+    return this.http.patch<BasicResponse>(
+      EndPointsConfigurations.ANIMEUPDATEURL,
+      series
+    )
   }
 
   /**

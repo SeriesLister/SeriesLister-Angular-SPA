@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';
+import { Util } from '@app/core/Util';
 
 @Component({
   selector: 'app-admin-anime-series-details',
@@ -36,7 +37,7 @@ export class AdminAnimeDetailsComponent implements OnInit {
 
   public getReleaseDate() : string {
     if (this.series.releaseDate !== undefined) {
-      return this.animeService.ParseDate(this.series.releaseDate);
+      return Util.ParseDate(this.series.releaseDate);
     }
 
     return 'N/A';
@@ -44,7 +45,7 @@ export class AdminAnimeDetailsComponent implements OnInit {
 
   public getFinishDate(): string {
     if (this.series.finishDate !== undefined) {
-      return this.animeService.ParseDate(this.series.finishDate);
+      return Util.ParseDate(this.series.finishDate);
     }
 
     return 'N/A';

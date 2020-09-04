@@ -18,4 +18,5 @@ export class EndPointsConfigurations {
     public static readonly ANIMEDETAILSURL: string = EndPointsConfigurations.ADMINANIMEURL + '/details';
     public static readonly ANIMEDELETEURL: string = EndPointsConfigurations.ADMINANIMEURL + '/delete';
     public static readonly ANIMECREATEURL: string = EndPointsConfigurations.ADMINANIMEURL + '/create';
+    public static readonly ANIMEUPDATEURL: string = EndPointsConfigurations.ADMINANIMEURL + '/update';
 }

@@ -1,5 +1,17 @@
 export class Util {
 
+    public static stringInvalidOrEmpty(input: string): boolean {
+        return !(input !== undefined && input !== null && input.trim().length > 0);
+    }
+
+    /**
+     * Parses the date string to localetime without time
+     * @param date The date to parse
+    */
+    public static ParseDate(date: string): string {
+        return new Date(date).toLocaleDateString();
+    }
+
     static convertToBase64(file: File, callback) : void {
         if (file == null) {
             return callback(null, true);
@@ -16,7 +28,9 @@ export class Util {
         reader.readAsDataURL(file);
     }
 
-      /**
+
+
+    /**
      * This helps with getting numbers for the html *ngFor
      * @param start The number that you start with(user will see it)
      * @param end the number you want to end with(user will see it)

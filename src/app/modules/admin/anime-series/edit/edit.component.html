@@ -1,6 +1,4 @@
 <h1>Edit Series</h1>
-
-<h4>AnimeSeries</h4>
 <hr />
 <form [formGroup]="form" (ngSubmit)="onSubmit()">
 <div class="row">
@@ -8,30 +6,31 @@
         <input hidden type="number" value="{{series?.id}}" formControlName="id">
         <div class="form-group mb-3">
             <label for="englishTitle" class="control-label">English Title</label>
-        <input type="text" id="englishTitle" value="{{series?.englishTitle}}" formControlName="englishTitle" class="form-control" />
+            <input type="text" id="englishTitle" formControlName="englishTitle" class="form-control" />
+        </div>
+        <div class="form-group mb-3">
+            <label for="japaneseTitle" class="control-label">Japanese Title</label>
+            <input type="text" id="japaneseTitle" formControlName="japaneseTitle" class="form-control" />
         </div>
         <div class="form-group mb-3">
             <label for="type" class="control-label">Type</label>
-        <input type="text" id="type" value="{{series?.type}}" formControlName="type" class="form-control" />
+            <input type="text" id="type" formControlName="type" class="form-control" />
         </div>
         <div class="form-group mb-3">
             <label for="episodes" class="control-label">Episodes</label>
-        <input type="number" id="englishTitle" value="{{series?.seasonsEpisodes[0].episodes}}" formControlName="episodes" class="form-control" />
+            <input type="number" id="englishTitle" formControlName="episodes" class="form-control" />
         </div>
         <div class="form-group mb-3">
             <label for="releaseDate" class="control-label">Release Date</label>
-            <input type="date" id="releaseDate" value="{{series?.releaseDate}}" formControlName="releaseDate" class="form-control" />
+            <input type="date" id="releaseDate" formControlName="releaseDate" class="form-control" />
         </div>
         <div class="form-group mb-3">
-            <label for="finishDate" class="control-label">Release Date</label>
-            <input type="date" id="finishDate" value="{{series?.finishDate}}" formControlName="finishDate" class="form-control" />
+            <label for="finishDate" class="control-label">Finish Date</label>
+            <input type="date" id="finishDate" formControlName="finishDate" class="form-control" />
         </div>
-        <!-- <div class="form-group mb-3">
-            <input type="file" (change)="onImageChanged($event)" accept=".jpeg,.jpg">
-        </div> -->
         <div class="input-group mb-3">
             <span class="input-group">Synopsis</span>
-            <textarea class="form-control" rows="5" formControlName="synopsis" value="{{series?.synopsis}}" aria-label="With textarea"></textarea>
+            <textarea class="form-control" rows="5" formControlName="synopsis" aria-label="With textarea"></textarea>
         </div>
     </div>
     <div class="col-lg-6">
@@ -52,7 +51,7 @@
                     (click)="imageInput.click();">
                         <span *ngIf="!submittedImage">Upload Image</span>
                         <span *ngIf="submittedImage">Change Image</span>
-                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event)" #imageInput accept="image/jpeg">
+                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event.target.files[0])" #imageInput accept="image/jpeg">
                     </button>
                     <i class="material-icons" *ngIf="submittedImage"
                     (click)="submittedImage = ''; imageInput.value = '';">
