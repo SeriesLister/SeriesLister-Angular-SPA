@@ -42,7 +42,7 @@
                     (click)="imageInput.click();">
                         <span *ngIf="!submittedImage">Upload Image</span>
                         <span *ngIf="submittedImage">Change Image</span>
-                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event.target.file[0])" #imageInput accept="image/jpeg">
+                        <input type="file" id="image" formControlName="image" (change)="onImageChange($event.target.files[0])" #imageInput accept="image/jpeg">
                     </button>
                     <i class="material-icons" *ngIf="submittedImage"
                     (click)="submittedImage = ''; imageInput.value = '';">

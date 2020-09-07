@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -32,6 +32,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ApiInterceptor } from '@app/core/interceptors/api-interceptor';
 import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
 import { AdminAnimeListComponent } from './modules/admin/anime-series/list/list.component';
+import { ThemeService } from './core/services/offline/theme.service';
+import { StorageService } from './core/services/offline/storage.service';
 
 @NgModule({
   declarations: [
@@ -66,11 +68,20 @@ import { AdminAnimeListComponent } from './modules/admin/anime-series/list/list.
     ReactiveFormsModule,
     BrowserAnimationsModule
   ],
-  providers: [DatePipe, 
+  providers: [
+    DatePipe,
+    ThemeService,
+    StorageService,
+    {provide: APP_INITIALIZER, useFactory: themeFactory, deps: [ThemeService], multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true},
     {provide: HTTP_INTERCEPTORS, useClass: CatchInterceptor, multi: true}
   ],
   bootstrap: [AppComponent]
 })
+
 export class AppModule { }
+
+export function themeFactory(themeService: ThemeService) {
+  return () => themeService.setThemeOnStart();
+}

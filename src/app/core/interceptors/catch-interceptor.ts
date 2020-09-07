@@ -1,6 +1,6 @@
 import { HttpInterceptor, HttpRequest, HttpHandler, HttpEvent, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { AlertService, Alert, Status } from '../services/offfline/alert.service';
+import { AlertService, Alert, Status } from '../services/offline/alert.service';
 import { AuthService } from '../services/online/authentication.service';
 import { Observable, EMPTY } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';

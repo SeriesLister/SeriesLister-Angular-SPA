@@ -1,9 +1,9 @@
 <app-admin-anime-series-list 
     *ngIf="currentState === animeService.getCrudTypes().LIST"
 ></app-admin-anime-series-list>
-<app-animeseries-create 
+<app-admin-anime-series-create 
     *ngIf="currentState === animeService.getCrudTypes().CREATE"
-></app-animeseries-create>
+></app-admin-anime-series-create>
 <app-admin-animeseries-edit 
     *ngIf="currentState === animeService.getCrudTypes().EDIT"
 ></app-admin-animeseries-edit>

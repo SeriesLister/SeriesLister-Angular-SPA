@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
+import { AlertService, Status, Alert } from '@app/core/services/offline/alert.service';
 import { DatePipe } from '@angular/common';
 import { Util } from 'src/app/core/Util';
 import { AnimeResponse } from '@app/shared/models/responses/impl/anime/anime-response';

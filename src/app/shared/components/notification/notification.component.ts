@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertService } from 'src/app/core/services/offfline/alert.service';
+import { AlertService } from '@app/core/services/offline/alert.service';
 
 @Component({
   selector: 'app-notification',

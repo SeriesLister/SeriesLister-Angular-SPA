@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
+import { AlertService, Status, Alert } from '@app/core/services/offline/alert.service';
 import { UserManage } from '../Users';
 import { UsermanagerService } from 'src/app/core/services/online/usermanager.service';
 

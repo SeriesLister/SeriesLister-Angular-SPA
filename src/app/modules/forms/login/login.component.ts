@@ -3,7 +3,7 @@ import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/f
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/services/online/authentication.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/login-response';
-import { AlertService, Alert, Status } from '@app/core/services/offfline/alert.service';
+import { AlertService, Alert, Status } from '@app/core/services/offline/alert.service';
 
 @Component({
   selector: 'app-login',

@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { AnimeService } from '@app/core/services/online/admin/impl/anime.service';
-import { AlertService, Status, Alert } from 'src/app/core/services/offfline/alert.service';
+import { AlertService, Status, Alert } from '@app/core/services/offline/alert.service';
 import { Util } from '@app/core/Util';
 import { AnimeSeries } from '@app/shared/models/AnimeSeries';
 import { Picture } from '@app/shared/models/picture';
@@ -9,16 +9,25 @@ import { SeasonsEpisodes } from '@app/shared/models/seasons-episodes';
 import { BasicResponse } from '@app/shared/models/responses/basic-response';
 
 @Component({
-  selector: 'app-animeseries-create',
+  selector: 'app-admin-anime-series-create',
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
 export class CreateComponent implements OnInit {
 
+  /**
+   * The formgroup
+   */
   public form: FormGroup;
 
+  /**
+   * The submitted image
+   */
   public submittedImage: string;
 
+  /**
+   * If the form was submitted
+   */
   public submitted: boolean;
 
   constructor(
@@ -41,6 +50,10 @@ export class CreateComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  /**
+   * The change event for assigning the new image
+   * @param file The image that the input type file has 
+   */
   public onImageChange(file) {
     if (file == null) {
       return;
@@ -60,6 +73,9 @@ export class CreateComponent implements OnInit {
     });
   }
 
+  /**
+   * when we submit the form
+   */
   public onSubmit() {
     this.submitted = true;
     let newSeries : AnimeSeries = new AnimeSeries(
@@ -70,7 +86,7 @@ export class CreateComponent implements OnInit {
       this.form.get('releaseDate').value,
       this.form.get('finishDate').value,
       this.form.get('synopsis').value,
-      new Picture(this.submittedImage.length ? this.submittedImage : null),
+      new Picture(Util.stringInvalidOrEmpty(this.submittedImage) ? this.submittedImage : null),
       [new SeasonsEpisodes(this.form.get('episodes').value, 0)]
     );
 
@@ -86,6 +102,9 @@ export class CreateComponent implements OnInit {
     this.animeService.requestAnimeCreation(newSeries).subscribe((response: BasicResponse) => {
       if (response.success) {
         this.notification.add(new Alert('Series has been created!', Status.SUCCESS));
+      } else {
+        this.notification.add(new Alert(response.error, Status.DANGER));
+        this.submitted = false;
       }
     });
   }

@@ -5,7 +5,7 @@ import { tap } from 'rxjs/operators';
 import { Router } from '@angular/router';
 import { JWTokenHandler } from '../../handlers/jwtokenhandler'
 import { User } from 'src/app/shared/models/User';
-import { AlertService } from '../offfline/alert.service';
+import { AlertService } from '../offline/alert.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/login-response';
 import { EndPointsConfigurations } from 'src/app/configs/endpointsconfiguration';
 import { RegistrationResponse } from 'src/app/shared/models/responses/impl/registration-response';
