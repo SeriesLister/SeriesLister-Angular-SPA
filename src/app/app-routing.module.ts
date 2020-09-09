@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'privacy', component: PrivacyComponent },
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
+  
   /** 
    * ADMIN ROUTES  
    */

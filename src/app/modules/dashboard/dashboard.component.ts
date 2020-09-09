@@ -7,12 +7,14 @@ import { EditDashbaordComponent } from './edit/edit.component';
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements OnInit {
   
   public series: AnimeSeries;
   
+  public isClicked: boolean;
+
   constructor(private router: Router) { }
 
   ngOnInit(): void {
@@ -21,6 +23,10 @@ export class DashboardComponent implements OnInit {
   public goToEdit() {
     console.log('trying to edit');
     this.router.navigateByUrl("/dashboard/edit");
+  }
+
+  clicked(): void {
+    this.isClicked = !this.isClicked;
   }
 
 }

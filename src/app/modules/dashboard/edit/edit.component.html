@@ -1,4 +1,4 @@
-<!-- <div class="col-md-8 col-sm-12 container">
+<div class="col-md-8 col-sm-12 container">
     <div class="head">
         <a href="Javascript:void(0)" (click)="goToDashboard()">
             <i class="fas fa-arrow-left back-arrow"></i>
@@ -15,13 +15,13 @@
             <p>Current Episode</p>
             <select class="custom-select col-md-3">
                 <option selected>1</option>
-                <option *ngFor="let item of util.getNumbersForHTML(series.episodes - (series.episodes - 2), series.episodes)" >{{item}}</option>
+                <!-- <option *ngFor="let item of util.getNumbersForHTML(series.episodes - (series.episodes - 2), series.episodes)" >{{item}}</option> -->
               </select>
               
             <p>Current Season</p>
             <select class="custom-select col-md-3">
                 <option selected>1</option>
-                    <option *ngFor="let item of util.getNumbersForHTML(series.seasons - (series.seasons - 2), series.seasons)" >{{item}}</option>
+                    <!-- <option *ngFor="let item of util.getNumbersForHTML(series.seasons - (series.seasons - 2), series.seasons)" >{{item}}</option> -->
               </select>
             <p>Status</p>
             <select class="custom-select col-md-3">
@@ -47,4 +47,4 @@
         </div>
     </div>
 
-</div> -->
+</div>
