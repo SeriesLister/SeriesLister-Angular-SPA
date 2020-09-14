@@ -1,13 +1,10 @@
-@import "colors";
+@import "dark-theme.scss";
+@import "first-theme.scss";
 
-.theme-light {
-  @each $name, $color in $colors {
-    #{$name}: nth($color, 1);
-  }
+.light-theme {
+  @import "first-theme.scss";
 }
 
-.theme-dark {
-  @each $name, $color in $colors {
-    #{$name}: nth($color, 2);
-  }
+.dark-theme {
+  @import "dark-theme.scss";
 }

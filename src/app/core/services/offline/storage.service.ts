@@ -8,7 +8,8 @@ export class StorageService {
   constructor() { }
 
   /**
-   * Gets and return the type inside the local storage
+   * Gets and return the type inside the local storage.
+   * If the key isn't found returns null
    * @param storageType The storage type to find
    */
   getFromStorage(storageType: StorageType): any {

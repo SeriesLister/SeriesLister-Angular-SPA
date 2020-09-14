@@ -1,0 +1,9 @@
+<button [type]="type" class="app-button btn"
+    [disabled]="disabledLogic"
+    [class]="{
+        'btn-block' : size === 'wide',
+        'btn-lg': size === 'large',
+        'btn-sm': size === 'small'
+    }">
+    {{text}}
+</button>

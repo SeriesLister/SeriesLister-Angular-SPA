@@ -1,8 +1,43 @@
-<div class="row">
+<div flex fxLayout="row" fxLayoutAlign="center center" fxFlexFill>
+    <mat-card fxFlex="40%" fxFlex.lt-lg="80%" class="form-group">
+        <mat-card-header>
+          <mat-card-title style="text-align: center;">Login</mat-card-title>
+          <!-- LOGO GOES HERE -->
+        </mat-card-header>
+        <mat-card-content>
+          <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="on" >
+            <label for="email">Email</label>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="example@exmaple.com" id="email" formControlName="email">
+                <mat-hint>Your email will never be shared</mat-hint>
+            </mat-form-field>
+
+            <label for="password">Password</label>
+            <mat-form-field appearance="outline">
+                <input matInput placeholder="*********" type="password" id="password" formControlName="password">
+                <mat-icon matSuffix>
+                    <span *ngIf="passwordVisible">visibility</span>
+                    <span *ngIf="!passwordVisible">visibility_off</span>
+                </mat-icon>
+            </mat-form-field>
+            <button mat-raised-button color="accent" type="submit" style="width: 100%;">Create Account</button>
+          </form>          
+        </mat-card-content>
+        <mat-divider></mat-divider>
+        <mat-card-content style="padding-top: 1rem;">
+            <div style="text-align: center;">
+                <h3>Already have an account?</h3>
+                <button mat-stroked-button type="submit" color="accent" style="width: 100%;">Create An Account</button>
+            </div>
+        </mat-card-content>
+    </mat-card>
+</div>
+
+<!-- <div class="row">
     <div class="col-md-5 col-sm-8"  style="margin: 0 auto;">
         <div class="card">
             <h2 class="card-header text-center" style="margin-bottom: 0;">
-                <!-- Place site logo here -->
+                Place site logo here
                 Login
             </h2>
             <div class="card-body">
@@ -47,17 +82,15 @@
                     <div *ngIf="loginForm.errors?.invalid">
                         <p class="text-danger mb-1">Invalid username or password</p>
                     </div>
-                    <button type="submit" [disabled]="this.submitted" 
-                        class="btn btn-primary btn-large btn-block">Login</button>
+                    <app-button [disabledLogic]="this.submitted" text="Login" [type]="'submit'" [size]="'wide'"></app-button>
                 </form>
             </div>
             <div class="card-body text-center text-white bg-secondary">
                 <div class="mb-2">
                     Don't have an account?
                 </div>
-                <button class="btn btn-light btn-large btn-block" 
-                    (click)="router.navigateByUrl('/register')">Create an account</button>
+                <app-button (click)="router.navigateByUrl('/register')" [size]="'wide'" text="Create an Account"></app-button>
             </div>
         </div>
     </div>
-</div>
+</div> -->

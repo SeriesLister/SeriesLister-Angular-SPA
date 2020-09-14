@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NavbarComponent } from './core/navbar/navbar.component';
 import { FooterComponent } from './core/footer/footer.component';
 import { LandingComponent } from './modules/landing/landing.component';
 import { AdminComponent } from './modules/admin/admin.component';
@@ -34,6 +33,25 @@ import { CatchInterceptor } from '@app/core/interceptors/catch-interceptor';
 import { AdminAnimeListComponent } from './modules/admin/anime-series/list/list.component';
 import { ThemeService } from './core/services/offline/theme.service';
 import { StorageService } from './core/services/offline/storage.service';
+import { ButtonComponent } from './shared/components/button/button.component';
+
+/**
+ * Material imports
+ */
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatCardModule } from '@angular/material/card';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+
+import { NavbarComponent } from './core/navs/navbar/navbar.component';
+import { SidenavComponent } from './core/navs/side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -59,14 +77,27 @@ import { StorageService } from './core/services/offline/storage.service';
     DashboardComponent,
     AddComponent,
     EditDashbaordComponent,
-    AdminAnimeListComponent
+    AdminAnimeListComponent,
+    ButtonComponent,
+    SidenavComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    FlexLayoutModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatMenuModule,
+    MatCardModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatDividerModule,
+    MatCheckboxModule
   ],
   providers: [
     DatePipe,

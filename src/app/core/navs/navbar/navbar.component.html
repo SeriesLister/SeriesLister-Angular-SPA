@@ -1,4 +1,45 @@
-<header>
+<div fxLayout="column" fxFlex="grow" fxFlexFill>
+    <mat-toolbar [color]="'primary'" fxFlex="noshrink">
+        <button (click)="sidenav.toggleSidenav()" mat-icon-button fxHide.gt-sm>
+          <mat-icon>menu</mat-icon>
+        </button>
+        <span style="cursor: pointer;">Series Lister</span>
+        <span class="toolbar-spacer"></span>
+        <ng-template [ngIf]="auth.userHandler.isUserExisting()" [ngIfElse]="showLogin">
+            <button mat-button>
+                Dashboard
+              </button>
+              <button mat-button (click)="auth.logout()">
+                Logout
+              </button>
+        </ng-template>
+        <ng-template #showLogin>
+            <button mat-button routerLink="/register">
+                Register
+              </button>
+              <button mat-button routerLink="/login">
+                Login
+              </button>
+        </ng-template>
+        <button mat-icon-button [matMenuTriggerFor]="themeMenu">
+            <mat-icon>invert_colors</mat-icon>
+        </button>
+    </mat-toolbar>
+    <app-side-nav #sidenav fxFlex="grow"></app-side-nav>
+</div>
+
+<mat-menu #themeMenu="matMenu">
+    <button mat-menu-item (click)="themeService.setTheme(ThemeType.LIGHT)">
+        <mat-icon *ngIf="!themeService.isThemeDark()">check</mat-icon>
+        <span>Light</span>
+    </button>
+    <button mat-menu-item (click)="themeService.setTheme(ThemeType.DARK)">
+        <mat-icon *ngIf="themeService.isThemeDark()">check</mat-icon>
+        <span>Dark</span>
+    </button>
+</mat-menu>
+
+<!-- <header>
   <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
       <div class="container">
           <a class="navbar-brand" routerLink="/">Series Lister</a>
@@ -39,4 +80,4 @@
           </div>
       </div>
   </nav>
-</header>
+</header> -->

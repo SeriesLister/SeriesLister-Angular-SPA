@@ -1,6 +1,19 @@
-@import "app/shared/styles/colors";
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+// @import "app/shared/styles/colors";
 @import "app/shared/styles/animations";
 @import "app/shared/styles/themes";
+// @import "app/shared/styles/first-theme.scss";
+// @import "app/shared/styles/dark-theme.scss";
 
 .password-show {
   cursor: pointer;
@@ -9,4 +22,37 @@
   right: 4px;
   bottom: 34px;
   float: right;
+}
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.form-group {
+
+  mat-form-field {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mat-form-field-infix {
+    border-top: 0.5em solid transparent;
+  }
+
+  .mat-card-header-text {
+    width: 100%;
+    text-align: center;
+  }
+
+  .mat-card-title {
+    font-size: 1.5rem;
+    line-height: 42px;
+  }
+
+  .mb-1 {
+    margin-bottom: 1rem;
+  }
+
+  .text-danger {
+    color: #d9534f;
+  }
 }

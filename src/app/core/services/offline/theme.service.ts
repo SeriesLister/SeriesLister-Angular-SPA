@@ -13,49 +13,45 @@ export class ThemeService {
   private readonly THEME_KEY = StorageType.THEME;
 
   /**
-   * The dark theme class name
-   */
-  private readonly DARK_THEME_CLASS_NAME = 'theme-dark';
-
-  /**
    * data type of the theme type in use
    */
-  private themeType: ThemeType;
+  private theme: ThemeType;
 
   constructor(private storage: StorageService) {}
 
   /**
    * Sets the theme on app startup
    */
-  public setThemeOnStart() {
+  public setThemeOnStart(): void {
+    let storedTheme: ThemeType = this.storage.getFromStorage(this.THEME_KEY);
+    
+    storedTheme === null ? this.setTheme(ThemeType.LIGHT) :
     this.setTheme(this.storage.getFromStorage(this.THEME_KEY));
-  }
 
-  /**
-   * Toggles the theme between light and dark
-   */
-  public toggle(): void {
-    switch(this.themeType) {
-      case ThemeType.DARK:
-        this.setTheme(ThemeType.LIGHT);
-      break;
-
-      case ThemeType.LIGHT:
-        this.setTheme(ThemeType.DARK);
-      break;
-    }
+    setTimeout(() => {
+      document.body.classList.add('animate-colors-transition');
+    });
   }
 
   /**
    * Sets the theme based on the supplied theme type
    * @param themeType The theme type
    */
-  private setTheme(themeType: ThemeType) {
-    this.themeType = themeType;
-    this.storage.addToStorage(this.THEME_KEY, themeType);
-    themeType === ThemeType.LIGHT ?
-    document.body.classList.remove(this.DARK_THEME_CLASS_NAME) :
-    document.body.classList.add(this.DARK_THEME_CLASS_NAME);
+  public setTheme(themeType: ThemeType): void {
+    let bodyClass = document.body.classList;
+    if (bodyClass.contains(this.theme)) {
+      bodyClass.remove(this.theme);
+    }    
+    bodyClass.add(themeType);
+    this.theme = themeType;
+    this.storage.addToStorage(this.THEME_KEY, themeType);   
+  }
+
+  /**
+   * Returns a boolean indicating if dark theme
+   */
+  public isThemeDark(): boolean {
+    return this.theme === ThemeType.DARK;
   }
 
 }
@@ -63,7 +59,7 @@ export class ThemeService {
 /**
  * The types of themes
  */
-enum ThemeType {
-  DARK = "Dark", 
-  LIGHT = "Light"
+export enum ThemeType {
+  DARK = "dark-theme", 
+  LIGHT = "light-theme"
 }
