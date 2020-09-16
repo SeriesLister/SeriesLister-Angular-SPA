@@ -7,124 +7,49 @@
         <mat-card-content>
           <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" autocomplete="off" >
             <label for="email"><span class="text-danger">*</span> Email</label>
-            <mat-form-field appearance="outline" class="mb-1">
+            <mat-form-field appearance="outline">
                 <input matInput placeholder="UltimateLister@serieslister.com" id="email" formControlName="email">
                 <mat-hint>Your email will never be shared</mat-hint>
+                <mat-error *ngIf="email.errors?.taken">Email is already in use</mat-error>
+                <mat-error *ngIf="email.errors?.email">Must be a valid email</mat-error>
+                <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
             </mat-form-field>
 
             <label for="displayName"><span class="text-danger">*</span> Display Name</label>
             <mat-form-field appearance="outline">
                 <input matInput placeholder="Ultimate Lister" id="displayName" formControlName="displayName">
+                <mat-error *ngIf="displayName.errors?.minlength || displayName.errors?.required">Username must be 4 characters or longer</mat-error>
+                <mat-error *ngIf="displayName.errors?.specialvalidate">Username can't contain a special character</mat-error>
+                <mat-error *ngIf="displayName.errors?.maxlength">Username must be 16 characters or less</mat-error>
+                <mat-error *ngIf="displayName.errors?.taken">Display Name is already in use</mat-error>
             </mat-form-field>
 
             <label for="password"><span class="text-danger">*</span> Password</label>
             <mat-form-field appearance="outline">
-                <input matInput placeholder="*********" type="password" id="password" formControlName="password">
-                <mat-icon matSuffix>
+                <input matInput placeholder="*********" type="password" id="password" formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
+                <mat-icon matSuffix (click)="makePasswordVisible()" style="cursor: pointer;">
                     <span *ngIf="passwordVisible">visibility</span>
                     <span *ngIf="!passwordVisible">visibility_off</span>
                 </mat-icon>
+                <mat-error *ngIf="password.errors?.minlength || password.errors?.required">Password must be 8 characters or longer</mat-error>
+                <mat-error *ngIf="password.errors?.uppervalidate">Password must contain an uppercase letter</mat-error>
+                <mat-error *ngIf="password.errors?.lowervalidate">Password must contain a lowercase letter</mat-error>
+                <mat-error *ngIf="password.errors?.numbervalidate">Password contains 1 number</mat-error>
+                <mat-error *ngIf="password.errors?.specialvalidate">Password contains 1 special character</mat-error>
             </mat-form-field>
 
             <section class="mb-1">
                 <mat-checkbox class="example-margin">Remember Me</mat-checkbox>
               </section>
-
-            <button mat-raised-button color="accent" type="submit" style="width: 100%;">Create Account</button>
+            <button mat-raised-button color="accent" type="submit" class="btn-expanded" [disabled]="this.submitted">Create Account</button>
           </form>          
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-content style="padding-top: 1rem;">
             <div style="text-align: center;">
                 <h3>Already have an account?</h3>
-                <button mat-stroked-button type="submit" color="accent" style="width: 100%;">Create An Account</button>
+                <button mat-stroked-button type="submit" color="accent" class="btn-expanded" routerLink="/login">Go Login</button>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
-<!-- <div class="row">
-    <div class="col-md-5 col-sm-8"  style="margin: 0 auto;">
-        <div class="card">
-            <h2 class="card-header text-center" style="margin-bottom: 0;">
-                Place site logo here
-                Register
-            </h2>
-            <div class="card-body">
-                <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-                    <div class="mb-3">
-                        <label for="email" class="control-label"><span class="text-danger">*</span> Email</label>
-                        <input type="email" id="email" formControlName="email" class="form-control" placeholder="example@example.com" required 
-                            [ngClass]="{'is-valid' : email.valid}"/>
-                        <p *ngIf="email.errors?.email" class="text-danger">
-                            Must be a valid email
-                        </p>
-                        <p *ngIf="email.errors?.taken" class="text-danger">
-                            Email is already in use
-                        </p>
-                    </div>
-                    <div class="mb-3">
-                        <label for="displayName" class="control-label"><span class="text-danger">*</span> Display Name</label>
-                        <input type="text" id="displayName" formControlName="displayName" class="form-control" placeholder="example123" required
-                            [ngClass]="{'is-valid' : displayName.valid}" />
-                        <div *ngIf="displayName.dirty || displayName.touched">
-                            <p *ngIf="displayName.errors?.minlength" class="text-danger">
-                                Username must be 4 characters or longer
-                            </p>
-                            <p *ngIf="displayName.errors?.specialvalidate" class="text-danger">
-                                Username can't contain a special character
-                            </p>
-                            <p *ngIf="displayName.errors?.maxlength" class="text-danger">
-                                Username must be 16 characters or less
-                            </p>
-                            <p *ngIf="displayName.errors?.taken" class="text-danger">
-                                Username is already in use
-                            </p>
-                        </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="password" class="control-label"><span class="text-danger">*</span> Password</label>
-                        <input type="password" id="password" formControlName="password" class="form-control" placeholder="P@ssw0rd!" [type]="passwordVisible ? 'text' : 'password'" required />
-                        <i class="material-icons password-show" (click)="makePasswordVisible()">
-                            <span *ngIf="passwordVisible">visibility</span>
-                            <span *ngIf="!passwordVisible">visibility_off</span>
-                        </i>
-                        <ul *ngIf="password.touched || password.dirty">
-                            <li [ngClass]="password.errors?.minlength || 
-                                password.errors?.required ? 'text-danger' : 'text-success'">
-                                Password must be 8 characters or longer
-                            </li>
-                            <li [ngClass]="password.errors?.uppervalidate ? 
-                                'text-danger' : 'text-success'">
-                                Password must contain an uppercase letter
-                            </li>
-                            <li [ngClass]="password.errors?.lowervalidate ? 
-                                'text-danger' : 'text-success'">
-                                Password must contain a lowercase letter
-                            </li>
-                            <li [ngClass]="password.errors?.numbervalidate ? 
-                                'text-danger' : 'text-success'">
-                                Password contains 1 number
-                            </li>
-                            <li [ngClass]="password.errors?.specialvalidate ? 
-                                'text-danger' : 'text-success'">
-                                Password contains 1 special character
-                            </li>
-                        </ul>
-                    </div>
-                    <div>
-                        <p class="text-danger" *ngFor="let passwordError of passwordErrors">
-                            {{passwordError}}
-                        </p>
-                    </div> 
-                        <button type="submit" [disabled]="this.submitted || registerForm.invalid" class="btn btn-primary btn-large btn-block">Create Account</button>
-                </form>
-            </div>
-            <div class="card-body text-center text-white bg-secondary">
-                <div class="mb-2">
-                    Already have an account?
-                </div>
-                <button class="btn btn-light btn-large btn-block" (click)="router.navigateByUrl('/login')">Go Login</button>
-            </div>
-        </div>
-    </div>
-</div> -->

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, FormControl, AbstractControl } from '@angular/forms';
+import { FormGroup, FormBuilder, FormControl, AbstractControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/services/online/authentication.service';
 import { LoginResponse } from 'src/app/shared/models/responses/impl/login-response';
@@ -34,9 +34,8 @@ export class LoginComponent implements OnInit {
     private alert: AlertService
   ) {
     this.loginForm = this.fb.group({
-      email: new FormControl(''),
-      password: new FormControl('', [
-      ]),
+      email: new FormControl('', [Validators.required]),
+      password: new FormControl('', [Validators.required]),
       remember: false
     });
   }

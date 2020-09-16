@@ -11,5 +11,3 @@ $dark-theme:   mat-dark-theme((
     warn: $dark-warn,
   )
 ));
-
-@include angular-material-color($dark-theme);

@@ -10,87 +10,27 @@
             <mat-form-field appearance="outline">
                 <input matInput placeholder="example@exmaple.com" id="email" formControlName="email">
                 <mat-hint>Your email will never be shared</mat-hint>
+                <mat-error *ngIf="email.errors?.required">Email is required</mat-error>
             </mat-form-field>
 
             <label for="password">Password</label>
             <mat-form-field appearance="outline">
-                <input matInput placeholder="*********" type="password" id="password" formControlName="password">
-                <mat-icon matSuffix>
+                <input matInput placeholder="*********" type="password" id="password" formControlName="password" [type]="passwordVisible ? 'text' : 'password'">
+                <mat-icon matSuffix (click)="makePasswordVisible()" style="cursor: pointer;">
                     <span *ngIf="passwordVisible">visibility</span>
                     <span *ngIf="!passwordVisible">visibility_off</span>
                 </mat-icon>
+                <mat-error *ngIf="password.errors?.required">Password is required</mat-error>
             </mat-form-field>
-            <button mat-raised-button color="accent" type="submit" style="width: 100%;">Create Account</button>
+            <button mat-raised-button color="accent" type="submit" class="btn-expanded">Create Account</button>
           </form>          
         </mat-card-content>
         <mat-divider></mat-divider>
         <mat-card-content style="padding-top: 1rem;">
             <div style="text-align: center;">
                 <h3>Already have an account?</h3>
-                <button mat-stroked-button type="submit" color="accent" style="width: 100%;">Create An Account</button>
+                <button mat-stroked-button type="submit" color="accent" class="btn-expanded" routerLink="/register">Create An Account</button>
             </div>
         </mat-card-content>
     </mat-card>
 </div>
-
-<!-- <div class="row">
-    <div class="col-md-5 col-sm-8"  style="margin: 0 auto;">
-        <div class="card">
-            <h2 class="card-header text-center" style="margin-bottom: 0;">
-                Place site logo here
-                Login
-            </h2>
-            <div class="card-body">
-                <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" autocomplete="on">
-                    <div [ngClass]="isInvalid('email') ? 'mb-2' : 'mb-3'">
-                        <label for="email" class="control-label">Email</label>
-                        <input type="email" id="email" formControlName="email" 
-                            class="form-control" 
-                            [ngClass]="{ 'is-invalid': isInvalid('email') }"
-                            (input)="validateLegnth('email')"
-                            (blur)="validateLegnth('email')"
-                            placeholder="example@example.com"
-                        />
-                        <p *ngIf="email.errors?.required" class="text-danger mb-1">
-                            Email is required
-                        </p>
-                    </div>
-                    <div [ngClass]="isInvalid('password') ? 'mb-2' : 'mb-3'">
-                        <label for="password" class="control-label">Password</label>
-                        <input type="password" id="password" 
-                            formControlName="password" class="form-control" 
-                            [ngClass]="{ 'is-invalid': isInvalid('password') }"
-                            (input)="validateLegnth('password')"
-                            (blur)="validateLegnth('password')"
-                            [type]="passwordVisible ? 'text' : 'password'"
-                            placeholder="P@ssw0rd!"
-                        />
-                        <i class="material-icons password-show" (click)="makePasswordVisible()">
-                            <span *ngIf="passwordVisible">visibility</span>
-                            <span *ngIf="!passwordVisible">visibility_off</span>
-                        </i>
-                        <p *ngIf="password.errors?.required" class="text-danger mb-1">
-                            Password is required
-                        </p>
-                    </div>
-                    <div class="form-check"
-                        [ngClass]="loginForm.errors?.invalid ? 'mb-1' : 'mb-3'">
-                        <label class="form-check-label" for="rememberMe">Remember Me</label>
-                        <input type="checkbox" class="form-check-input" id="rememberMe" 
-                            formControlName="remember">
-                    </div>
-                    <div *ngIf="loginForm.errors?.invalid">
-                        <p class="text-danger mb-1">Invalid username or password</p>
-                    </div>
-                    <app-button [disabledLogic]="this.submitted" text="Login" [type]="'submit'" [size]="'wide'"></app-button>
-                </form>
-            </div>
-            <div class="card-body text-center text-white bg-secondary">
-                <div class="mb-2">
-                    Don't have an account?
-                </div>
-                <app-button (click)="router.navigateByUrl('/register')" [size]="'wide'" text="Create an Account"></app-button>
-            </div>
-        </div>
-    </div>
-</div> -->

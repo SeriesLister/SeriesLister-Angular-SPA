@@ -51,7 +51,6 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { NavbarComponent } from './core/navs/navbar/navbar.component';
-import { SidenavComponent } from './core/navs/side-nav/side-nav.component';
 
 @NgModule({
   declarations: [
@@ -79,7 +78,6 @@ import { SidenavComponent } from './core/navs/side-nav/side-nav.component';
     EditDashbaordComponent,
     AdminAnimeListComponent,
     ButtonComponent,
-    SidenavComponent
   ],
   imports: [
     BrowserModule,

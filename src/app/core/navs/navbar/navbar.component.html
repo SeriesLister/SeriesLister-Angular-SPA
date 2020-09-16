@@ -1,6 +1,6 @@
 <div fxLayout="column" fxFlex="grow" fxFlexFill>
-    <mat-toolbar [color]="'primary'" fxFlex="noshrink">
-        <button (click)="sidenav.toggleSidenav()" mat-icon-button fxHide.gt-sm>
+    <mat-toolbar [color]="'primary'">
+        <button (click)="sidenav.toggle()" mat-icon-button fxHide.gt-sm>
           <mat-icon>menu</mat-icon>
         </button>
         <span style="cursor: pointer;">Series Lister</span>
@@ -25,7 +25,16 @@
             <mat-icon>invert_colors</mat-icon>
         </button>
     </mat-toolbar>
-    <app-side-nav #sidenav fxFlex="grow"></app-side-nav>
+    <!-- The Sidenav -->
+    <mat-sidenav-container fxFlex="100">
+        <mat-sidenav #sidenav mode="over">
+          Sidenav content
+        </mat-sidenav>
+      
+        <mat-sidenav-content fxFlex="grow">
+          <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
 </div>
 
 <mat-menu #themeMenu="matMenu">
