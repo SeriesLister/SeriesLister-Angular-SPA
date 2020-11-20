@@ -1,104 +1,146 @@
-.filter-container {
-    display: inline-flex;
-    margin-top: 16px;
-    margin-bottom: 16px;
-    align-items: center;
-    padding: 0;
-}
+// .filter-container {
+//     display: inline-flex;
+//     margin-top: 16px;
+//     margin-bottom: 16px;
+//     align-items: center;
+//     padding: 0;
+// }
 
-.container h2 {
-    text-align: center;
-}
+// .container h2 {
+//     text-align: center;
+// }
 
-.filter-container h5 {
-    padding-right: 8px;
-    margin-bottom: 4px;
-}
+// .filter-container h5 {
+//     padding-right: 8px;
+//     margin-bottom: 4px;
+// }
 
-.search-list {
-    width: 80%;
-    display: inline-flex;
-}
+// .search-list {
+//     width: 80%;
+//     display: inline-flex;
+// }
 
-.add-icon {
-    float:right;
-    line-height: 32px;
-    font-size: 2.4em; 
-    color: cornflowerblue;
-}
+// .add-icon {
+//     float:right;
+//     line-height: 32px;
+//     font-size: 2.4em; 
+//     color: cornflowerblue;
+// }
 
-.series-card {
-    margin-top: 12px;
-    background-color: cornflowerblue;
-    border-radius: 8px;
-    overflow: hidden;
-    padding: 4px;
-}
-
-// .series-card div {
-//     background-color: aliceblue;
+// .series-card {
+//     margin-top: 12px;
+//     background-color: cornflowerblue;
+//     border-radius: 8px;
 //     overflow: hidden;
-//     border-radius: 4px;
 //     padding: 4px;
 // }
 
-.series-card .series-info {
-    margin-top: 0px;
-    margin-left: 128px;
+// // .series-card div {
+// //     background-color: aliceblue;
+// //     overflow: hidden;
+// //     border-radius: 4px;
+// //     padding: 4px;
+// // }
+
+// .series-card .series-info {
+//     margin-top: 0px;
+//     margin-left: 128px;
+// }
+
+// .series-card img {
+//     float: left;
+//     height: 180px;
+//     margin: 4px;
+// }
+
+// .series-card a {
+//     float: right;
+//     font-size: 18px;
+//     margin-top: 2px;
+// }
+
+// .series-card .series-info-text {
+//     margin-top: 8px;
+// }
+
+// p {
+//     margin: 0;
+// }
+
+// .floating-mini-fab {
+//     position: relative;
+//     bottom: 120px;
+//     float: right;
+//     background-color: black;
+//     padding: 6px;
+//     border-radius: 20px 20px 0 0;
+//     list-style-type: none;
+// }
+
+// .fab-actions {
+//     position: absolute;
+//     top: 28px;
+//     right: 0px;
+//     background-color: black;
+//     border-radius: 0 0 20px 20px;
+//     padding: 0px 4px 0 4px;
+//     list-style-type: none;
+
+//     li {
+//         i {
+//             background-color: #3C3C3C;
+//             border-radius: 12px;
+//             padding-bottom: 0;
+//             padding-top: 0;
+//             padding: 2px;
+//             color: whitesmoke;
+//         }
+//         margin-top: 6px;
+//     }
+// }
+
+// .trans-clicked {
+//     transform: scale(1.5) translate(500px) rotate(8640deg);
+// }
+
+mat-card {
+    overflow: hidden;
+    margin-bottom: 24px;
+    margin-left: 12px;
+    margin-right: 12px;
 }
 
-.series-card img {
-    float: left;
-    height: 180px;
-    margin: 4px;
-}
+mat-card-header {
 
-.series-card a {
-    float: right;
-    font-size: 18px;
-    margin-top: 2px;
-}
+    div:first-child {
+        margin: 0;
+    }
 
-.series-card .series-info-text {
-    margin-top: 8px;
-}
-
-p {
-    margin: 0;
-}
-
-.floating-mini-fab {
-    position: relative;
-    bottom: 120px;
-    float: right;
-    background-color: black;
-    padding: 6px;
-    border-radius: 20px 20px 0 0;
-    list-style-type: none;
-}
-
-.fab-actions {
-    position: absolute;
-    top: 28px;
-    right: 0px;
-    background-color: black;
-    border-radius: 0 0 20px 20px;
-    padding: 0px 4px 0 4px;
-    list-style-type: none;
-
-    li {
-        i {
-            background-color: #3C3C3C;
-            border-radius: 12px;
-            padding-bottom: 0;
-            padding-top: 0;
-            padding: 2px;
-            color: whitesmoke;
-        }
-        margin-top: 6px;
+    mat-card-title {
+        float: left;
     }
 }
 
-.trans-clicked {
-    transform: scale(1.5) translate(500px) rotate(8640deg);
+:host ::ng-deep .mat-card-header-text {
+    margin: 0;
+    padding: 5px;
+}
+
+.options-icon {
+    cursor: pointer;
+    float: right;
+}
+
+
+mat-card-content {
+    img {
+        height: 180px;
+        float: left;
+        margin: 4px;
+        padding-right: 4px;
+    }
+
+    p {
+        line-height: 24px;
+    }
 }

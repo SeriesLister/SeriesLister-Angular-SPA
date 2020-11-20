@@ -12,7 +12,7 @@ export class StorageService {
    * If the key isn't found returns null
    * @param storageType The storage type to find
    */
-  getFromStorage(storageType: StorageType): any {
+  public getFromStorage(storageType: StorageType): any {
     return localStorage ? localStorage.getItem(storageType) : null;
   }
 
@@ -20,7 +20,7 @@ export class StorageService {
    * Removes the type inside the local storage
    * @param storageType The storage type to find
    */
-  removeFromStorage(storageType: StorageType): void {
+  public removeFromStorage(storageType: StorageType): void {
     if (localStorage) {
       localStorage.removeItem(storageType);
     }
@@ -31,7 +31,7 @@ export class StorageService {
    * @param storageType The storage type
    * @param value The data that's being saved to the storage type
    */
-  addToStorage(storageType: StorageType, value: any): void {
+  public addToStorage(storageType: StorageType, value: any): void {
     if (localStorage) {
       localStorage.setItem(storageType, value);
     }
@@ -40,7 +40,7 @@ export class StorageService {
   /**
    * Clears the storage
    */
-  clearStorage() {
+  public clearStorage() {
     if (localStorage) {
       localStorage.clear();
     }
