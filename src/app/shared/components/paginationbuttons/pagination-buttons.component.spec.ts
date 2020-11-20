@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { PaginationButtonsComponent } from './pagination-buttons.component';
 
@@ -6,7 +6,7 @@ describe('PagebuttonsComponent', () => {
   let component: PaginationButtonsComponent;
   let fixture: ComponentFixture<PaginationButtonsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ PaginationButtonsComponent ]
     })
